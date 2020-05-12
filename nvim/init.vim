@@ -2,6 +2,7 @@
 " ===== [ ------juaneduardoflores.com----- ] =====
 
 "{ [Plugins]
+
 call plug#begin('~/.config/nvim/plugged')
 " ===== [ Quality of Life ] =====
 " starting screen
@@ -17,9 +18,9 @@ Plug 'troydm/zoomwintab.vim'
 " to colorize hex colors
 Plug 'chrisbra/Colorizer'
 
-" ===== [ Color Theme ] =====
-"a color theme
+" ===== [ Color Themes ] =====
 Plug 'ayu-theme/ayu-vim'
+Plug 'AlessandroYorba/Despacio'
 
 " ===== [ Code Editing ] =====
 " browse the tags of the current file 
@@ -106,7 +107,8 @@ Plug 'vim-pandoc/vim-rmarkdown'
 call plug#end()
 
 "{{ [ limelight settings ]
-" Default: 0.5
+
+" default is 0.5
 let g:limelight_default_coefficient = 0.5
 " Number of preceding/following paragraphs to include (default: 0)
 let g:limelight_paragraph_span = 0
@@ -114,6 +116,7 @@ let g:limelight_paragraph_span = 0
 let g:limelight_conceal_guifg = '#1a212e'
 
 "{{ [ lightline settings ]
+
 " noshowmode because -- INSERT -- is unecessary with lightline plugin
 set noshowmode
 let g:lightline = {
@@ -121,10 +124,12 @@ let g:lightline = {
       \ }
 
 "{{ [ neoterm settings ]
+
 let g:neoterm_size='40%'
 let g:neoterm_autoinsert='0'
 
 "{{ [ NERDTree settings ]
+
 " Function to open nerd tree in the current file directory.
 function! NERDTreeToggleInCurDir()
   " If NERDTree is open in the current buffer
@@ -140,6 +145,7 @@ function! NERDTreeToggleInCurDir()
 endfunction
 
 "{{ [ ALE settings ]
+
 let g:ale_set_signs = '1'
 let g:ale_sign_error = '❌'
 let g:ale_sign_warning = '.'
@@ -161,6 +167,7 @@ let g:ale_linters = {
   \}
 
 "{{ [ tidalcycles settings ]
+
 let g:tidal_target = "terminal"
 let g:tidal_flash_duration = '450'
 let g:haskell_tidal = '1'
@@ -181,35 +188,28 @@ augroup changescheme
 augroup END
 
 "{{ [ ultisnips settings ]
+
 let g:UltiSnipsExpandTrigger="ƒ"
 let g:UltiSnipsJumpForwardTrigger="<C-b>"
 let g:UltiSnipsJumpBackwardTrigger="<C-z>"
 let g:UltiSnipsEditSplit="vertical"
 
 "{{ [ fzf settings ]
+
 " hide the status bar in fzf
 autocmd! FileType fzf
 autocmd FileType fzf set laststatus=0 noshowmode noruler
 	\| autocmd BufLeave <buffer> set laststatus=2 showmode ruler
 
-"{{ fzf preview settings
-let g:fzf_preview_command = 'ccat --color=always {-1}'
-let g:fzf_preview_layout = 'bot split new'
+"{{ [ fzf preview settings ]
 
-"{{ lf settings
+let g:fzf_preview_command = 'bat --color=always --style=grid {-1}'
+ 
+"{{ [ lf settings ]
+
 let g:lf_map_keys = 0
 
-"{{ startify settings
-
-function s:todo()
-  let count = 0
-  let todocontent = []
-  while len(todocontent) != s:todolist.count
-      let todocontent += [{'line': s:todolist.tasks[count-1].title, 'path': s:todolist.tasks[count-1].filepath}]
-      let count += 1
-  endwhile
-  return todocontent
-endfunction
+"{{ [ startify settings ]
 
 function s:projects()
   return [
@@ -220,7 +220,6 @@ function s:projects()
 	\ ]
 endfunction
 
-"\ { 'header': ['   TODO'], 'type': function('s:todo') }
 let g:startify_lists = [
       \ { 'header': ['   MRU'], 'type': 'files' },
       \ { 'header': ['   Projects'], 'type': function('s:projects') },
@@ -231,7 +230,6 @@ let g:startify_files_number = 15
 
 let g:startify_bookmarks = ['~/.skhdrc', '~/.yabairc', '~/.taskrc', '~/.gitconfig', '~/.eslintrc.json', '~/.zshrc', '~/.tern-config', '~/.config/kitty/kitty.conf']
 let g:startify_custom_footer = ''
-
 
 function JSONparse(str)
   let [null, false, true] = ['', 0, 1]
@@ -245,6 +243,7 @@ function JSONparse(str)
   " call s:throw("invalid JSON: " . l:stripped)
 endfunction
 
+" display german word of the day
 let wordofday = JSONparse(system('cat ~/GermanLearning/wordofday.json'))
 
 let g:startify_custom_header_quotes = [
@@ -253,24 +252,13 @@ let g:startify_custom_header_quotes = [
 
 let g:startify_custom_header = 'startify#pad(startify#fortune#boxed())'
 
-"{{ taskwarrior settings
+"{{ [ taskwarrior settings ]
 
 " let g:task_report_name = 'unblocked'
 let g:task_report_name = 'mytoday'
 
+"{{ [ vimwiki settings ]
 
-" augroup reportToday
-"   autocmd!
-"   autocmd BufEnter * let g:task_report_name = 'mytoday'
-" augroup END
-
-" augroup taskwarrsyntax
-"   autocmd!
-"   autocmd FileType taskreport hi taskwarrior_due guifg=#ffb60a
-" augroup END
-
-"{{ vimwiki settings
-"let g:vimwiki_list = [{'path': '~/wiki/', 'syntax': 'markdown'}]
 let wiki_1 = {}
 let wiki_1.path = '~/vimwiki_ProjectTODOList/'
 let wiki_1.auto_toc = 1
@@ -282,11 +270,6 @@ let wiki_2.syntax = 'markdown'
 let wiki_2.ext = '.md'
 let wiki_2.auto_tags = 1
 let wiki_2.index = 'programmingindex.html'
-" let wiki_2.template_path = wiki_2.path_html . '/template'
-" let wiki_2.template_default ='template'
-" let wiki_2.template_ext = '.htm'
-" let wiki_2.nested_syntaxes = {'python': 'python', 'java': 'java', 'javascript': 'javascript',
-      " \'lua': 'lua'}
 
 let wiki_3 = {}
 let wiki_3.path = '~/vimwiki_Productivitylog/'
@@ -296,14 +279,15 @@ let wiki_3.auto_toc = 1
 let wiki_4 = {}
 let wiki_4.path = '~/vimwiki_ProjectDiary/'
 let wiki_4.path_html = '~/vimwiki_ProjectDiary_html'
-" let wiki_4.syntax = 'v'
-" let wiki_4.ext = '.md'
 let wiki_4.auto_tags = 1
 
 let g:vimwiki_list = [wiki_1, wiki_2, wiki_3, wiki_4]
 let g:vimwiki_folding = 'syntax'
 
-" make foldmethod = syntax if enter a wiki file
+" disable polyglot for markdown to avoid problems
+let g:polyglot_disabled = ['markdown']
+
+" change appearance and functionality in vimwiki files
 augroup foldwiki
   autocmd!
   autocmd BufEnter *.md,*.wiki hi VimwikiHeader1 guifg=#646C2F
@@ -322,21 +306,27 @@ augroup foldwiki
   " nested is needed by bufwrite* (if triggered via other autocmd)
   autocmd BufWinLeave,BufLeave,BufWritePost ?* nested silent! mkview!
   autocmd BufWinEnter ?* silent! loadview
-
 augroup END
 
 " make a template for diary entry
 autocmd BufNewFile ~/vimwiki_ProjectTODOList/diary/*.wiki :silent 0r !~/.config/nvim/bin/generate-vimwiki-diary-template.py '%'
+" TODO : Make a template to work in making a diary for today and tomorrow commands
 
-"{{ vim-markdown-preview settings
-" let vim_markdown_preview_github=1	
+"{{ [ vim-markdown-preview settings ]
+
+" use John MacFarlane's Pandoc to render HTML
 let vim_markdown_preview_pandoc=1
 
-"{{ tagbar settings
+"{{ [ tagbar settings ]
+
+" cursor will move to the Tagbar window when it is opened.
 let g:tagbar_autofocus = 1
 
-"{{ Goyo settings
+"{{ [ Goyo settings ]
 
+" Goyo size
+let g:goyo_width=85
+let g:goyo_height=85
 
 function! s:goyo_enter()
   " Remove artifacts for NeoVim on true colors transparent background.
@@ -344,18 +334,24 @@ function! s:goyo_enter()
   " hi! VertSplit gui=NONE guifg=#1b202a guibg=NONE
   " hi! StatusLine gui=NONE guifg=#1b202a guibg=NONE
   " hi! StatusLineNC gui=NONE guifg=#1b202a guibg=NONE
-  " nnoremap † :vertical botright Ttoggle<CR><C-w>2l
+
+  " map keyshortcuts to work in Goyo
   nnoremap ß :call NERDTreeToggleInCurDir()<CR>:Goyo x<CR> 
   nnoremap † :vertical botright Ttoggle<CR>:Goyo x<CR>2<C-w>l
   nnoremap <C-l> <C-w>2l
 endfunction
 
 function! s:goyo_leave()
+  " re-highlight custom syntax
   hi blockcomment guifg=#3c6b2d gui=bold
   hi vimblockcomment guifg=#3c6b2d
   hi Visual guibg=#3d2254
   hi TerminalColor guibg=#000000
+
+  " sometimes number doesn't come back
   set number relativenumber 
+
+  " remap keyshortcuts 
   nnoremap ß :call NERDTreeToggleInCurDir()<CR>
   nnoremap † :vertical botright Ttoggle<CR><C-w>l
   nnoremap <C-l> <C-w>l
@@ -366,12 +362,20 @@ autocmd! User GoyoLeave
 autocmd User GoyoEnter nested call <SID>goyo_enter()
 autocmd User GoyoLeave nested call <SID>goyo_leave()
 
-"{{ Colorizer
 
-" let g:colorizer_auto_filetype='vim'
+"{{ [ Colorizer ]
+
+" auto activate colorizer for css and html files
+let g:colorizer_auto_filetype='css,html'
+" skip colorizing comments
+let g:colorizer_skip_comments=1
+" colornames can cause slowdown
+let g:colorizer_colornames_disable=1
 
 "{ [Builtin Options and Settings]
-"{{ code folding
+
+"{{ [ code folding ]
+
   " Function to handle folding in the init.vim file.
   function! VimFolds(lnum)
     " Get content of current line and the line below.
@@ -414,7 +418,7 @@ autocmd User GoyoLeave nested call <SID>goyo_leave()
     autocmd BufWinEnter ?* silent! loadview
   augroup end
 
-  " [TODO]: Make a java fold function that folds block comments and functions.
+  " TODO : Make a java fold function that folds block comments and functions.
   function! JavaFolds(lnum)
     let l:cur_line = getline(a:lnum)
     let l:next_line = getline(a:lnum+1)
@@ -428,34 +432,72 @@ autocmd User GoyoLeave nested call <SID>goyo_leave()
     endif
   endfunction
 
-"{{ paths
+"{{ [ paths ]
+
+" links to python executable
   let g:python_host_prog = '/usr/bin/python2'
   let g:python3_host_prog = '/Library/Frameworks/Python.framework/Versions/3.8/bin/python3'
 
-"{{ tabstop and shiftwidth for Java
-autocmd FileType java setlocal tabstop=2
+"{{ [ shell ]
 
-"{{ handle buffers
-" a buffer is not unloaded but instead hidden when it is exited.
-set hidden
+" set the shell
+set shell=/bin/zsh
+let &shell='/bin/zsh -i'
 
 "{{ basic settings
 
-set guifont=Nerd\ Hack\ Font
+" a tab is two spaces
+set tabstop=2
+" >> << will be two spaces
+set shiftwidth=2
+" use the appropriate number of space to insert a <Tab>
+set expandtab
+" a buffer is not unloaded but instead hidden when it is exited.
+set hidden
+" shows matches as I type for substitute, magic, etc.
+set inccommand=nosplit
+" don't create a swap file
+set noswapfile
+"" enable loading the plugin files for specific file types
+filetype plugin on
+"" enables the mouse to resize windows and scroll buffers
+set mouse=a
+"" sets numbers on
+set number relativenumber
+"" set encoding to UTF-8
+set encoding=UTF-8
+"" true colors support
+if (has("termguicolors"))
+ set termguicolors
+endif
+"" vertical split will be on right side
+set splitright
+"" horizontal split will be on the bottom side
+set splitbelow
+"" do not show tabs. keep it minimalistic
+set showtabline=0
+"" change nvim directory to whatever the working file is
+set autochdir
+"" prevent windows from autosizing when in splits
+set noequalalways
+"" allow full ability of copying to clipboard in nvim
+set clipboard+=unnamedplus
+"" keep code from wrapping by default
+set nowrap
+"" no highlighting search matches
+set nohlsearch
+"" speed up updatetime so things are quicker. default: 4000
+set updatetime=4000
+"" formatoptions
+" set formatoptions=jcrql
+" textwidth is 78
 
-" Everytime a markdown file is saved, use pandoc to convert it to html and
-" save it in the website directory.
-" [TODO]: Change this to a function that is toggleable.
-let g:updatesite = 0
-function ToggleUpdateSite()
-  if g:updatesite
-    silent exec "!convertMDtoHTMLDir " . expand('%:r') . " ~/vimwiki_Pedagogy"
-  endif
-endfunction
+augroup formatOpts
+  autocmd! 
+  autocmd FileType * setlocal formatoptions-=o
+augroup END
 
-autocmd BufWrite *.md :call ToggleUpdateSite()
-
-" ===== [ Save Position and View Position When Switching Buffers ] =====
+" ===== [ Save Cursor Position and Viewport When Switching Buffers ] =====
 " Save current view settings on a per-window, per-buffer basis.
 function! AutoSaveWinView()
     if !exists("w:SavedBufView")
@@ -477,56 +519,26 @@ function! AutoRestoreWinView()
     endif
 endfunction
 
-" When switching buffers, preserve window view.
+" When switching buffers or save file, preserve window view.
+" When entering a buffer, restore that window view.
 if v:version >= 700
-    autocmd BufLeave * call AutoSaveWinView()
+    autocmd BufLeave,BufWritePost * call AutoSaveWinView()
     autocmd BufEnter * call AutoRestoreWinView()
 endif
-  
 
-set shiftwidth=2
+" ===== [ For My Website ] =====
+" Everytime a markdown file is saved, use pandoc to convert it to html and
+" save it in the website directory.
+" TODO : Change this function to a toggleable command instead of changing
+" a variable value.
+let g:updatesite = 0
+function ToggleUpdateSite()
+  if g:updatesite
+    silent exec "!convertMDtoHTMLDir " . expand('%:r') . " ~/vimwiki_Pedagogy"
+  endif
+endfunction
 
-" shows matches as I type for substitute, magic, etc.
-set inccommand=nosplit
-
-set noswapfile
-"syntax enable
-filetype plugin on
-"" keep code from wrapping
-
-set nowrap
-"" no highlighting search matches
-set nohlsearch
-"" enables the mouse to resize windows and scroll buffers
-set mouse=a
-"" sets numbers on
-set number relativenumber
-"" set encoding to UTF-8
-set encoding=UTF-8
-"" true colors support
-if (has("termguicolors"))
- set termguicolors
-endif
-"" formatoptions
-set formatoptions=jcrql
-"" vertical split will be on right side
-set splitright
-set splitbelow
-"" do not show tabs
-set showtabline=0
-"" change nvim directory with new file
-set autochdir
-"" prevent windows from doing weird stuff when opening nerdtree or neoterm
-set noequalalways
-"" allow copying to clipboard
-set clipboard+=unnamedplus
-
-" let g:vimtex_compiler_progname = 'nvr'
-
-"{{ shell
-set shell=/bin/zsh
-let &shell='/bin/zsh -i'
-
+autocmd BufWrite *.md :call ToggleUpdateSite()
 
 
 "{ [Custom Key Mappings]
@@ -545,7 +557,7 @@ nnoremap <leader>f :Goyo<CR>
 " Toggle between terminal (Alt + T)
 nnoremap † :vertical botright Ttoggle<CR><C-w>l
 " Create a terminal window below.
-nnoremap <S-Down> :10split<CR> :terminal<CR>
+nnoremap <S-Down> :10split<CR> :terminal<CR> :setlocal winhighlight=Normal:TerminalColor<CR>
 " Use esc to leave terminal insert mode
 tnoremap <Esc> <C-\><C-n>
 
@@ -567,8 +579,7 @@ nnoremap <C-j> <C-w>j
 nnoremap <C-k> <C-w>k
 nnoremap <C-l> <C-w>l
 " z. will shift placement of cursor to top 1/4 of file view instead of middle
-nnoremap z. 10jz.10k
-" move up and down paragraphs
+nnoremap z. z.10<C-E> " move up and down paragraphs
 nnoremap { :normal! {{14jz.13k<CR>
 nnoremap } :normal! }14jz.13k<CR>
 " move selected line(s) down (Alt + -)
@@ -582,9 +593,15 @@ nnoremap + m`o<Esc>``
 " scroll one line down (Shift + (-))
 nnoremap § <C-Y>k
 " scroll:one line up (Shift + (.))
-nnoremap ¶ <C-E>j
+noremap ¶ <C-E>j
 " clear a line and enter insert mode
 nnoremap Ñ ddO
+" make moving up/down viewport larger increments
+nnoremap <C-e> 5<C-e>
+nnoremap <C-y> 5<C-y>
+" better tabbing
+vnoremap < <gv
+vnoremap > >gv
  
 " ===== [ Zoom Window ] =====
 " toggle zoom in a split window
@@ -671,15 +688,13 @@ augroup helpFiles
   autocmd Filetype help nnoremap <buffer> <CR> <c-]>
 augroup END
 
-"{ [Custom Abbreviations]
-augroup if_statement
-  autocmd!
-  autocmd FileType javascript,java :iabbrev <buffer> iff if(){<CR>}<up><right><right>
-augroup END
 
 "{ [Color Scheme]
-colorscheme ayu
+" colorscheme ayu
+let g:despacio_Midnight = 1
+colorscheme despacio
 
+" ===== [ General ] =====
 " my custom color scheme additions
 hi blockcomment guifg=#3c6b2d gui=bold
 hi vimblockcomment guifg=#3c6b2d
@@ -687,34 +702,27 @@ hi Visual guibg=#3d2254
 augroup customHighlights
   autocmd!
   autocmd BufEnter * syn match blockcomment "\v/\*([^*]|[\r\n]|(\*+([^*/]|[\r\n])))*\*+/"
-  " autocmd! BufEnter * syn match vimblockcomment "\v\"\h=====\h[.*?]\h====="
-  " autocmd BufEnter * syn match vimblockcomment "\v/^\"\s\={5}\s\[\s.*\s\]\s\={5}/"
   autocmd BufEnter * syn match vimblockcomment "\v^\"\s\={5}\s\[\s.*\s\]\s\={5}$"
 augroup END
 
+" ===== [ Java Files ] =====
+" Function to update any additional highlighting
+function! Handle_BufJava_Enter()
+  if &filetype == 'java'
+    execute "UpdateTypesFile"
+  endif
+endfunction
 " update tags highlighting for java files
 augroup JavaBufManagement
   autocmd!
   autocmd BufEnter,WinEnter *.java call Handle_BufJava_Enter()
 augroup END
 
-function! Handle_BufJava_Enter()
-  if &filetype == 'java'
-    execute "UpdateTypesFile"
-  endif
-endfunction
-
-" highlight all operators
-let g:ophigh_color_gui = "#F6FF00"
-fun! HighlightOperators()
-  syntax match OperatorChars "?\|+\|-\|\*\|;\|:\|,\|<\|>\|&\||\|!\|\~\|%\|=\|)\|(\|{\|}\|\.\|\[\|\]\|/\(/\|*\)\@!"
-  exec "hi OperatorChars guifg=" . g:ophigh_color_gui . " gui=NONE"
-endfunction
-
+" ===== [ Terminal ] =====
 " Call method on window enter
 augroup WindowManagement
   autocmd!
-  autocmd WinEnter * call Handle_Win_Enter()
+  autocmd BufEnter,WinEnter * call Handle_Win_Enter()
 augroup END
 
 hi TerminalColor guibg=#000000
@@ -722,7 +730,14 @@ hi TerminalColor guibg=#000000
 function! Handle_Win_Enter()
   if &filetype == 'neoterm'
     setlocal winhighlight=Normal:TerminalColor
-    " a keymapping to go to cwd in terminal
-    autocmd! FileType neoterm :nnoremap <buffer> <C-t> :T cd <C-R>=getcwd()<CR><CR>iclear<CR>
   endif
 endfunction
+
+" ===== [ Goyo ] =====
+" if sourcing vimrc when in goyo, make sure to remove numberline
+augroup checkIfGoyoEnabled
+  if (exists('#goyo'))
+    set nonumber
+    set norelativenumber
+  endif
+augroup END
