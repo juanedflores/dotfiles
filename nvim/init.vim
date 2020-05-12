@@ -1,128 +1,130 @@
-" ===== [ Juan Flores's vim config file ] =====
-" ===== [ ----juaneduardoflores.com---- ] =====
+" ===== [ Juan Flores's Neovim Config File ] =====
+" ===== [ ------juaneduardoflores.com----- ] =====
 
 "{ [Plugins]
 call plug#begin('~/.config/nvim/plugged')
+" ===== [ Quality of Life ] =====
 " starting screen
 Plug 'mhinz/vim-startify'
-" syntax highlighting for multiple languages
-Plug 'sheerun/vim-polyglot'
-" java maven projects
-"""""" Plug 'mikelue/vim-maven-plugin'
-" eclim plugin for communication between Eclipse and nvim
-Plug 'starcraftman/vim-eclim'
-" adds the line in the bottom with info
-Plug 'itchyny/lightline.vim'
-" zoom in a split window
-Plug 'troydm/zoomwintab.vim'
-" shows a tree of files
-Plug 'scrooloose/nerdtree'
-" syntax for nerdtree on most common file extensions
-Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
-" icons for nerdtree
-Plug 'ryanoasis/vim-devicons'
-" closes any parantheses or quotes.
-Plug 'jiangmiao/auto-pairs'
-" toggle comments
-Plug 'tpope/vim-commentary'
-" surround words or selections with something
-Plug 'tpope/vim-surround'
-" a terminal
-Plug 'kassio/neoterm'
-" file manager in terminal
-Plug 'ptzz/lf.vim'
-Plug 'rbgrouleff/bclose.vim'
-" fuzzy file finder
-Plug 'junegunn/fzf'
-Plug 'junegunn/fzf.vim'
-Plug 'yuki-ycino/fzf-preview.vim'
 " zen mode
 Plug 'junegunn/goyo.vim'
 " make code far away unhighlighted
 Plug 'junegunn/limelight.vim'
+" adds the line in the bottom with info
+Plug 'itchyny/lightline.vim'
+" zoom in on a window when there are multiple
+Plug 'troydm/zoomwintab.vim'
+" to colorize hex colors
+Plug 'chrisbra/Colorizer'
+
+" ===== [ Color Theme ] =====
 "a color theme
 Plug 'ayu-theme/ayu-vim'
-" code completion
-Plug 'ycm-core/YouCompleteMe'
+
+" ===== [ Code Editing ] =====
+" browse the tags of the current file 
+Plug 'majutsushi/tagbar'
+" toggle comments
+Plug 'tpope/vim-commentary'
+" closes any parantheses or quotes.
+Plug 'jiangmiao/auto-pairs'
+" keybindings for surrounding words or selections with something
+Plug 'tpope/vim-surround'
 " custom snippets
 Plug 'SirVer/ultisnips'
 " collection of snippets
 Plug 'honza/vim-snippets'
-" tidalcycles
-Plug 'tidalcycles/vim-tidal'
 " java script linting
 Plug 'dense-analysis/ale'
-" a json parser
-Plug '~/.config/nvim/plugged/vim-json-highlighter'
-"Plug 'mklabs/vim-json'
-" highlight variables
-Plug 'jaxbot/semantic-highlight.vim'
-" taskwarrior for todo list
-Plug 'blindFS/vim-taskwarrior'
-" manage notes and documentation
-Plug 'vimwiki/vimwiki'
-Plug 'tbabej/taskwiki'
-Plug 'majutsushi/tagbar'
-Plug 'powerman/vim-plugin-AnsiEsc'
-" to colorize hex colors
-Plug 'chrisbra/Colorizer'
-Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app & yarn install' }
-Plug 'vim-pandoc/vim-pandoc'
-Plug 'vim-pandoc/vim-pandoc-syntax'
-Plug 'vim-pandoc/vim-rmarkdown'
-" highlight tags
-Plug 'vim-scripts/TagHighlight'
+" code completion
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
+" code completion
+" Plug 'ycm-core/YouCompleteMe'
 " formatting for file types
 Plug 'prettier/vim-prettier', {
   \ 'do': 'npm install',
     \ 'for': ['html','css'] }
+
+" ===== [ Language Syntax/Highlighting ] =====
+" syntax highlighting for multiple languages
+Plug 'sheerun/vim-polyglot'
+" a json parser
+Plug '~/.config/nvim/plugged/vim-json-highlighter'
+" highlight variables
+Plug 'jaxbot/semantic-highlight.vim'
+" highlight tags
+Plug 'vim-scripts/TagHighlight'
+
+" ===== [ Java Development ] =====
+" eclim plugin for communication between Eclipse and nvim
+Plug 'starcraftman/vim-eclim'
+
+" ===== [ Terminal ] =====
+" a terminal
+Plug 'kassio/neoterm'
+
+" ===== [ File Navigation ] =====
+" fuzzy file finder
+Plug 'junegunn/fzf'
+Plug 'junegunn/fzf.vim'
+Plug 'yuki-ycino/fzf-preview.vim'
+" file manager in terminal
+Plug 'ptzz/lf.vim'
+Plug 'rbgrouleff/bclose.vim'
+" shows a tree of files
+Plug 'scrooloose/nerdtree'
+" icons for nerdtree
+Plug 'vwxyutarooo/nerdtree-devicons-syntax'
+Plug 'ryanoasis/vim-devicons'
+" syntax for nerdtree on most common file extensions
+" Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
+
+" ===== [ Tidal ] =====
+" tidalcycles
+Plug 'tidalcycles/vim-tidal'
+
+" ===== [ Wiki/TaskManager ] =====
+" taskwarrior for todo list
+Plug 'blindFS/vim-taskwarrior'
+" manage notes and documentation
+Plug 'vimwiki/vimwiki'
+" taskwarrior in vimwiki
+Plug 'tbabej/taskwiki'
+" Esc ANSI codes
+Plug 'powerman/vim-plugin-AnsiEsc'
+
+" ===== [ Writing Documents ] =====
+" support for writing LaTeX documents
+Plug 'lervag/vimtex'
+" preview markdown files in browser
+Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app & yarn install' }
+" support for pandoc integration
+Plug 'vim-pandoc/vim-pandoc'
+Plug 'vim-pandoc/vim-pandoc-syntax'
+" support for rmarkdown
+Plug 'vim-pandoc/vim-rmarkdown'
 call plug#end()
 
-"{{ limelight settings
+"{{ [ limelight settings ]
 " Default: 0.5
 let g:limelight_default_coefficient = 0.5
 " Number of preceding/following paragraphs to include (default: 0)
 let g:limelight_paragraph_span = 0
-
+" Color of text not in focus
 let g:limelight_conceal_guifg = '#1a212e'
 
-"{{ vim-operator-highlight settings
-let g:ophigh_color_gui = "#F6FF00"
-
-"{{ lightline settings
+"{{ [ lightline settings ]
 " noshowmode because -- INSERT -- is unecessary with lightline plugin
 set noshowmode
 let g:lightline = {
       \ 'colorscheme': 'jellybeans',
       \ }
 
-"{{ commentary settings
-map <leader>- gcc
-
-"{{ rainbow settings
-
-let g:rainbow_active = 0
-
-let g:rainbow_conf = {
-\	'guifgs': ['royalblue3', 'darkorange3', 'seagreen3', 'firebrick'],
-\	'ctermfgs': ['lightblue', 'lightyellow', 'lightcyan', 'lightmagenta'],
-\	'guis': [''],
-\	'cterms': [''],
-\	'operators': '_,_',
-\	'parentheses': ['start=/(/ end=/)/ fold', 'start=/\[/ end=/\]/ fold', 'start=/{/ end=/}/ fold'],
-\	'separately': {
-\		'*': {},
-\		'java': {
-\ 			'guifgs': ['#e6d965', '#c88be0', '#74c3e8', '#DDC58E', 'darkorchid3']
-\		}
-\	}
-\ }
-
-"{{ neoterm settings
+"{{ [ neoterm settings ]
 let g:neoterm_size='40%'
 let g:neoterm_autoinsert='0'
 
-"{{ NERDTree settings
+"{{ [ NERDTree settings ]
 " Function to open nerd tree in the current file directory.
 function! NERDTreeToggleInCurDir()
   " If NERDTree is open in the current buffer
@@ -137,19 +139,14 @@ function! NERDTreeToggleInCurDir()
   endif
 endfunction
 
-let s:red = "AE403F"
-let g:NERDTreeExtensionHighlightColor = {} " this line is needed to avoid error
-let g:NERDTreeExtensionHighlightColor['java'] = s:red " sets the icon color of java files to red
-
-"{{ ale settings
-
+"{{ [ ALE settings ]
 let g:ale_set_signs = '1'
 let g:ale_sign_error = '❌'
-"let g:ale_sign_warning = '⚠️'
 let g:ale_sign_warning = '.'
 let g:ale_sign_highlight_linenrs = 1
 let g:ale_fix_on_save = '1'
 let g:ale_enabled = 0
+let g:ale_sign_column_always = 0
 highlight ALEErrorSign guifg=#fb4934 guibg=none
 highlight ALEWarningSign guifg=#fe8019 guibg=none
 let g:ale_fixers = {
@@ -159,10 +156,12 @@ let g:ale_fixers = {
  \ 'java': ['prettier'],
  \ 'json': ['prettier']
  \ }
+let g:ale_linters = {
+  \ 'javascript': ['eslint']
+  \}
 
-"{{ tidalcycles settings
+"{{ [ tidalcycles settings ]
 let g:tidal_target = "terminal"
-" let TIDAL_BOOT_PATH= 'Users/juaneduardoflores/.config/nvim/plugged/vim-tidal/Tidal.ghci'
 let g:tidal_flash_duration = '450'
 let g:haskell_tidal = '1'
 
@@ -178,25 +177,16 @@ endfunction
 
 augroup changescheme
   autocmd!
-  
   autocmd BufEnter * call ChangeColScheme()
-
-  " autocmd BufEnter *.tidal execute "colorscheme livecoding"
-  " autocmd BufHidden *.tidal execute "colorscheme ayu"
-  " autocmd BufEnter *.tidal execute "setlocal cursorcolumn"
-  " autocmd BufEnter *.tidal execute "setlocal cursorline"
-  " autocmd BufHidden *.tidal execute "setlocal nocursorcolumn"
-  " autocmd BufHidden *.tidal execute "setlocal nocursorline"
 augroup END
 
-"{{ ultisnips settings
+"{{ [ ultisnips settings ]
 let g:UltiSnipsExpandTrigger="ƒ"
 let g:UltiSnipsJumpForwardTrigger="<C-b>"
 let g:UltiSnipsJumpBackwardTrigger="<C-z>"
 let g:UltiSnipsEditSplit="vertical"
-let g:UltiSnipsAddFileTyples="md.html"
 
-"{{ fzf settings
+"{{ [ fzf settings ]
 " hide the status bar in fzf
 autocmd! FileType fzf
 autocmd FileType fzf set laststatus=0 noshowmode noruler
@@ -368,29 +358,13 @@ function! s:goyo_leave()
   set number relativenumber 
   nnoremap ß :call NERDTreeToggleInCurDir()<CR>
   nnoremap † :vertical botright Ttoggle<CR><C-w>l
-  nnoremap <C-j> <C-w>j
+  nnoremap <C-l> <C-w>l
 endfunction
-
-" function EquilizeWindow()
-"   if exists('#goyo')
-"     " autocmd! WinEnter * execute "normal \<C-W>\="
-"     " execute "normal \<C-W>\="
-"     execute "Goyo x"
-"     echo "yes"
-"   endif
-" endfunction
-
-" augroup equilizeWindow
-"   autocmd!
-"   autocmd WinEnter * call EquilizeWindow()
-" augroup END
 
 autocmd! User GoyoEnter
 autocmd! User GoyoLeave
 autocmd User GoyoEnter nested call <SID>goyo_enter()
 autocmd User GoyoLeave nested call <SID>goyo_leave()
-
-
 
 "{{ Colorizer
 
@@ -466,6 +440,9 @@ autocmd FileType java setlocal tabstop=2
 set hidden
 
 "{{ basic settings
+
+set guifont=Nerd\ Hack\ Font
+
 " Everytime a markdown file is saved, use pandoc to convert it to html and
 " save it in the website directory.
 " [TODO]: Change this to a function that is toggleable.
@@ -544,6 +521,8 @@ set noequalalways
 "" allow copying to clipboard
 set clipboard+=unnamedplus
 
+" let g:vimtex_compiler_progname = 'nvr'
+
 "{{ shell
 set shell=/bin/zsh
 let &shell='/bin/zsh -i'
@@ -579,9 +558,9 @@ nnoremap <leader>W :vertical sb#<CR>
 " ===== [ FZF ] =====
 " show and select any opened buffer
 nnoremap <leader>o :FzfPreviewBuffers<CR>
-nnoremap <leader>O :FzfPreviewProjectFiles<CR>
+nnoremap <leader>O :FzfPreviewDirectoryFiles<CR>
 
-" ===== [ Movement ] =====
+" ===== [ Code Movement/Editing ] =====
 " split window navigation
 nnoremap <C-h> <C-w>h
 nnoremap <C-j> <C-w>j
@@ -592,6 +571,20 @@ nnoremap z. 10jz.10k
 " move up and down paragraphs
 nnoremap { :normal! {{14jz.13k<CR>
 nnoremap } :normal! }14jz.13k<CR>
+" move selected line(s) down (Alt + -)
+vnoremap … :m '>+1<CR>gv=gv
+" move selected line(s) up (Alt + .)
+vnoremap – :m '<-2<CR>gv=gv
+" delete a line that cursor is on
+nnoremap - "_dd
+" add a line below cursor position
+nnoremap + m`o<Esc>``
+" scroll one line down (Shift + (-))
+nnoremap § <C-Y>k
+" scroll:one line up (Shift + (.))
+nnoremap ¶ <C-E>j
+" clear a line and enter insert mode
+nnoremap Ñ ddO
  
 " ===== [ Zoom Window ] =====
 " toggle zoom in a split window
@@ -602,14 +595,13 @@ nnoremap <leader>Z :only<CR>
 " go to the start screen
 nnoremap <leader><leader> :Startify<CR>
 
-
 " ===== [ vimrc ] =====
 " open and edit .vimrc file
 nnoremap <leader>ev :vsplit $MYVIMRC<CR>
 nnoremap <leader>Ev :e $MYVIMRC<CR>
 " source my .vimrc file
-nnoremap <leader>sv :source $MYVIMRC<CR> :call webdevicons#refresh()<CR> :ReadTypes<CR>
-"nnoremap <leader>sv :source $MYVIMRC<CR>
+nnoremap <leader>sv :source $MYVIMRC<CR>
+" nnoremap <leader>sv :source $MYVIMRC<CR> :call webdevicons#refresh()<CR> :ReadTypes<CR>
 
 " ===== [ LF ] =====
 " open lf file manager
@@ -626,7 +618,7 @@ nmap <leader>uu1 1<Plug>VimwikiIndex
 nmap <leader>uu2 2<Plug>VimwikiIndex
 nmap <leader>uu3 <Plug>VimwikiDiaryIndex
 nmap <leader>uu4 4<Plug>VimwikiIndex
-" nmap <leader>us <Plug>VimwikiUISelect
+nmap <leader>us <Plug>VimwikiUISelect
 nmap <leader>uuu <Plug>VimwikiMakeDiaryNote
 " open wikiindex in vsplit
 nnoremap <leader>uv1 :vsplit ~/vimwiki_ProjectTODOList/index.wiki<CR>
@@ -641,71 +633,43 @@ nmap <leader>uvl <Plug>VimwikiVSplitLink
 nnoremap <F8> :TagbarToggle<CR>
 
 " ===== [ Task Warrior ] =====
-" open task warrior
+" display tasks for today
 nnoremap <leader>tw :execute "let g:task_report_name='mytoday'"<CR> :TW<CR>
+" display project tasks
 nnoremap <leader>twp :execute "let g:task_report_name='unblocked'"<CR> :TW<CR>
+
+" ===== [ Writing/Documents ] =====
+" move up and down visual lines that are wrapped
 nnoremap <silent> <Down> gj
 nnoremap <silent> <Up> gk
+" convert MD file to HTML
+nnoremap <F12> :silent exec "!convertMDtoHTML " . expand('%:r')
+nnoremap <F13> :silent exec "!convertMDtoHTMLDir " . expand('%:r') .  
+
+" ===== [ Window ] =====
 " resize windows evenly
 nnoremap Ω <C-w>=
 " increase/decrease window size
 nnoremap <leader><up> <C-W>+
 nnoremap <leader><down> <C-W>-
 
-" ===== [ Markdown ] =====
-nnoremap <leader>umm :MarkdownPreview<CR>
-nnoremap <leader>um- :MarkdownPreviewStop<CR>
-nnoremap √ 1z=
-nnoremap <F12> :silent exec "!convertMDtoHTML " . expand('%:r')
-nnoremap <F13> :silent exec "!convertMDtoHTMLDir " . expand('%:r') .  
-nnoremap œ q
-
 " ===== [ UltiSnips ] =====
 "Open UltiSnips Edit in vsplit
-nnoremap <leader>us :UltiSnipsEdit<CR>
+nnoremap <F7> :UltiSnipsEdit<CR>
 
-" ===== [ Misc. ] =====
-" Open help file link
-augroup helpFiles
-  autocmd!
-  autocmd Filetype help nnoremap <buffer> <CR> <c-]>
-augroup END
- 
-" ===== [ Code Movement/Edit ] =====
-" move selected line(s) down (Alt + -)
-vnoremap … :m '>+1<CR>gv=gv
-" move selected line(s) up (Alt + .)
-vnoremap – :m '<-2<CR>gv=gv
-" delete a line that cursor is on
-nnoremap - "_dd
-" add a line below cursor position
-nnoremap + m`o<Esc>``
-" scroll one line down (Shift + (-))
-nnoremap § <C-Y>k
-" scroll:one line up (Shift + (.))
-nnoremap ¶ <C-E>j
-" clear a line and enter insert mode
-nnoremap Ñ ddO
-
-" move one space ahead (for after a parens, quotes, etc)
-inoremap å <right>
-inoremap <silent> <Down> <C-o>gj
-inoremap <silent> <Up> <C-o>gk
-
-" treat p as i( to remove contents inside a parentheses when pressing dp 
-onoremap p i(
-" insert mode in next parens after deleting its contents
-onoremap in( :<C-u>normal! f(vi(<CR>
-" insert mode in last parens after deleting its contents
-onoremap il( :<C-u>normal! F)vi(<CR>
-
+" ===== [ Fzf ] =====
 " use <Esc> key to exit fzf
 augroup exit_fzf
   autocmd!
   autocmd FileType fzf tnoremap <buffer> <Esc> <C-c>
 augroup END
 
-
+" ===== [ Misc. ] =====
+" Use enter to open help file link
+augroup helpFiles
+  autocmd!
+  autocmd Filetype help nnoremap <buffer> <CR> <c-]>
+augroup END
 
 "{ [Custom Abbreviations]
 augroup if_statement
