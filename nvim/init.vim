@@ -55,6 +55,8 @@ Plug '~/.config/nvim/plugged/vim-json-highlighter'
 Plug 'jaxbot/semantic-highlight.vim'
 " highlight tags
 Plug 'vim-scripts/TagHighlight'
+" editing PICO-8 files
+Plug 'justinj/vim-pico8-syntax'
 
 " ===== [ Java Development ] =====
 " eclim plugin for communication between Eclipse and nvim
@@ -63,6 +65,8 @@ Plug 'starcraftman/vim-eclim'
 " ===== [ Terminal ] =====
 " a terminal
 Plug 'kassio/neoterm'
+" floating terminal
+Plug 'voldikss/vim-floaterm'
 
 " ===== [ File Navigation ] =====
 " fuzzy file finder
@@ -80,9 +84,13 @@ Plug 'ryanoasis/vim-devicons'
 " syntax for nerdtree on most common file extensions
 " Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
 
-" ===== [ Tidal ] =====
+" ===== [ Creative Coding ] =====
 " tidalcycles
 Plug 'tidalcycles/vim-tidal'
+" SuperCollider
+Plug 'davidgranstrom/scnvim', { 'do': {-> scnvim#install() } }
+" Processing
+Plug 'sophacles/vim-processing'
 
 " ===== [ Wiki/TaskManager ] =====
 " taskwarrior for todo list
@@ -178,7 +186,7 @@ function! ChangeColScheme()
   if (my_filetype == 'tidal')
     colorscheme livecoding
   else 
-    " colorscheme ayu
+    " colorscheme despacio 
   endif
 endfunction
 
@@ -213,10 +221,9 @@ let g:lf_map_keys = 0
 
 function s:projects()
   return [
-	\ { 'line': 'German Vocab', 'path': '~/Documents/Website_Building/GermanWords/sketch.js' },
 	\ { 'line': 'Phages Website', 'path': '~/Documents/Website_Building/Phages/PhagesWebsite/sketch.js' },
-	\ { 'line': 'Current Task Window', 'path': '~/Documents/currentTask/index.js' },
-	\ { 'line': 'MoodEmoji Display', 'path': '~/Documents/moodemojis/index.js' }
+	\ { 'line': 'My Website', 'path': '~/vimwiki_Pedagogy/index.html' },
+	\ { 'line': 'MASA Debris Installation', 'path': '~/Documents/Processing/Project_MASA/SpaceDebris/SpaceDebris.pde' },
 	\ ]
 endfunction
 
@@ -228,7 +235,7 @@ let g:startify_lists = [
 
 let g:startify_files_number = 15
 
-let g:startify_bookmarks = ['~/.skhdrc', '~/.yabairc', '~/.taskrc', '~/.gitconfig', '~/.eslintrc.json', '~/.zshrc', '~/.tern-config', '~/.config/kitty/kitty.conf']
+let g:startify_bookmarks = ['~/.skhdrc', '~/.yabairc', '~/.taskrc', '~/.gitconfig', '~/.eslintrc.json', '~/.zshrc', '~/.tern-config', '~/.eclimrc', '~/.config/kitty/kitty.conf', '~/.config/lf/lfrc']
 let g:startify_custom_footer = ''
 
 function JSONparse(str)
@@ -281,11 +288,20 @@ let wiki_4.path = '~/vimwiki_ProjectDiary/'
 let wiki_4.path_html = '~/vimwiki_ProjectDiary_html'
 let wiki_4.auto_tags = 1
 
-let g:vimwiki_list = [wiki_1, wiki_2, wiki_3, wiki_4]
+let wiki_5 = {}
+let wiki_5.path = '~/vimwiki_GermanNotes/'
+let wiki_5.path_html = '~/vimwiki_GermanNotes_html'
+let wiki_5.syntax = 'markdown'
+let wiki_5.ext = '.md'
+let wiki_5.auto_tags = 1
+
+let g:vimwiki_list = [wiki_1, wiki_2, wiki_3, wiki_4, wiki_5]
 let g:vimwiki_folding = 'syntax'
 
 " disable polyglot for markdown to avoid problems
 let g:polyglot_disabled = ['markdown']
+
+let g:vimwiki_map_prefix = '<leader>y'
 
 " change appearance and functionality in vimwiki files
 augroup foldwiki
@@ -301,6 +317,27 @@ augroup foldwiki
   autocmd BufEnter *.md,*.wiki silent execute "ALEDisable"
   autocmd BufEnter *.md,*.wiki set nospell
 
+  " Open vimwiki files in nvim using vfile: 
+  function! VimwikiLinkHandler(link)
+    " Use Vim to open external files with the 'vfile:' scheme.  E.g.:
+    "   1) [[vfile:~/Code/PythonProject/abc123.py]]
+    "   2) [[vfile:./|Wiki Home]]
+    let link = a:link
+    if link =~# '^vfile:'
+      let link = link[1:]
+    else
+      return 0
+    endif
+    let link_infos = vimwiki#base#resolve_link(link)
+    if link_infos.filename == ''
+      echomsg 'Vimwiki Error: Unable to resolve link!'
+      return 0
+    else
+      exe 'tabnew ' . fnameescape(link_infos.filename)
+      return 1
+    endif
+  endfunction
+
   " view files are about 500 bytes
   " bufleave but not bufwinleave captures closing 2nd tab
   " nested is needed by bufwrite* (if triggered via other autocmd)
@@ -309,7 +346,10 @@ augroup foldwiki
 augroup END
 
 " make a template for diary entry
-autocmd BufNewFile ~/vimwiki_ProjectTODOList/diary/*.wiki :silent 0r !~/.config/nvim/bin/generate-vimwiki-diary-template.py '%'
+augroup diaryTemplate
+  autocmd!
+  autocmd BufNewFile ~/vimwiki_ProjectTODOList/diary/*.wiki :silent 0r !~/.config/nvim/bin/generate-vimwiki-diary-template.py '%'
+augroup END
 " TODO : Make a template to work in making a diary for today and tomorrow commands
 
 "{{ [ vim-markdown-preview settings ]
@@ -336,7 +376,7 @@ function! s:goyo_enter()
   " hi! StatusLineNC gui=NONE guifg=#1b202a guibg=NONE
 
   " map keyshortcuts to work in Goyo
-  nnoremap ß :call NERDTreeToggleInCurDir()<CR>:Goyo x<CR> 
+  nnoremap ß :NERDTreeToggle<CR>:Goyo x<CR> 
   nnoremap † :vertical botright Ttoggle<CR>:Goyo x<CR>2<C-w>l
   nnoremap <C-l> <C-w>2l
 endfunction
@@ -347,6 +387,7 @@ function! s:goyo_leave()
   hi vimblockcomment guifg=#3c6b2d
   hi Visual guibg=#3d2254
   hi TerminalColor guibg=#000000
+  hi Directory ctermfg=141 ctermbg=NONE cterm=NONE guifg=#646C2F guibg=NONE gui=NONE
 
   " sometimes number doesn't come back
   set number relativenumber 
@@ -371,6 +412,52 @@ let g:colorizer_auto_filetype='css,html'
 let g:colorizer_skip_comments=1
 " colornames can cause slowdown
 let g:colorizer_colornames_disable=1
+
+"{{ [ COC ]
+
+let g:coc_global_extensions = [
+      \ 'coc-snippets',
+      \ 'coc-prettier',
+      \ 'coc-eslint',
+      \ 'coc-json',
+      \ 'coc-html',
+      \ 'coc-css',
+      \ 'coc-java'
+  \ ]
+
+inoremap <silent><expr> <TAB>
+      \ pumvisible() ? "\<C-n>" :
+      \ <SID>check_back_space() ? "\<TAB>" :
+      \ coc#refresh()
+inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
+
+function! s:check_back_space() abort
+  let col = col('.') - 1
+  return !col || getline('.')[col - 1]  =~# '\s'
+endfunction
+
+augroup cocDisable
+  autocmd!
+  autocmd Filetype * execute "CocDisabl"
+augroup END
+
+nnoremap <silent> K :call <SID>show_documentation()<CR>
+
+"{{ [ floaterm ]
+let g:floaterm_width=0.9
+let g:floaterm_height=0.9
+"{{ [ scnvim ]
+let g:scnvim_scdoc = 1
+let g:scnvim_postwin_auto_toggle = 1
+let g:scnvim_eval_flash_repeats = 2
+"{{ [vim-processing]
+let g:processing_fold = 1
+augroup processing
+  autocmd!
+  autocmd FileType processing setl cms=//%s
+  autocmd FileType processing set foldmethod=syntax
+augroup END
+
 
 "{ [Builtin Options and Settings]
 
@@ -444,8 +531,10 @@ let g:colorizer_colornames_disable=1
 set shell=/bin/zsh
 let &shell='/bin/zsh -i'
 
-"{{ basic settings
+"{{ [ basic settings ]
 
+" smart indent for C like languages
+set smartindent
 " a tab is two spaces
 set tabstop=2
 " >> << will be two spaces
@@ -480,6 +569,8 @@ set showtabline=0
 set autochdir
 "" prevent windows from autosizing when in splits
 set noequalalways
+"" if equalalways, only apply horizontally
+set eadirection=hor
 "" allow full ability of copying to clipboard in nvim
 set clipboard+=unnamedplus
 "" keep code from wrapping by default
@@ -487,11 +578,8 @@ set nowrap
 "" no highlighting search matches
 set nohlsearch
 "" speed up updatetime so things are quicker. default: 4000
-set updatetime=4000
+set updatetime=1000
 "" formatoptions
-" set formatoptions=jcrql
-" textwidth is 78
-
 augroup formatOpts
   autocmd! 
   autocmd FileType * setlocal formatoptions-=o
@@ -534,12 +622,12 @@ endif
 let g:updatesite = 0
 function ToggleUpdateSite()
   if g:updatesite
-    silent exec "!convertMDtoHTMLDir " . expand('%:r') . " ~/vimwiki_Pedagogy"
+    " silent exec "!convertMDtoHTMLDir " . expand('%:r') . " ~/vimwiki_Pedagogy/Blog/Processing"
+    silent exec "!convertMDtoHTMLDirGer " . expand('%:r') . " ~/vimwiki_GermanNotes_html"
   endif
 endfunction
 
 autocmd BufWrite *.md :call ToggleUpdateSite()
-
 
 "{ [Custom Key Mappings]
 let mapleader = "\<Space>"
@@ -556,6 +644,8 @@ nnoremap <leader>f :Goyo<CR>
 " ===== [ Terminal ] =====
 " Toggle between terminal (Alt + T)
 nnoremap † :vertical botright Ttoggle<CR><C-w>l
+" Open a floating terminal
+nnoremap <C-t> :FloatermToggle<CR>
 " Create a terminal window below.
 nnoremap <S-Down> :10split<CR> :terminal<CR> :setlocal winhighlight=Normal:TerminalColor<CR>
 " Use esc to leave terminal insert mode
@@ -579,9 +669,10 @@ nnoremap <C-j> <C-w>j
 nnoremap <C-k> <C-w>k
 nnoremap <C-l> <C-w>l
 " z. will shift placement of cursor to top 1/4 of file view instead of middle
-nnoremap z. z.10<C-E> " move up and down paragraphs
-nnoremap { :normal! {{14jz.13k<CR>
-nnoremap } :normal! }14jz.13k<CR>
+nnoremap z. z.10<C-E>
+" move up and down paragraphs
+nnoremap { :normal! {{jz.<CR>9<C-e>
+nnoremap } :normal! }jz.<CR>9<C-e>
 " move selected line(s) down (Alt + -)
 vnoremap … :m '>+1<CR>gv=gv
 " move selected line(s) up (Alt + .)
@@ -605,8 +696,8 @@ vnoremap > >gv
  
 " ===== [ Zoom Window ] =====
 " toggle zoom in a split window
-nnoremap <leader>z :ZoomWinTabToggle<CR>
-nnoremap <leader>Z :only<CR>
+nnoremap <leader>z :only<CR>
+nnoremap <leader>Z :ZoomWinTabToggle<CR>
 
 " ===== [ Startify ] =====
 " go to the start screen
@@ -622,7 +713,7 @@ nnoremap <leader>sv :source $MYVIMRC<CR>
 
 " ===== [ LF ] =====
 " open lf file manager
-nnoremap <leader>p :Lf<CR>
+nnoremap <leader>p :FloatermNew lf<CR>
 
 " ===== [ vimwiki ] =====
 " vimwiki key mappings
@@ -635,13 +726,15 @@ nmap <leader>uu1 1<Plug>VimwikiIndex
 nmap <leader>uu2 2<Plug>VimwikiIndex
 nmap <leader>uu3 <Plug>VimwikiDiaryIndex
 nmap <leader>uu4 4<Plug>VimwikiIndex
+nmap <leader>uu5 5<Plug>VimwikiIndex
 nmap <leader>us <Plug>VimwikiUISelect
 nmap <leader>uuu <Plug>VimwikiMakeDiaryNote
 " open wikiindex in vsplit
 nnoremap <leader>uv1 :vsplit ~/vimwiki_ProjectTODOList/index.wiki<CR>
 nnoremap <leader>uv2 :vsplit ~/vimwiki_Programming/index.wiki<CR>
 nnoremap <leader>uv3 :vsplit ~/vimwiki_Productivitylog/index.wiki<CR>
-nnoremap <leader>uv4 :vsplit ~/vimwiki_Pedagogy/index.wiki<CR>
+nnoremap <leader>uv4 :vsplit ~/vimwiki_ProjectDiary/index.wiki<CR>
+nnoremap <leader>uv5 :vsplit ~/vimwiki_GermanNotes/index.wiki<CR>
 " remap of vsplit link
 nmap <leader>uvl <Plug>VimwikiVSplitLink
 
@@ -662,6 +755,7 @@ nnoremap <silent> <Up> gk
 " convert MD file to HTML
 nnoremap <F12> :silent exec "!convertMDtoHTML " . expand('%:r')
 nnoremap <F13> :silent exec "!convertMDtoHTMLDir " . expand('%:r') .  
+nnoremap <F14> :silent exec "!convertMDtoHTMLDirGer " . expand('%:r') . " ~/vimwiki_GermanNotes_html"
 
 " ===== [ Window ] =====
 " resize windows evenly
@@ -681,13 +775,19 @@ augroup exit_fzf
   autocmd FileType fzf tnoremap <buffer> <Esc> <C-c>
 augroup END
 
+augroup superc
+  autocmd!
+  autocmd FileType scnvim,supercollider nnoremap <F15> :execute "normal \<Plug>(scnvim-postwindow-clear)"<CR>
+augroup END
+
 " ===== [ Misc. ] =====
 " Use enter to open help file link
-augroup helpFiles
+augroup helpfiles
   autocmd!
   autocmd Filetype help nnoremap <buffer> <CR> <c-]>
 augroup END
-
+" Open file location in finder
+nnoremap <F1> :silent exec "!open" expand('%:p:h')<CR>
 
 "{ [Color Scheme]
 " colorscheme ayu
@@ -696,6 +796,7 @@ colorscheme despacio
 
 " ===== [ General ] =====
 " my custom color scheme additions
+hi Directory  guifg=#646C2F
 hi blockcomment guifg=#3c6b2d gui=bold
 hi vimblockcomment guifg=#3c6b2d
 hi Visual guibg=#3d2254
