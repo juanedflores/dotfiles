@@ -4,7 +4,7 @@
 "{ [Plugins]
 call plug#begin('~/.config/nvim/plugged')
 " ===== [ Quality of Life ] =====
-" starting screen!
+" starting screen
 Plug 'mhinz/vim-startify'
 " zen mode
 Plug 'junegunn/goyo.vim'
@@ -219,6 +219,8 @@ let g:fzf_preview_command = 'bat --color=always --style=grid {-1}'
 "{{ [ lf settings ]
 
 let g:lf_map_keys = 0
+let g:NERDTreeHijackNetrw = 0
+let g:lf_replace_netrw = 1
 
 "{{ [ startify settings ]
 
@@ -459,12 +461,14 @@ augroup processing
   autocmd!
   autocmd FileType processing setl cms=//%s
   autocmd FileType processing set foldmethod=syntax
+  autocmd FileType processing set nosmartindent
+  autocmd FileType processing set cindent
 augroup END
 
 "{{ [ vimtex ]
 let g:vimtex_fold_enabled = '1'
-let g:vimtex_view_method = 'zathura'
- 
+let g:tex_flavor = 'latex'
+let g:vimtex_view_method = 'skim'
 
 "{ [Builtin Options and Settings]
 
@@ -722,6 +726,7 @@ nnoremap <leader>sv :source $MYVIMRC<CR>
 " ===== [ LF ] =====
 " open lf file manager
 nnoremap <leader>p :FloatermNew lf<CR>
+nnoremap <leader>P :LfCurrentDirectory<CR>
 
 " ===== [ vimwiki ] =====
 " vimwiki key mappings
