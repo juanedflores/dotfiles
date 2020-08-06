@@ -1,4 +1,4 @@
-" ===== [ Juan Flores's Neovim Config File ] =====
+" ===== [ Juan Flores' Neovim Config File ] =====
 " ===== [ ------juaneduardoflores.com----- ] =====
 
 "{ [Plugins]
@@ -45,6 +45,10 @@ Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'prettier/vim-prettier', {
   \ 'do': 'npm install',
     \ 'for': ['html','css'] }
+
+" ===== [ Version Control ] =====
+" wrapper for git commands
+Plug 'tpope/vim-fugitive'
 
 " ===== [ Language Syntax/Highlighting ] =====
 " syntax highlighting for multiple languages
@@ -235,7 +239,7 @@ let g:startify_lists = [
 
 let g:startify_files_number = 15
 
-let g:startify_bookmarks = ['~/.skhdrc', '~/.yabairc', '~/.taskrc', '~/.gitconfig', '~/.eslintrc.json', '~/.zshrc', '~/.tern-config', '~/.eclimrc', '~/.config/kitty/kitty.conf', '~/.config/lf/lfrc']
+let g:startify_bookmarks = ['~/.skhdrc', '~/.yabairc', '~/.taskrc', '~/.gitconfig', '~/.eslintrc.json', '~/.zshrc', '~/.tern-config', '~/.eclimrc', '~/.config/kitty/kitty.conf', '~/.config/lf/lfrc', '~/.config/zathura/zathurarc', '~/.vit/config.ini']
 let g:startify_custom_footer = ''
 
 function JSONparse(str)
@@ -450,7 +454,7 @@ let g:floaterm_height=0.9
 let g:scnvim_scdoc = 1
 let g:scnvim_postwin_auto_toggle = 1
 let g:scnvim_eval_flash_repeats = 2
-"{{ [vim-processing]
+"{{ [ vim-processing ]
 let g:processing_fold = 1
 augroup processing
   autocmd!
@@ -458,6 +462,10 @@ augroup processing
   autocmd FileType processing set foldmethod=syntax
 augroup END
 
+"{{ [ vimtex ]
+let g:vimtex_fold_enabled = '1'
+let g:vimtex_view_method = 'zathura'
+ 
 
 "{ [Builtin Options and Settings]
 
@@ -623,7 +631,8 @@ let g:updatesite = 0
 function ToggleUpdateSite()
   if g:updatesite
     " silent exec "!convertMDtoHTMLDir " . expand('%:r') . " ~/vimwiki_Pedagogy/Blog/Processing"
-    silent exec "!convertMDtoHTMLDirGer " . expand('%:r') . " ~/vimwiki_GermanNotes_html"
+    " silent exec "!convertMDtoHTMLDirGer " . expand('%:r') . " ~/vimwiki_GermanNotes_html"
+    silent exec "!convertMDtoHTMLDirGer " . expand('%:r') . " ~/vimwiki_SpanishNotes_html"
   endif
 endfunction
 
@@ -775,14 +784,14 @@ augroup exit_fzf
   autocmd FileType fzf tnoremap <buffer> <Esc> <C-c>
 augroup END
 
-augroup superc
+augroup superC
   autocmd!
   autocmd FileType scnvim,supercollider nnoremap <F15> :execute "normal \<Plug>(scnvim-postwindow-clear)"<CR>
 augroup END
 
 " ===== [ Misc. ] =====
 " Use enter to open help file link
-augroup helpfiles
+augroup helpFiles
   autocmd!
   autocmd Filetype help nnoremap <buffer> <CR> <c-]>
 augroup END
