@@ -2,7 +2,6 @@
 " ===== [ ------juaneduardoflores.com----- ] =====
 
 "{ [Plugins]
-
 call plug#begin('~/.config/nvim/plugged')
 " ===== [ Quality of Life ] =====
 " starting screen
