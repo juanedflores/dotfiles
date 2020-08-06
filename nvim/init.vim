@@ -4,7 +4,7 @@
 "{ [Plugins]
 call plug#begin('~/.config/nvim/plugged')
 " ===== [ Quality of Life ] =====
-" starting screen!
+" starting screen
 Plug 'mhinz/vim-startify'
 " zen mode
 Plug 'junegunn/goyo.vim'
