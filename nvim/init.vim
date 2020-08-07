@@ -73,9 +73,10 @@ Plug 'voldikss/vim-floaterm'
 
 " ===== [ File Navigation ] =====
 " fuzzy file finder
-Plug 'junegunn/fzf'
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
-Plug 'yuki-ycino/fzf-preview.vim'
+Plug 'yuki-ycino/fzf-preview.vim', { 'branch': 'release', 'do': ':UpdateRemotePlugins' }
+Plug 'antoinemadec/coc-fzf'
 " file manager in terminal
 Plug 'ptzz/lf.vim'
 Plug 'rbgrouleff/bclose.vim'
@@ -211,6 +212,7 @@ let g:UltiSnipsEditSplit="vertical"
 autocmd! FileType fzf
 autocmd FileType fzf set laststatus=0 noshowmode noruler
 	\| autocmd BufLeave <buffer> set laststatus=2 showmode ruler
+" let g:fzf_layout = { 'window': { 'width': 0.9, 'height': 0.6 } }
 
 "{{ [ fzf preview settings ]
 
@@ -443,7 +445,7 @@ endfunction
 
 augroup cocDisable
   autocmd!
-  autocmd Filetype * execute "CocDisabl"
+  " autocmd Filetype * execute "CocDisable"
 augroup END
 
 nnoremap <silent> K :call <SID>show_documentation()<CR>
@@ -671,8 +673,8 @@ nnoremap <leader>W :vertical sb#<CR>
 
 " ===== [ FZF ] =====
 " show and select any opened buffer
-nnoremap <leader>o :FzfPreviewBuffers<CR>
-nnoremap <leader>O :FzfPreviewDirectoryFiles<CR>
+nnoremap <leader>o :CocCommand fzf-preview.Buffers<CR>
+nnoremap <leader>O :CocCommand fzf-preview.DirectoryFiles<CR>
 
 " ===== [ Code Movement/Editing ] =====
 " split window navigation
@@ -855,3 +857,5 @@ augroup checkIfGoyoEnabled
     set norelativenumber
   endif
 augroup END
+
+
