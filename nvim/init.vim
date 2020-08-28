@@ -66,6 +66,12 @@ Plug 'vimwiki/vimwiki'
 "" taskwarrior in vimwiki
 Plug 'tools-life/taskwiki'
 
+" ===== [ Java Development ] =====
+"" eclim plugin for communication between Eclipse and vim
+Plug 'starcraftman/vim-eclim'
+"" better Java syntax highlighting
+Plug 'juaneduardoflores/java-syntax.vim'
+
 " ===== [ Writing Documents ] =====
 "" support for writing LaTeX documents
 Plug 'lervag/vimtex'
@@ -166,9 +172,8 @@ let g:startify_lists = [
       \ { 'header': ['   Configuration'], 'type': 'bookmarks' },
       \ ]
 
-let g:startify_files_number = 15
-
 let g:startify_bookmarks = ['~/.skhdrc', '~/.yabairc', '~/.taskrc', '~/.gitconfig', '~/.eslintrc.json', '~/.zshrc', '~/.tern-config', '~/.eclimrc', '~/.config/kitty/kitty.conf', '~/.config/lf/lfrc', '~/.config/zathura/zathurarc', '~/.vit/config.ini']
+let g:startify_files_number = 15
 let g:startify_custom_footer = ''
 
 function JSONparse(str)
@@ -180,7 +185,6 @@ function JSONparse(str)
     catch
     endtry
   endif
-  " call s:throw("invalid JSON: " . l:stripped)
 endfunction
 
 " display german word of the day
@@ -224,25 +228,26 @@ augroup foldwiki
   autocmd BufEnter *.md,*.wiki hi VimwikiHeader4 guifg=#8C5226
   autocmd BufEnter *.md,*.wiki hi VimwikiHeader5 guifg=#326B62
   autocmd BufEnter *.md,*.wiki hi VimwikiHeader6 guifg=#7DA182
-
-  " Open vimwiki files in nvim using vfile: 
-  function! VimwikiLinkHandler(link)
-    let link = a:link
-    if link =~# '^vfile:'
-      let link = link[1:]
-    else
-     return 0
-    endif
-    let link_infos = vimwiki#base#resolve_link(link)
-    if link_infos.filename == ''
-      echomsg 'Vimwiki Error: Unable to resolve link!'
-      return 0
-    else
-      exe 'tabnew ' . fnameescape(link_infos.filename)
-      return 1
-    endif
-  endfunction
+  autocmd BufEnter *.md,*.wiki set linebreak wrap
 augroup END
+
+" Open vimwiki files in nvim using vfile: 
+function! VimwikiLinkHandler(link)
+  let link = a:link
+  if link =~# '^vfile:'
+    let link = link[1:]
+  else
+   return 0
+  endif
+  let link_infos = vimwiki#base#resolve_link(link)
+  if link_infos.filename == ''
+    echomsg 'Vimwiki Error: Unable to resolve link!'
+    return 0
+  else
+    exe 'tabnew ' . fnameescape(link_infos.filename)
+    return 1
+  endif
+endfunction
 
 "" make a template for diary entry
 augroup diaryTemplate
@@ -276,12 +281,7 @@ let g:tex_flavor = 'latex'
 let g:vimtex_view_method = 'skim'
 
 "{{ [ coc ]
-" Use <c-space> to trigger completion.
-if has('nvim')
-  inoremap <silent><expr> <c-space> coc#refresh()
-else
-  inoremap <silent><expr> <c-@> coc#refresh()
-endif
+command! -nargs=0 Prettier :CocCommand prettier.formatFile
 
 "{ [ Builtin Options and Settings ]
 "{{ [ Code Folding ]
@@ -345,6 +345,8 @@ set splitright splitbelow
 set showtabline=0
 "" change nvim directory to whatever the working file is
 set autochdir
+"" make the default file not wrap
+set nowrap
 "" formatoptions
 augroup formatOpts
   autocmd! 
@@ -364,7 +366,7 @@ let g:python3_host_prog = '/Users/juaneduardoflores/.pyenv/versions/py3nvim/bin/
 "{ [ Key Mappings ]
 let mapleader = "\<Space>"
 
-"" ===== [ Goyo ] =====
+" ===== [ Goyo ] =====
 "" Toggle Goyo (f for focus)	
 nnoremap <leader>F :Goyo<CR>
 
@@ -395,7 +397,8 @@ nnoremap <leader>p :FloatermNew lf<CR>
 nnoremap <leader>P :LfCurrentDirectory<CR>
 "" moving files
 nnoremap <leader>c :FloatermNew<CR>
-"" ===== [ NERDTree ] =====
+
+" ===== [ NERDTree ] =====
 "" Toggle NERDTree (Alt + B)
 nnoremap ß :call NERDTreeToggleInCurDir()<CR>
 
@@ -431,7 +434,7 @@ nnoremap <leader>Ev :e $MYVIMRC<CR>
 " source my .vimrc file
 nnoremap <leader>sv :source $MYVIMRC<CR>
 
-"" ===== [ vimwiki ] =====
+" ===== [ vimwiki ] =====
 "" vimwiki key mappings
 nmap <leader>uu1 1<Plug>VimwikiIndex
 nmap <leader>uu2 2<Plug>VimwikiIndex
@@ -449,7 +452,7 @@ nnoremap <C-down> 5<C-W>-
 nnoremap <left> 5<C-W><
 nnoremap <right> 5<C-W>>
 
-"" ===== [ Tag Bar ] =====
+" ===== [ Tag Bar ] =====
 "" open tag bar
 nnoremap <F11> :TagbarToggle<CR>
 " ===== [ UltiSnips ] =====
@@ -465,22 +468,21 @@ augroup END
 "" Open file location in finder
 nnoremap <F1> :silent exec "!open" expand('%:p:h')<CR>
 
-
 "{ [ Color Scheme ]
 let g:despacio_Sunset = 1
 colorscheme despacio
 " ===== [ General ] =====
 "" my custom color scheme additions
 hi Directory  guifg=#646C2F
+hi Folded guifg=#966b4b
 
 "" special comments
-hi blockcomment guifg=#3c6b2d
+hi BlockComment guifg=#3c6b2d
 augroup blockComments 
   autocmd!
-  autocmd Filetype java,javascript syn match blockcomment "\v/\*([^*]|[\r\n]|(\*+([^*/]|[\r\n])))*\*+/"
-  autocmd Filetype vim syn match vimblockcomment "\v^\"\s\={5}\s\[\s.*\s\]\s\={5}$"
+  autocmd BufEnter *vim syn match vimblockcomment "\v^\"\s\={5}\s\[\s.*\s\]\s\={5}$"
 augroup END
-hi link vimblockcomment blockcomment
+hi link vimblockcomment BlockComment
 
 " ===== [ Terminal ] =====
 "" Change highlight group of terminal window
