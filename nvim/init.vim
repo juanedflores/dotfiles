@@ -77,13 +77,23 @@ Plug 'juaneduardoflores/java-syntax.vim'
 Plug 'lervag/vimtex'
 call plug#end()
 
-
 "{{ [ lightline settings ]
 "" noshowmode because -- INSERT -- is unecessary with lightline plugin
 set noshowmode
+
 let g:lightline = {
       \ 'colorscheme': 'jellybeans',
+      \ 'active': {
+      \   'left': [ [ 'mode', 'paste' ],
+      \             [ 'cocstatus', 'readonly', 'filename', 'modified' ] ]
+      \ },
+      \ 'component_function': {
+      \   'cocstatus': 'coc#status'
+      \ },
       \ }
+
+  " Use auocmd to force lightline update.
+  autocmd User CocStatusChange,CocDiagnosticChange call lightline#update()
 
 "{{ [ Goyo settings ]
 "" Goyo size
@@ -160,7 +170,7 @@ let g:floaterm_height=0.7
 "{{ [ startify settings ]
 function s:projects()
   return [
-	\ { 'line': 'Phages Website', 'path': '~/Documents/Websites/Phages/PhagesWebsite/sketch.js' },
+	\ { 'line': 'Phages Website', 'path': '~/Documents/Websites/Phages/PhagesWebsite/js/sketch.js' },
 	\ { 'line': 'Artist Website', 'path': '~/Documents/Websites/ArtistWebsite/index.html' },
 	\ { 'line': 'MASA Debris Installation', 'path': '~/Documents/Processing/Project_MASA/SpaceDebris/SpaceDebris.pde' },
 	\ ]
@@ -283,6 +293,9 @@ let g:vimtex_view_method = 'skim'
 "{{ [ coc ]
 command! -nargs=0 Prettier :CocCommand prettier.formatFile
 
+"{{ [ auto-pairs ]
+let g:AutoPairsShortcutToggle = '<C-p>'
+
 "{ [ Builtin Options and Settings ]
 "{{ [ Code Folding ]
 " Function to handle folding in the init.vim file.
@@ -362,6 +375,12 @@ autocmd BufReadPost *
 "" python paths
 let g:python_host_prog = '/Users/juaneduardoflores/.pyenv/versions/py2nvim/bin/python'
 let g:python3_host_prog = '/Users/juaneduardoflores/.pyenv/versions/py3nvim/bin/python'
+
+" ===== [ FileType Specific Settings ] =====
+augroup pythonShift
+  autocmd!
+  autocmd FileType python setlocal shiftwidth=4
+augroup END
 
 "{ [ Key Mappings ]
 let mapleader = "\<Space>"
