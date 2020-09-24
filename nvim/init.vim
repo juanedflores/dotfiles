@@ -26,6 +26,8 @@ Plug 'tpope/vim-surround'
 Plug 'SirVer/ultisnips'
 "" browse the tags of the current file 
 Plug 'majutsushi/tagbar'
+"" zoom/in out of windows
+Plug 'juaneduardoflores/vimzoom'
 
 " ===== [ Version Control ] =====
 "" git wrapper
@@ -75,6 +77,14 @@ Plug 'juaneduardoflores/java-syntax.vim'
 " ===== [ Writing Documents ] =====
 "" support for writing LaTeX documents
 Plug 'lervag/vimtex'
+
+" ===== [ Color Schemes ] =====
+"" contrasting colors
+Plug 'srcery-colors/srcery-vim'
+
+" ===== [ My Plugins ] =====
+"" add vimwiki link directory info
+" Plug 'juaneduardoflores/vimwiki-memorymachine', { 'do': ':UpdateRemotePlugins' }
 call plug#end()
 
 "{{ [ lightline settings ]
@@ -85,11 +95,17 @@ let g:lightline = {
       \ 'colorscheme': 'jellybeans',
       \ 'active': {
       \   'left': [ [ 'mode', 'paste' ],
-      \             [ 'cocstatus', 'readonly', 'filename', 'modified' ] ]
+      \             [ 'cocstatus', 'readonly', 'filename', 'modified' ],
+      \		    [ 'zoomed', 'gitbranch' ] ]
       \ },
       \ 'component_function': {
-      \   'cocstatus': 'coc#status'
+      \   'cocstatus': 'coc#status',
+      \   'zoomed': 'IsZoomed',
+      \   'gitbranch': 'FugitiveHead',
       \ },
+      \ 'component_type': {
+      \ 'zoomed': 'error',
+      \}
       \ }
 
   " Use auocmd to force lightline update.
@@ -119,11 +135,19 @@ function! NERDTreeToggleInCurDir()
   endif
 endfunction
 
+
 "{{ [ ultisnips settings ]
 let g:UltiSnipsExpandTrigger="ƒ"
-let g:UltiSnipsJumpForwardTrigger="<C-b>"
-let g:UltiSnipsJumpBackwardTrigger="<C-z>"
 let g:UltiSnipsEditSplit="vertical"
+" let g:UltiSnipsJumpForwardTrigger="<C-b>"
+" let g:UltiSnipsJumpBackwardTrigger="<C-z>"
+
+"{{ [ tagbar ]
+let g:tagbar_autofocus = 1
+let g:tagbar_compact = 1
+let g:tagbar_autopreview = 1
+
+
 
 "{{ [ fzf settings ]
 "" hide the status bar in fzf
@@ -135,6 +159,7 @@ let g:fzf_layout = { 'window': { 'width': 0.9, 'height': 0.6 } }
 "{{ [ lf settings ]
 let g:lf_map_keys = 0
 let g:NERDTreeHijackNetrw = 0
+" make lf that default directory viewer
 let g:lf_replace_netrw = 1
 
 "{{ [ neoterm settings ]
@@ -238,7 +263,8 @@ augroup foldwiki
   autocmd BufEnter *.md,*.wiki hi VimwikiHeader4 guifg=#8C5226
   autocmd BufEnter *.md,*.wiki hi VimwikiHeader5 guifg=#326B62
   autocmd BufEnter *.md,*.wiki hi VimwikiHeader6 guifg=#7DA182
-  autocmd BufEnter *.md,*.wiki set linebreak wrap
+  autocmd BufRead *.md,*.wiki setlocal linebreak wrap
+  autocmd BufRead *.md,*.wiki setlocal wm=5 tw=40
 augroup END
 
 " Open vimwiki files in nvim using vfile: 
@@ -276,11 +302,11 @@ let g:scnvim_postwin_auto_toggle = 1
 let g:scnvim_eval_flash_repeats = 2
 
 "{{ [ vim-processing ]
+" set the 'foldmethod' to syntax
 let g:processing_fold = 1
 augroup processing
   autocmd!
   autocmd FileType processing setl cms=//%s
-  autocmd FileType processing set foldmethod=syntax
   autocmd FileType processing set nosmartindent
   autocmd FileType processing set cindent
 augroup END
@@ -295,6 +321,10 @@ command! -nargs=0 Prettier :CocCommand prettier.formatFile
 
 "{{ [ auto-pairs ]
 let g:AutoPairsShortcutToggle = '<C-p>'
+
+"{{ [ memorymachine ]
+let g:MemMachineEnable = 1
+let g:MemMachineIndex = "/Users/juaneduardoflores/wiki/Notes/notes_index.html.md"
 
 "{ [ Builtin Options and Settings ]
 "{{ [ Code Folding ]
@@ -360,6 +390,8 @@ set showtabline=0
 set autochdir
 "" make the default file not wrap
 set nowrap
+"" don't create a swap file
+set noswapfile
 "" formatoptions
 augroup formatOpts
   autocmd! 
@@ -398,6 +430,14 @@ tnoremap <C-l> <C-c><C-l>
 nnoremap † :vertical botright Ttoggle<CR>:call MoveRightMost()<CR>
 "" Open a floating terminal
 nnoremap <C-t> :FloatermToggle<CR>
+"" new floating term 
+nnoremap <leader>nt :FloatermNew<CR>
+"" new float term
+nnoremap <leader>xt :FloatermNext<CR>
+
+" ===== [ NERDTree ] =====
+"" Toggle NERDTree (Alt + B)
+nnoremap ß :call NERDTreeToggleInCurDir()<CR>
 
 " ===== [ Last Buffer ] =====
 "" go back to last buffer
@@ -414,12 +454,6 @@ nnoremap <leader>O :CocCommand fzf-preview.DirectoryFiles<CR>
 "" open lf file manager
 nnoremap <leader>p :FloatermNew lf<CR>
 nnoremap <leader>P :LfCurrentDirectory<CR>
-"" moving files
-nnoremap <leader>c :FloatermNew<CR>
-
-" ===== [ NERDTree ] =====
-"" Toggle NERDTree (Alt + B)
-nnoremap ß :call NERDTreeToggleInCurDir()<CR>
 
 " ===== [ Code Movement/Editing ] =====
 "" split window navigation
@@ -428,19 +462,18 @@ nnoremap <C-j> <C-w>j
 nnoremap <C-k> <C-w>k
 nnoremap <C-l> <C-w>l
 "" z. will shift placement of cursor to top 1/4 of file view instead of middle
-nnoremap z. :silent execute "normal! z." . winheight(0)/3 . "\<lt>C-E>"<CR>
-"" make moving up/down viewport larger increments
-nnoremap <C-e> 5<C-e>
-nnoremap <C-y> 5<C-y>
+nnoremap z. :silent execute "normal! z." . winheight(0)/4 . "\<lt>C-E>"<CR>
 "" better tabbing
 vnoremap < <gv
 vnoremap > >gv
-"" pretty up buffer
-nmap <leader>f  <Plug>(coc-format-selected)
-
-" ===== [ Zoom Window ] =====
-"" toggle zoom in a split window
-nnoremap <leader>Z :only<CR>
+"" change inner word with 0 buffer (clipboard)
+nnoremap <C-o> ciw<C-r>0<Esc>
+"" make moving up/down viewport larger increments
+nnoremap <C-e> 5<C-e>5j
+nnoremap <C-y> 5<C-y>5k
+"" scroll one line down (Shift + (-)) scroll:one line up (Shift + (.))
+nnoremap § <C-Y>k
+noremap ¶ <C-E>j
 
 " ===== [ Startify ] =====
 "" go to the start screen
@@ -470,6 +503,9 @@ nnoremap <C-up> 5<C-W>+
 nnoremap <C-down> 5<C-W>-
 nnoremap <left> 5<C-W><
 nnoremap <right> 5<C-W>>
+"" toggle zoom in a split window
+nnoremap <leader>z :only<CR>
+nnoremap <leader>Z :Zoom<CR>
 
 " ===== [ Tag Bar ] =====
 "" open tag bar
@@ -512,3 +548,4 @@ augroup blackTerminal
 augroup END
 
 " vim: foldmethod=expr foldexpr=VimFolds(v\:lnum) foldtext=MyFoldText() fillchars=fold\:\ 
+
