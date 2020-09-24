@@ -1,4 +1,4 @@
-" ===== [ Juan Flores' Neovim Config File ] =====
+" ===== [ Juan Flores Neovim Config File ] =====
 " ===== [ ------juaneduardoflores.com----- ] =====
 
 "{ [ Plugins ]
@@ -90,7 +90,6 @@ call plug#end()
 "{{ [ lightline settings ]
 "" noshowmode because -- INSERT -- is unecessary with lightline plugin
 set noshowmode
-
 let g:lightline = {
       \ 'colorscheme': 'jellybeans',
       \ 'active': {
@@ -98,13 +97,15 @@ let g:lightline = {
       \             [ 'cocstatus', 'readonly', 'filename', 'modified' ],
       \		    [ 'zoomed', 'gitbranch' ] ]
       \ },
+      \ 'component_expand': {
+      \	  'zoomed': 'IsZoomed',
+      \ },
       \ 'component_function': {
       \   'cocstatus': 'coc#status',
-      \   'zoomed': 'IsZoomed',
       \   'gitbranch': 'FugitiveHead',
       \ },
       \ 'component_type': {
-      \ 'zoomed': 'error',
+      \   'zoomed': 'mixed',
       \}
       \ }
 
