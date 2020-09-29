@@ -1,3 +1,4 @@
+
 # [Created by task 2.5.1 1/22/2020 23:51:27]
 # Taskwarrior program configuration file.
 # For more documentation, see http://taskwarrior.org or try 'man task', 'man task-color',
@@ -14,20 +15,26 @@
 data.location=~/.task
 
 # Color theme (uncomment one to use)
-#include /usr/local/Cellar/task/2.5.1/share/doc/task/rc/light-16.theme
-#include /usr/local/Cellar/task/2.5.1/share/doc/task/rc/light-256.theme
-#include /usr/local/Cellar/task/2.5.1/share/doc/task/rc/dark-16.theme
-#include /usr/local/Cellar/task/2.5.1/share/doc/task/rc/dark-256.theme
-#include /usr/local/Cellar/task/2.5.1/share/doc/task/rc/dark-red-256.theme
-#include /usr/local/Cellar/task/2.5.1/share/doc/task/rc/dark-green-256.theme
-#include /usr/local/Cellar/task/2.5.1/share/doc/task/rc/dark-blue-256.theme
-#include /usr/local/Cellar/task/2.5.1/share/doc/task/rc/dark-violets-256.theme
-#include /usr/local/Cellar/task/2.5.1/share/doc/task/rc/dark-yellow-green.theme
-#include /usr/local/Cellar/task/2.5.1/share/doc/task/rc/dark-gray-256.theme
-#include /usr/local/Cellar/task/2.5.1/share/doc/task/rc/dark-gray-blue-256.theme
-#include /usr/local/Cellar/task/2.5.1/share/doc/task/rc/solarized-dark-256.theme
-#include /usr/local/Cellar/task/2.5.1/share/doc/task/rc/solarized-light-256.theme
-#include /usr/local/Cellar/task/2.5.1/share/doc/task/rc/no-color.theme
+include /usr/local/Cellar/task/2.5.1/share/doc/task/rc/solarized-dark-256.theme
 
-report.unblocked.columns=id,entry.age,description,project,urgency,due
-report.unblocked.labels=ID,Age,Description,Project,Urgency,Due........
+report.unblocked.columns=id,start.active,entry.age,description,project,urgency,due
+report.unblocked.labels=ID,Current,Age,Description,Project,Urgency,Due........
+
+# custom report
+# a Today list of unblocked tasks with the +TODAY tag
+
+# column list
+# id,project,description
+
+# status is "status:unblocked"
+report.mytoday.description=A list of unblocked tasks with the TODAY tag
+report.mytoday.columns=id,start.active,entry.age,description,project,urgency,due
+report.mytoday.labels=ID,Current,Age,Description,Project,Urgency,Due........
+report.mytoday.sort=project+/,entry+
+report.mytoday.filter=status:pending -BLOCKED +TODAY
+
+taskd.certificate=\/Users\/juaneduardoflores\/.task\/juan_flores.cert.pem
+taskd.key=\/Users\/juaneduardoflores\/.task\/juan_flores.key.pem
+taskd.ca=\/Users\/juaneduardoflores\/.task\/ca.cert.pem
+taskd.server=taskd:53589
+taskd.credentials=Public\/Juan Flores\/04182a03-a980-4a6d-8250-ce12de280072
