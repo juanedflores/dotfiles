@@ -1,7 +1,9 @@
 # open terminal
 cmd - return : /Applications/Kitty.app/Contents/MacOS/kitty --single-instance -d ~
 # open browser
-cmd + shift -return : open /Applications/Min.app
+cmd + shift - return : open /Applications/Firefox.app
+# open finder
+cmd + shift+ ctrl - return : open ~
 
 # focus window
 lcmd - h : yabai -m window --focus west
@@ -22,7 +24,7 @@ lcmd + ctrl + shift - k : yabai -m window --swap north
 lcmd + ctrl + shift - l : yabai -m window --swap east
 
 # make window fill screen
-lcmd - z : yabai -m window --toggle zoom-fullscreen
+lcmd + shift - z : yabai -m window --toggle zoom-fullscreen
 
 # increase window size
 lcmd - delete : yabai -m window --resize left:-50:0
@@ -55,4 +57,18 @@ alt + shift - t : yabai -m window --toggle float;\
 
 # make floating window fill left-half of screen
 shift + lcmd - left   : yabai -m window --grid 1:2:0:0:1:1
+# make floating window fill right-half of screen
+shift + lcmd - right  : yabai -m window --grid 1:2:1:0:1:1
+
+# toggle window split type
+alt - e : yabai -m window --toggle split
+
+# balance size of windows
+shift + alt - 0 : yabai -m space --balance
+
+# minimize window
+shift + lcmd - m : yabai -m window --minimize
+
+# append url to a "store for later" file
+shift + lcmd - insert : pbpaste | sed 's/%//' >> /Users/juaneduardoflores/wiki/Saved/urls/saved_urls.txt | say "Gerettet"
 

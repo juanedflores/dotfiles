@@ -512,6 +512,7 @@ nmap <leader>uu3 3<Plug>VimwikiIndex
 nmap <leader>uu4 4<Plug>VimwikiIndex
 nmap <leader>uui <Plug>VimwikiDiaryIndex
 nmap <leader>uuu <Plug>VimwikiMakeDiaryNote
+nmap <leader>uuv :exec "vsplit"<CR> :exec "VimwikiMakeDiaryNote"<CR>
 
 " ===== [ Window ] =====
 "" resize windows evenly
