@@ -15,7 +15,7 @@
 data.location=~/.task
 
 # Color theme (uncomment one to use)
-include /usr/local/Cellar/task/2.5.1/share/doc/task/rc/solarized-dark-256.theme
+include /usr/local/Cellar/task/2.5.1/share/doc/task/rc/dark-256.theme
 
 report.unblocked.columns=id,start.active,entry.age,description,project,urgency,due
 report.unblocked.labels=ID,Current,Age,Description,Project,Urgency,Due........
