@@ -117,6 +117,15 @@ let g:lightline = {
 let g:goyo_width=85
 let g:goyo_height=85
 
+function! s:goyo_enter()
+  set nowrap
+endfunction
+function! s:goyo_leave()
+  execute "source ~/.config/nvim/colors/specialcolors.vim"
+endfunction
+autocmd! User GoyoEnter nested call <SID>goyo_enter()
+autocmd! User GoyoLeave nested call <SID>goyo_leave()
+
 "{{ [ limelight settings ]
 "" Color of text not in focus
 let g:limelight_conceal_guifg = '#1a212e'
@@ -264,8 +273,8 @@ augroup foldwiki
   autocmd BufEnter *.md,*.wiki hi VimwikiHeader4 guifg=#8C5226
   autocmd BufEnter *.md,*.wiki hi VimwikiHeader5 guifg=#326B62
   autocmd BufEnter *.md,*.wiki hi VimwikiHeader6 guifg=#7DA182
-  autocmd BufRead *.md,*.wiki setlocal linebreak wrap
-  autocmd BufRead *.md,*.wiki setlocal wm=5 tw=40
+  autocmd BufEnter *.md,*.wiki setlocal linebreak wrap
+  autocmd BufEnter *.md,*.wiki setlocal wm=5 tw=90
 augroup END
 
 " Open vimwiki files in nvim using vfile: 
@@ -319,6 +328,14 @@ let g:vimtex_view_method = 'skim'
 
 "{{ [ coc ]
 command! -nargs=0 Prettier :CocCommand prettier.formatFile
+
+function! s:show_documentation()
+  if (index(['vim','help'], &filetype) >= 0)
+    execute 'h '.expand('<cword>')
+  else
+    call CocActionAsync('doHover')
+  endif
+endfunction
 
 "{{ [ auto-pairs ]
 let g:AutoPairsShortcutToggle = '<C-p>'
@@ -515,6 +532,21 @@ nnoremap <F11> :TagbarToggle<CR>
 ""Open UltiSnips Edit in vsplit
 nnoremap <F12> :UltiSnipsEdit<CR>
 
+" ===== [ COC ] =====
+" Use `[g` and `]g` to navigate diagnostics
+" Use `:CocDiagnostics` to get all diagnostics of current buffer in location list.
+nmap <silent> [g <Plug>(coc-diagnostic-prev)
+nmap <silent> ]g <Plug>(coc-diagnostic-next)
+
+" GoTo code navigation.
+nmap <silent> gd <Plug>(coc-definition)
+nmap <silent> gy <Plug>(coc-type-definition)
+nmap <silent> gi <Plug>(coc-implementation)
+nmap <silent> gr <Plug>(coc-references)
+
+" Use K to show documentation in preview window.
+nnoremap <silent> K :call <SID>show_documentation()<CR>
+
 " ===== [ Misc. ] =====
 "" Use enter to open help file link
 augroup helpFiles
@@ -522,31 +554,12 @@ augroup helpFiles
   autocmd Filetype help nnoremap <buffer> <CR> <c-]>
 augroup END
 "" Open file location in finder
-nnoremap <F1> :silent exec "!open" expand('%:p:h')<CR>
+nnoremap <F1> :silent exec "!open" "%:p:h"<CR>
 
 "{ [ Color Scheme ]
 let g:despacio_Sunset = 1
 colorscheme despacio
 " ===== [ General ] =====
-"" my custom color scheme additions
-hi Directory  guifg=#646C2F
-hi Folded guifg=#966b4b
-
-"" special comments
-hi BlockComment guifg=#3c6b2d
-augroup blockComments 
-  autocmd!
-  autocmd BufEnter *vim syn match vimblockcomment "\v^\"\s\={5}\s\[\s.*\s\]\s\={5}$"
-augroup END
-hi link vimblockcomment BlockComment
-
-" ===== [ Terminal ] =====
-"" Change highlight group of terminal window
-hi TerminalColor guibg=#000000
-augroup blackTerminal 
-  autocmd!
-  autocmd FileType neoterm setlocal winhighlight=Normal:TerminalColor
-augroup END
-
+execute "source ~/.config/nvim/colors/specialcolors.vim"
 " vim: foldmethod=expr foldexpr=VimFolds(v\:lnum) foldtext=MyFoldText() fillchars=fold\:\ 
 
