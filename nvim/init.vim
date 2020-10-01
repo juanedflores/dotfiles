@@ -28,6 +28,8 @@ Plug 'SirVer/ultisnips'
 Plug 'majutsushi/tagbar'
 "" zoom/in out of windows
 Plug 'juaneduardoflores/vimzoom'
+Plug 'camspiers/animate.vim'
+Plug 'camspiers/lens.vim'
 
 " ===== [ Version Control ] =====
 "" git wrapper
@@ -81,6 +83,10 @@ Plug 'lervag/vimtex'
 " ===== [ Color Schemes ] =====
 "" contrasting colors
 Plug 'srcery-colors/srcery-vim'
+
+" ===== [ Visual ] =====
+"" dim non-focused windows
+Plug 'blueyed/vim-diminactive'
 
 " ===== [ My Plugins ] =====
 "" add vimwiki link directory info
@@ -559,6 +565,9 @@ nnoremap <F1> :silent exec "!open" "%:p:h"<CR>
 
 "{ [ Color Scheme ]
 let g:despacio_Sunset = 1
+" let g:despacio_Twilight = 1
+" let g:despacio_Midnight = 1
+" let g:despacio_Pitch = 1
 colorscheme despacio
 " ===== [ General ] =====
 execute "source ~/.config/nvim/colors/specialcolors.vim"
