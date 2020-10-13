@@ -26,9 +26,13 @@ Plug 'tpope/vim-surround'
 Plug 'SirVer/ultisnips'
 "" browse the tags of the current file 
 Plug 'majutsushi/tagbar'
+"" Move lines of code up/down
+Plug 'matze/vim-move' 
+
+" ===== [ Windows ] =====
 "" zoom/in out of windows
 Plug 'juaneduardoflores/vimzoom'
-Plug 'camspiers/animate.vim'
+"" smart resizing
 Plug 'camspiers/lens.vim'
 
 " ===== [ Version Control ] =====
@@ -125,6 +129,10 @@ let g:goyo_height=85
 
 function! s:goyo_enter()
   set nowrap
+  set noshowmode
+  set noshowcmd
+  execute "normal \<C-W>="
+  execute "normal 0"
 endfunction
 function! s:goyo_leave()
   execute "source ~/.config/nvim/colors/specialcolors.vim"
@@ -280,7 +288,7 @@ augroup foldwiki
   autocmd BufEnter *.md,*.wiki hi VimwikiHeader5 guifg=#326B62
   autocmd BufEnter *.md,*.wiki hi VimwikiHeader6 guifg=#7DA182
   autocmd BufEnter *.md,*.wiki setlocal linebreak wrap
-  autocmd BufEnter *.md,*.wiki setlocal wm=5 tw=90
+  " autocmd BufEnter *.md,*.wiki setlocal wm=5
 augroup END
 
 " Open vimwiki files in nvim using vfile: 
@@ -344,7 +352,13 @@ function! s:show_documentation()
 endfunction
 
 "{{ [ auto-pairs ]
-let g:AutoPairsShortcutToggle = '<C-p>'
+" let g:AutoPairsShortcutToggle = '<C-p>'
+
+"{{ [ vim-move ]
+let g:move_key_modifier = 'C'
+
+"{{ [ lens ]
+let g:lens#disabled_filetypes = ['neoterm', 'fzf']
 
 "{{ [ memorymachine ]
 let g:MemMachineEnable = 1
@@ -481,21 +495,21 @@ nnoremap <leader>P :LfCurrentDirectory<CR>
 
 " ===== [ Code Movement/Editing ] =====
 "" split window navigation
-nnoremap <C-h> <C-w>h
-nnoremap <C-j> <C-w>j
-nnoremap <C-k> <C-w>k
-nnoremap <C-l> <C-w>l
+" nnoremap <C-h> <C-w>h
+" nnoremap <C-j> <C-w>j
+" nnoremap <C-k> <C-w>k
+" nnoremap <C-l> <C-w>l
 "" z. will shift placement of cursor to top 1/4 of file view instead of middle
 nnoremap z. :silent execute "normal! z." . winheight(0)/4 . "\<lt>C-E>"<CR>
 "" better tabbing
 vnoremap < <gv
 vnoremap > >gv
 "" change inner word with 0 buffer (clipboard)
-nnoremap <C-o> ciw<C-r>0<Esc>
+nnoremap <C-p> ciw<C-r>0<Esc>
 "" make moving up/down viewport larger increments
 nnoremap <C-e> 5<C-e>5j
 nnoremap <C-y> 5<C-y>5k
-"" scroll one line down (Shift + (-)) scroll:one line up (Shift + (.))
+"" move viewport by one line up/down
 nnoremap § <C-Y>k
 noremap ¶ <C-E>j
 
@@ -572,4 +586,3 @@ colorscheme despacio
 " ===== [ General ] =====
 execute "source ~/.config/nvim/colors/specialcolors.vim"
 " vim: foldmethod=expr foldexpr=VimFolds(v\:lnum) foldtext=MyFoldText() fillchars=fold\:\ 
-
