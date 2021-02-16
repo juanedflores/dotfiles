@@ -12,6 +12,8 @@ Plug 'junegunn/goyo.vim'
 Plug 'junegunn/limelight.vim'
 " adds the line in the bottom with info
 Plug 'itchyny/lightline.vim'
+" run terminal commands asynchronously
+Plug 'skywind3000/asyncrun.vim'
 
 " ===== [ Code Editing ] =====
 "" toggle comments
@@ -28,12 +30,14 @@ Plug 'SirVer/ultisnips'
 Plug 'majutsushi/tagbar'
 "" Move lines of code up/down
 Plug 'matze/vim-move' 
+"" Highlight matching html tag
+Plug 'gregsexton/MatchTag' 
 
 " ===== [ Windows ] =====
 "" zoom/in out of windows
 Plug 'juaneduardoflores/vimzoom'
 "" smart resizing
-Plug 'camspiers/lens.vim'
+" Plug 'camspiers/lens.vim'
 
 " ===== [ Version Control ] =====
 "" git wrapper
@@ -67,6 +71,8 @@ Plug 'tidalcycles/vim-tidal'
 Plug 'davidgranstrom/scnvim', { 'do': {-> scnvim#install() } }
 "" Processing
 Plug 'sophacles/vim-processing'
+"" Pico-8 Syntax
+Plug 'aquova/vim-pico8-syntax'
 
 " ===== [ Wiki/TaskManager ] =====
 "" manage notes and documentation
@@ -83,6 +89,10 @@ Plug 'juaneduardoflores/java-syntax.vim'
 " ===== [ Writing Documents ] =====
 "" support for writing LaTeX documents
 Plug 'lervag/vimtex'
+"" grammar check
+Plug 'dpelle/vim-LanguageTool' 
+"" syntastic for proselint
+Plug 'vim-syntastic/syntastic' 
 
 " ===== [ Color Schemes ] =====
 "" contrasting colors
@@ -90,7 +100,7 @@ Plug 'srcery-colors/srcery-vim'
 
 " ===== [ Visual ] =====
 "" dim non-focused windows
-Plug 'blueyed/vim-diminactive'
+" Plug 'blueyed/vim-diminactive'
 
 " ===== [ My Plugins ] =====
 "" add vimwiki link directory info
@@ -136,6 +146,7 @@ function! s:goyo_enter()
 endfunction
 function! s:goyo_leave()
   execute "source ~/.config/nvim/colors/specialcolors.vim"
+  execute "edit"
 endfunction
 autocmd! User GoyoEnter nested call <SID>goyo_enter()
 autocmd! User GoyoLeave nested call <SID>goyo_leave()
@@ -161,10 +172,12 @@ endfunction
 
 
 "{{ [ ultisnips settings ]
-let g:UltiSnipsExpandTrigger="ƒ"
+" let g:UltiSnipsExpandTrigger="ƒ"
 let g:UltiSnipsEditSplit="vertical"
-" let g:UltiSnipsJumpForwardTrigger="<C-b>"
-" let g:UltiSnipsJumpBackwardTrigger="<C-z>"
+" if !exists("g:UltiSnipsJumpForwardTrigger")
+"     let g:UltiSnipsJumpForwardTrigger = "©"
+" endif
+" let g:UltiSnipsJumpBackwardTrigger="∑"
 
 "{{ [ tagbar ]
 let g:tagbar_autofocus = 1
@@ -231,7 +244,7 @@ let g:startify_lists = [
       \ { 'header': ['   Configuration'], 'type': 'bookmarks' },
       \ ]
 
-let g:startify_bookmarks = ['~/.skhdrc', '~/.yabairc', '~/.taskrc', '~/.gitconfig', '~/.eslintrc.json', '~/.zshrc', '~/.tern-config', '~/.eclimrc', '~/.config/kitty/kitty.conf', '~/.config/lf/lfrc', '~/.config/zathura/zathurarc', '~/.vit/config.ini']
+let g:startify_bookmarks = ['~/.skhdrc', '~/.yabairc', '~/.taskrc', '~/.gitconfig', '~/.eslintrc.json', '~/.zshrc', '~/.tern-config', '~/.eclimrc', '~/.config/kitty/kitty.conf', '~/.config/lf/lfrc', '~/.config/zathura/zathurarc', '~/.vit/config.ini', '~/Documents/Websites/ArtistWebsite/Blog/']
 let g:startify_files_number = 15
 let g:startify_custom_footer = ''
 
@@ -331,8 +344,8 @@ let g:processing_fold = 1
 augroup processing
   autocmd!
   autocmd FileType processing setl cms=//%s
-  autocmd FileType processing set nosmartindent
-  autocmd FileType processing set cindent
+  autocmd FileType processing setl nosmartindent
+  autocmd FileType processing setl cindent
 augroup END
 
 "{{ [ vimtex ]
@@ -360,9 +373,40 @@ let g:move_key_modifier = 'C'
 "{{ [ lens ]
 let g:lens#disabled_filetypes = ['neoterm', 'fzf']
 
+"{{ [ languagetool ]
+let g:languagetool_jar='/Users/juaneduardoflores/LanguageTool-5.1/languagetool-commandline.jar'
+let g:languagetool_disable_rules='UPPERCASE_SENTENCE_START'
+
+"{{ [ syntastic ]
+let g:syntastic_markdown_checkers = ['proselint']
+let g:syntastic_mode_map = { 'mode': 'passive',
+      \'active_filetypes': ["markdown"],
+      \'passive_filetypes': [] 
+      \}
+" let g:syntastic_mode = "passive"
+
+
 "{{ [ memorymachine ]
 let g:MemMachineEnable = 1
 let g:MemMachineIndex = "/Users/juaneduardoflores/wiki/Notes/notes_index.html.md"
+
+"{{ [ pico-8 ]
+function! ChangeLightlineCol()
+  let s:palette = g:lightline#colorscheme#{g:lightline.colorscheme}#palette
+  let s:palette.normal.middle = [['#000000', '#FF004D', 0, 21]]
+  " let s:palette.tabline.middle = [['#000000', '#FF004D', 0, 21]]
+  call lightline#colorscheme()
+endfunction
+
+augroup pico8 
+  autocmd!
+  autocmd BufEnter *.p8 set ft=pico8
+  autocmd BufEnter *.p8 set shiftwidth=2
+  autocmd BufEnter *.p8 execute "normal gg=G"
+  autocmd BufEnter *.p8 colorscheme pico
+  autocmd BufEnter *.p8 call ChangeLightlineCol() 
+augroup END
+
 
 "{ [ Builtin Options and Settings ]
 "{{ [ Code Folding ]
@@ -436,6 +480,16 @@ augroup formatOpts
   autocmd BufNewFile,BufRead * setlocal formatoptions-=o
 augroup END
 
+" ===== [ Writing ] =====
+set dictionary+=/usr/share/dict/words
+
+" ===== [ Blog ] =====
+" Execute makefile on save to turn them to html.
+augroup blogMake
+  autocmd!
+  autocmd BufWritePost /*Blog/*.md execute "AsyncRun -cwd=<root>/Blog make"
+augroup END
+
 " ===== [ Save Cursor Position and Viewport When Switching Buffers ] =====
 autocmd BufReadPost *
 \ if line("'\"") >= 1 && line("'\"") <= line("$") && &ft !~# 'commit'
@@ -494,11 +548,6 @@ nnoremap <leader>p :FloatermNew lf<CR>
 nnoremap <leader>P :LfCurrentDirectory<CR>
 
 " ===== [ Code Movement/Editing ] =====
-"" split window navigation
-" nnoremap <C-h> <C-w>h
-" nnoremap <C-j> <C-w>j
-" nnoremap <C-k> <C-w>k
-" nnoremap <C-l> <C-w>l
 "" z. will shift placement of cursor to top 1/4 of file view instead of middle
 nnoremap z. :silent execute "normal! z." . winheight(0)/4 . "\<lt>C-E>"<CR>
 "" better tabbing
@@ -565,8 +614,21 @@ nmap <silent> gy <Plug>(coc-type-definition)
 nmap <silent> gi <Plug>(coc-implementation)
 nmap <silent> gr <Plug>(coc-references)
 
+" [coc-snippets]
+" Use ƒ for trigger snippet expand.
+imap ƒ <Plug>(coc-snippets-expand)
+" " Use <C-n> for select text for visual placeholder of snippet.
+vmap <C-m> <Plug>(coc-snippets-select)
+" Use <C-n> for jump to next placeholder
+let g:coc_snippet_next = '<c-m>'
+" Use <C-b> for jump to previous placeholder
+let g:coc_snippet_prev = '<c-b>'
+
 " Use K to show documentation in preview window.
 nnoremap <silent> K :call <SID>show_documentation()<CR>
+
+" ===== [ SuperCollider ] =====
+nmap <leader>cl <Plug>(scnvim-postwindow-clear)
 
 " ===== [ Misc. ] =====
 "" Use enter to open help file link
@@ -576,12 +638,19 @@ augroup helpFiles
 augroup END
 "" Open file location in finder
 nnoremap <F1> :silent exec "!open" "%:p:h"<CR>
+" copy path of current buffer to clipboard
+nnoremap <leader>cp :silent execute '! echo %:p \| pbcopy'<CR>
+" run the makefile
+nnoremap <F4> :make<CR>
+" go to marker set
+nnoremap <leader>k 'k:silent execute "normal! z." . winheight(0)/4 . "\<lt>C-E>"<CR>
 
 "{ [ Color Scheme ]
 let g:despacio_Sunset = 1
 " let g:despacio_Twilight = 1
 " let g:despacio_Midnight = 1
 " let g:despacio_Pitch = 1
+
 colorscheme despacio
 " ===== [ General ] =====
 execute "source ~/.config/nvim/colors/specialcolors.vim"
