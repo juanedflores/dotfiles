@@ -14,6 +14,8 @@ Plug 'junegunn/limelight.vim'
 Plug 'itchyny/lightline.vim'
 " run terminal commands asynchronously
 Plug 'skywind3000/asyncrun.vim'
+" nvim in the browser
+Plug 'glacambre/firenvim', { 'do': { _ -> firenvim#install(0) } }
 
 " ===== [ Code Editing ] =====
 "" toggle comments
@@ -27,7 +29,8 @@ Plug 'tpope/vim-surround'
 "" custom snippets
 Plug 'SirVer/ultisnips'
 "" browse the tags of the current file 
-Plug 'majutsushi/tagbar'
+" Plug 'majutsushi/tagbar'
+Plug 'preservim/tagbar'
 "" Move lines of code up/down
 Plug 'matze/vim-move' 
 "" Highlight matching html tag
@@ -97,6 +100,8 @@ Plug 'vim-syntastic/syntastic'
 " ===== [ Color Schemes ] =====
 "" contrasting colors
 Plug 'srcery-colors/srcery-vim'
+"" random colorscheme
+Plug 'Sammyalhashe/random_colorscheme.vim'
 
 " ===== [ Visual ] =====
 "" dim non-focused windows
@@ -125,7 +130,7 @@ let g:lightline = {
       \   'gitbranch': 'FugitiveHead',
       \ },
       \ 'component_type': {
-      \   'zoomed': 'mixed',
+      \   'zoomed': 'warning',
       \}
       \ }
 
@@ -182,9 +187,12 @@ let g:UltiSnipsEditSplit="vertical"
 "{{ [ tagbar ]
 let g:tagbar_autofocus = 1
 let g:tagbar_compact = 1
-let g:tagbar_autopreview = 1
-
-
+let g:tagbar_previewwin_pos = "topleft"
+let g:no_status_line = 0
+let g:tagbar_jump_offset = winheight(0) / 4
+" let g:tagbar_highlight_follow_insert = 1
+" let g:tagbar_autoclose = 1
+" let g:tagbar_autopreview = 1
 
 "{{ [ fzf settings ]
 "" hide the status bar in fzf
@@ -434,8 +442,8 @@ function! MyFoldText()
   let fillcharcount = &textwidth - len(line_text) - len(folded_line_num)
   return '+' . line_text . repeat('.', fillcharcount) . ' (' . folded_line_num . ' L)'
 endfunction
-
 " Sets the chars after the FoldText() to just spaces.
+
 " Remembers folds when leave buffer, window, or saving file.
 augroup AutoSaveFolds
   autocmd!
@@ -444,7 +452,7 @@ augroup AutoSaveFolds
 augroup END 
 
 "{{ [ Basic Settings ]
-""" enable loading the plugin files for specific file types
+"" enable loading the plugin files for specific file types
 filetype plugin on
 "" true colors support
 if (has("termguicolors"))
@@ -480,14 +488,24 @@ augroup formatOpts
   autocmd BufNewFile,BufRead * setlocal formatoptions-=o
 augroup END
 
+" ===== [ Java ] =====
+augroup JavaWorkflow
+  setl shiftwidth=8
+augroup END
+
 " ===== [ Writing ] =====
 set dictionary+=/usr/share/dict/words
 
 " ===== [ Blog ] =====
-" Execute makefile on save to turn them to html.
 augroup blogMake
   autocmd!
   autocmd BufWritePost /*Blog/*.md execute "AsyncRun -cwd=<root>/Blog make"
+augroup END
+
+" ===== [ Language Lessons ] =====
+augroup lessonsMake
+  autocmd!
+  autocmd BufWritePost /*Spanish_Lessons/*.md execute "AsyncRun -cwd=<root>/Spanish_Lessons make"
 augroup END
 
 " ===== [ Save Cursor Position and Viewport When Switching Buffers ] =====
@@ -495,6 +513,47 @@ autocmd BufReadPost *
 \ if line("'\"") >= 1 && line("'\"") <= line("$") && &ft !~# 'commit'
 \ |   exe "normal! g`\""
 \ | endif
+
+" ===== [ Saving Command Output to Buffer or fzf ] =====
+" e.g. 
+" ':P messages' will place all the messages in a temporary buffer.
+" ':P! messages' will allow you to search the output of messages via fzf.
+function! s:split(expr) abort
+  let lines = split(execute(a:expr, 'silent'), "[\n\r]")
+  let name = printf('capture://%s', a:expr)
+
+  if bufexists(name) == v:true
+    execute 'bwipeout' bufnr(name)
+  end
+
+  execute 'botright' 'new' name
+
+  setlocal buftype=nofile
+  setlocal bufhidden=hide
+  setlocal noswapfile
+  setlocal filetype=vim
+
+  call append(line('$'), lines)
+endfunction
+
+function! s:fzf(expr) abort
+  let lines = split(execute(a:expr, 'silent'), "[\n\r]")
+
+  return fzf#run({
+      \  'source': lines,
+      \  'options': '--tiebreak begin --ansi --header-lines 1'
+      \})
+endfunction
+
+function s:capture(expr, bang) abort
+  if a:bang
+    call s:fzf(a:expr)
+  else
+    call s:split(a:expr)
+  endif
+endfunction
+
+command! -nargs=1 -bang -complete=command P call s:capture(<q-args>, <bang>0)
 
 "" python paths
 let g:python_host_prog = '/Users/juaneduardoflores/.pyenv/versions/py2nvim/bin/python'
@@ -506,8 +565,9 @@ augroup pythonShift
   autocmd FileType python setlocal shiftwidth=4
 augroup END
 
+
 "{ [ Key Mappings ]
-let mapleader = "\<Space>"
+let mapleader = "<Space>"
 
 " ===== [ Goyo ] =====
 "" Toggle Goyo (f for focus)	
@@ -644,6 +704,8 @@ nnoremap <leader>cp :silent execute '! echo %:p \| pbcopy'<CR>
 nnoremap <F4> :make<CR>
 " go to marker set
 nnoremap <leader>k 'k:silent execute "normal! z." . winheight(0)/4 . "\<lt>C-E>"<CR>
+" copy last message to clipboard
+nnoremap <leader>cm :exec 'redir @+ \| 1message \| redir END'
 
 "{ [ Color Scheme ]
 let g:despacio_Sunset = 1
@@ -652,6 +714,14 @@ let g:despacio_Sunset = 1
 " let g:despacio_Pitch = 1
 
 colorscheme despacio
+let g:default_theme = 'despacio'
+
+let g:random_theme = 1
+
+" ===== [ Keywords ] =====
+syn match myNOTE "\<\l\{2\}\NOTE\>"
+hi def link myNOTE SignColumn 
+
 " ===== [ General ] =====
 execute "source ~/.config/nvim/colors/specialcolors.vim"
 " vim: foldmethod=expr foldexpr=VimFolds(v\:lnum) foldtext=MyFoldText() fillchars=fold\:\ 
