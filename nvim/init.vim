@@ -35,6 +35,12 @@ Plug 'preservim/tagbar'
 Plug 'matze/vim-move' 
 "" Highlight matching html tag
 Plug 'gregsexton/MatchTag' 
+"" Language packs (installed for better html indentation)
+Plug 'sheerun/vim-polyglot'
+"" Code Formatter
+Plug 'prettier/vim-prettier', { 'do': 'yarn install' }
+"" Zen Mode
+Plug 'folke/zen-mode.nvim'
 
 " ===== [ Windows ] =====
 "" zoom/in out of windows
@@ -106,6 +112,7 @@ Plug 'Sammyalhashe/random_colorscheme.vim'
 " ===== [ Visual ] =====
 "" dim non-focused windows
 " Plug 'blueyed/vim-diminactive'
+Plug 'chrisbra/Colorizer'
 
 " ===== [ My Plugins ] =====
 "" add vimwiki link directory info
@@ -116,26 +123,26 @@ call plug#end()
 "" noshowmode because -- INSERT -- is unecessary with lightline plugin
 set noshowmode
 let g:lightline = {
-      \ 'colorscheme': 'jellybeans',
-      \ 'active': {
-      \   'left': [ [ 'mode', 'paste' ],
-      \             [ 'cocstatus', 'readonly', 'filename', 'modified' ],
-      \		    [ 'zoomed', 'gitbranch' ] ]
-      \ },
-      \ 'component_expand': {
-      \	  'zoomed': 'IsZoomed',
-      \ },
-      \ 'component_function': {
-      \   'cocstatus': 'coc#status',
-      \   'gitbranch': 'FugitiveHead',
-      \ },
-      \ 'component_type': {
-      \   'zoomed': 'warning',
-      \}
-      \ }
+			\ 'colorscheme': 'jellybeans',
+			\ 'active': {
+			\   'left': [ [ 'mode', 'paste' ],
+			\             [ 'cocstatus', 'readonly', 'filename', 'modified' ],
+			\		    [ 'zoomed', 'gitbranch' ] ]
+			\ },
+			\ 'component_expand': {
+			\	  'zoomed': 'IsZoomed',
+			\ },
+			\ 'component_function': {
+			\   'cocstatus': 'coc#status',
+			\   'gitbranch': 'FugitiveHead',
+			\ },
+			\ 'component_type': {
+			\   'zoomed': 'warning',
+			\}
+			\ }
 
-  " Use auocmd to force lightline update.
-  autocmd User CocStatusChange,CocDiagnosticChange call lightline#update()
+" Use auocmd to force lightline update.
+autocmd User CocStatusChange,CocDiagnosticChange call lightline#update()
 
 "{{ [ Goyo settings ]
 "" Goyo size
@@ -143,15 +150,15 @@ let g:goyo_width=85
 let g:goyo_height=85
 
 function! s:goyo_enter()
-  set nowrap
-  set noshowmode
-  set noshowcmd
-  execute "normal \<C-W>="
-  execute "normal 0"
+	set nowrap
+	set noshowmode
+	set noshowcmd
+	execute "normal \<C-W>="
+	execute "normal 0"
 endfunction
 function! s:goyo_leave()
-  execute "source ~/.config/nvim/colors/specialcolors.vim"
-  execute "edit"
+	execute "source ~/.config/nvim/colors/specialcolors.vim"
+	execute "edit"
 endfunction
 autocmd! User GoyoEnter nested call <SID>goyo_enter()
 autocmd! User GoyoLeave nested call <SID>goyo_leave()
@@ -163,16 +170,16 @@ let g:limelight_conceal_guifg = '#1a212e'
 "{{ [ NERDTree settings ]
 "" Function to open nerd tree in the current file directory.
 function! NERDTreeToggleInCurDir()
-  " If NERDTree is open in the current buffer
-  if (exists("t:NERDTreeBufName") && bufwinnr(t:NERDTreeBufName) != -1)
-    exe ":NERDTreeClose"
-  else
-    if (expand("%:t") != '')
-      exe ":NERDTreeFind"
-    else
-      exe ":NERDTreeToggle"
-    endif
-  endif
+	" If NERDTree is open in the current buffer
+	if (exists("t:NERDTreeBufName") && bufwinnr(t:NERDTreeBufName) != -1)
+		exe ":NERDTreeClose"
+	else
+		if (expand("%:t") != '')
+			exe ":NERDTreeFind"
+		else
+			exe ":NERDTreeToggle"
+		endif
+	endif
 endfunction
 
 
@@ -198,7 +205,7 @@ let g:tagbar_jump_offset = winheight(0) / 4
 "" hide the status bar in fzf
 autocmd! FileType fzf
 autocmd FileType fzf set laststatus=0 noshowmode noruler
-	\| autocmd BufLeave <buffer> set laststatus=2 showmode ruler
+			\| autocmd BufLeave <buffer> set laststatus=2 showmode ruler
 let g:fzf_layout = { 'window': { 'width': 0.9, 'height': 0.6 } }
 
 "{{ [ lf settings ]
@@ -212,24 +219,24 @@ let g:neoterm_size='40%'
 let g:neoterm_autoinsert='0'
 
 function! HasWinToRight()
-  let l:rightedge = win_screenpos(0)[1] + winwidth(0) - 1
-  for l:win in range(1, winnr('$'))
-      if l:win != winnr() && win_screenpos(l:win)[1] > l:rightedge
-	return 1
-      endif
-  endfor
-  return 0
+	let l:rightedge = win_screenpos(0)[1] + winwidth(0) - 1
+	for l:win in range(1, winnr('$'))
+		if l:win != winnr() && win_screenpos(l:win)[1] > l:rightedge
+			return 1
+		endif
+	endfor
+	return 0
 endfunction
 
 function! MoveRightMost()
-  let l:v = 0
-  let l:checkwin = HasWinToRight()
-  while l:checkwin == 1
-    execute "wincmd l"
-    let l:checkwin = HasWinToRight()
-    let l:v = l:v + 1
-  endwhile
-  return l:v 
+	let l:v = 0
+	let l:checkwin = HasWinToRight()
+	while l:checkwin == 1
+		execute "wincmd l"
+		let l:checkwin = HasWinToRight()
+		let l:v = l:v + 1
+	endwhile
+	return l:v 
 endfunction
 
 "{{ [ floaterm ]
@@ -239,40 +246,40 @@ let g:floaterm_height=0.7
 
 "{{ [ startify settings ]
 function s:projects()
-  return [
-	\ { 'line': 'Phages Website', 'path': '~/Documents/Websites/Phages/PhagesWebsite/js/sketch.js' },
-	\ { 'line': 'Artist Website', 'path': '~/Documents/Websites/ArtistWebsite/index.html' },
-	\ { 'line': 'MASA Debris Installation', 'path': '~/Documents/Processing/Project_MASA/SpaceDebris/SpaceDebris.pde' },
-	\ ]
+	return [
+				\ { 'line': 'Phages Website', 'path': '~/Documents/Websites/Phages/PhagesWebsite/js/sketch.js' },
+				\ { 'line': 'Artist Website', 'path': '~/Documents/Websites/ArtistWebsite/index.html' },
+				\ { 'line': 'MASA Debris Installation', 'path': '~/Documents/Processing/Project_MASA/SpaceDebris/SpaceDebris.pde' },
+				\ ]
 endfunction
 
 let g:startify_lists = [
-      \ { 'header': ['   MRU'], 'type': 'files' },
-      \ { 'header': ['   Projects'], 'type': function('s:projects') },
-      \ { 'header': ['   Configuration'], 'type': 'bookmarks' },
-      \ ]
+			\ { 'header': ['   MRU'], 'type': 'files' },
+			\ { 'header': ['   Projects'], 'type': function('s:projects') },
+			\ { 'header': ['   Configuration'], 'type': 'bookmarks' },
+			\ ]
 
 let g:startify_bookmarks = ['~/.skhdrc', '~/.yabairc', '~/.taskrc', '~/.gitconfig', '~/.eslintrc.json', '~/.zshrc', '~/.tern-config', '~/.eclimrc', '~/.config/kitty/kitty.conf', '~/.config/lf/lfrc', '~/.config/zathura/zathurarc', '~/.vit/config.ini', '~/Documents/Websites/ArtistWebsite/Blog/']
 let g:startify_files_number = 15
 let g:startify_custom_footer = ''
 
 function JSONparse(str)
-  let [null, false, true] = ['', 0, 1]
-  let l:stripped = substitute(a:str,'\C"\(\\.\|[^"\\]\)*"','','g')
-  if l:stripped !~# "[^,:{}\\[\\]0-9.\\-+Eaeflnr-u \n\r\t]"
-    try
-      return eval(substitute(a:str,"[\r\n]"," ",'g'))
-    catch
-    endtry
-  endif
+	let [null, false, true] = ['', 0, 1]
+	let l:stripped = substitute(a:str,'\C"\(\\.\|[^"\\]\)*"','','g')
+	if l:stripped !~# "[^,:{}\\[\\]0-9.\\-+Eaeflnr-u \n\r\t]"
+		try
+			return eval(substitute(a:str,"[\r\n]"," ",'g'))
+		catch
+		endtry
+	endif
 endfunction
 
 " display german word of the day
 let wordofday = JSONparse(system('cat ~/GermanLearning/wordofday.json'))
 
 let g:startify_custom_header_quotes = [
-      \ ['Word of the Day:', '', wordofday.german, wordofday.english, wordofday.spanish]
-      \ ] 
+			\ ['Word of the Day:', '', wordofday.german, wordofday.english, wordofday.spanish]
+			\ ] 
 
 let g:startify_custom_header = 'startify#pad(startify#fortune#boxed())'
 
@@ -301,39 +308,39 @@ let g:vimwiki_map_prefix = '<leader>u'
 
 "" change appearance and functionality in vimwiki files
 augroup foldwiki
-  autocmd!
-  autocmd BufEnter *.md,*.wiki hi VimwikiHeader1 guifg=#646C2F
-  autocmd BufEnter *.md,*.wiki hi VimwikiHeader2 guifg=#8E8474
-  autocmd BufEnter *.md,*.wiki hi VimwikiHeader3 guifg=#C2B02E
-  autocmd BufEnter *.md,*.wiki hi VimwikiHeader4 guifg=#8C5226
-  autocmd BufEnter *.md,*.wiki hi VimwikiHeader5 guifg=#326B62
-  autocmd BufEnter *.md,*.wiki hi VimwikiHeader6 guifg=#7DA182
-  autocmd BufEnter *.md,*.wiki setlocal linebreak wrap
-  " autocmd BufEnter *.md,*.wiki setlocal wm=5
+	autocmd!
+	autocmd BufEnter *.md,*.wiki hi VimwikiHeader1 guifg=#646C2F
+	autocmd BufEnter *.md,*.wiki hi VimwikiHeader2 guifg=#8E8474
+	autocmd BufEnter *.md,*.wiki hi VimwikiHeader3 guifg=#C2B02E
+	autocmd BufEnter *.md,*.wiki hi VimwikiHeader4 guifg=#8C5226
+	autocmd BufEnter *.md,*.wiki hi VimwikiHeader5 guifg=#326B62
+	autocmd BufEnter *.md,*.wiki hi VimwikiHeader6 guifg=#7DA182
+	autocmd BufEnter *.md,*.wiki setlocal linebreak wrap
+	" autocmd BufEnter *.md,*.wiki setlocal wm=5
 augroup END
 
 " Open vimwiki files in nvim using vfile: 
 function! VimwikiLinkHandler(link)
-  let link = a:link
-  if link =~# '^vfile:'
-    let link = link[1:]
-  else
-   return 0
-  endif
-  let link_infos = vimwiki#base#resolve_link(link)
-  if link_infos.filename == ''
-    echomsg 'Vimwiki Error: Unable to resolve link!'
-    return 0
-  else
-    exe 'tabnew ' . fnameescape(link_infos.filename)
-    return 1
-  endif
+	let link = a:link
+	if link =~# '^vfile:'
+		let link = link[1:]
+	else
+		return 0
+	endif
+	let link_infos = vimwiki#base#resolve_link(link)
+	if link_infos.filename == ''
+		echomsg 'Vimwiki Error: Unable to resolve link!'
+		return 0
+	else
+		exe 'tabnew ' . fnameescape(link_infos.filename)
+		return 1
+	endif
 endfunction
 
 "" make a template for diary entry
 augroup diaryTemplate
-  autocmd!
-  autocmd BufNewFile ~/wiki/diary/*.wiki :silent 0r !~/.config/nvim/bin/generate-vimwiki-diary-template.py '%'
+	autocmd!
+	autocmd BufNewFile ~/wiki/diary/*.wiki :silent 0r !~/.config/nvim/bin/generate-vimwiki-diary-template.py '%'
 augroup END
 
 "{{ [ tidalcycles ]
@@ -350,10 +357,10 @@ let g:scnvim_eval_flash_repeats = 2
 " set the 'foldmethod' to syntax
 let g:processing_fold = 1
 augroup processing
-  autocmd!
-  autocmd FileType processing setl cms=//%s
-  autocmd FileType processing setl nosmartindent
-  autocmd FileType processing setl cindent
+	autocmd!
+	autocmd FileType processing setl cms=//%s
+	autocmd FileType processing setl nosmartindent
+	autocmd FileType processing setl cindent
 augroup END
 
 "{{ [ vimtex ]
@@ -365,11 +372,11 @@ let g:vimtex_view_method = 'skim'
 command! -nargs=0 Prettier :CocCommand prettier.formatFile
 
 function! s:show_documentation()
-  if (index(['vim','help'], &filetype) >= 0)
-    execute 'h '.expand('<cword>')
-  else
-    call CocActionAsync('doHover')
-  endif
+	if (index(['vim','help'], &filetype) >= 0)
+		execute 'h '.expand('<cword>')
+	else
+		call CocActionAsync('doHover')
+	endif
 endfunction
 
 "{{ [ auto-pairs ]
@@ -388,9 +395,9 @@ let g:languagetool_disable_rules='UPPERCASE_SENTENCE_START'
 "{{ [ syntastic ]
 let g:syntastic_markdown_checkers = ['proselint']
 let g:syntastic_mode_map = { 'mode': 'passive',
-      \'active_filetypes': ["markdown"],
-      \'passive_filetypes': [] 
-      \}
+			\'active_filetypes': ["markdown"],
+			\'passive_filetypes': [] 
+			\}
 " let g:syntastic_mode = "passive"
 
 
@@ -400,63 +407,119 @@ let g:MemMachineIndex = "/Users/juaneduardoflores/wiki/Notes/notes_index.html.md
 
 "{{ [ pico-8 ]
 function! ChangeLightlineCol()
-  let s:palette = g:lightline#colorscheme#{g:lightline.colorscheme}#palette
-  let s:palette.normal.middle = [['#000000', '#FF004D', 0, 21]]
-  " let s:palette.tabline.middle = [['#000000', '#FF004D', 0, 21]]
-  call lightline#colorscheme()
+	let s:palette = g:lightline#colorscheme#{g:lightline.colorscheme}#palette
+	let s:palette.normal.middle = [['#000000', '#FF004D', 0, 21]]
+	" let s:palette.tabline.middle = [['#000000', '#FF004D', 0, 21]]
+	call lightline#colorscheme()
 endfunction
 
 augroup pico8 
-  autocmd!
-  autocmd BufEnter *.p8 set ft=pico8
-  autocmd BufEnter *.p8 set shiftwidth=2
-  autocmd BufEnter *.p8 execute "normal gg=G"
-  autocmd BufEnter *.p8 colorscheme pico
-  autocmd BufEnter *.p8 call ChangeLightlineCol() 
+	autocmd!
+	autocmd BufEnter *.p8 setlocal ft=pico8
+	autocmd BufEnter *.p8 setlocal shiftwidth=2
+	autocmd BufEnter *.p8 setlocal colorcolumn=
+	autocmd BufEnter *.p8 execute "normal gg=G"
+	autocmd BufEnter *.p8 colorscheme pico
+	autocmd BufEnter *.p8 call ChangeLightlineCol() 
+	autocmd BufEnter *.p8 command! -buffer Pico8Run call RunPico8()
+	autocmd BufEnter *.p8 nnoremap <buffer> <leader>r :silent execute '! /Applications/PICO-8.app/Contents/MacOS/pico8 -frameless 1 -run ' . '/Users/juaneduardoflores/Library/Application\ Support/pico-8/carts/' . '%:p:h:t' . '/' . '%'<CR>
 augroup END
+
+function! RunPico8() 
+	let cmdline = '"' . "!/Applications/PICO-8.app/Contents/MacOS/pico8" . '" -run %:p'
+	echom cmdline
+	execute "AsyncRun -cwd=cmdline"
+endfunction
+
+
+"{{ [ prettier ]
+" let g:prettier#autoformat_config_present = 1
+let g:prettier#autoformat_config_files = ['/Users/juaneduardoflores/.prettierrc']
+
+"{{ [ zen-mode ]
+lua << EOF
+  require("zen-mode").setup {
+    window = {
+    backdrop = 0.95, -- shade the backdrop of the Zen window. Set to 1 to keep the same as Normal
+    -- height and width can be:
+    -- * an absolute number of cells when > 1
+    -- * a percentage of the width / height of the editor when <= 1
+    width = 100, -- width of the Zen window
+    height = 1, -- height of the Zen window
+    -- by default, no options are changed for the Zen window
+    -- uncomment any of the options below, or add other vim.wo options you want to apply
+    options = {
+      -- signcolumn = "no", -- disable signcolumn
+      number = false, -- disable number column
+      relativenumber = false, -- disable relative numbers
+      -- cursorline = false, -- disable cursorline
+      -- cursorcolumn = false, -- disable cursor column
+      -- foldcolumn = "0", -- disable fold column
+      -- list = false, -- disable whitespace characters
+    },
+  },
+  plugins = {
+    tmux = true, -- disables the tmux statusline
+    -- this will change the font size on kitty when in Zen mode
+    -- to make this work, you need to set the following kitty options:
+    -- - allow_remote_control socket-only
+    -- - listen_on unix:/tmp/kitty
+    kitty = {
+      enabled = false,
+      -- font = "+4", -- font size increment
+    },
+  },
+  -- callback where you can add custom code when the Zen window opens
+  on_open = function(win)
+  end,
+  -- callback where you can add custom code when the Zen window closes
+  on_close = function()
+  end,
+  }
+EOF
 
 
 "{ [ Builtin Options and Settings ]
+"{{ [ Basic Settings ]
 "{{ [ Code Folding ]
 " Function to handle folding in the init.vim file.
 function! VimFolds(lnum)
-  " Get content of current line and the line below.
-  let l:cur_line = getline(a:lnum)
-  let l:next_line = getline(a:lnum+1)
-  if l:cur_line =~# '^"{'
-    return '>' . (matchend(l:cur_line, '"{*') - 1)
-  else 
-    if l:cur_line ==# '' && (matchend(l:next_line, '"{*') - 1) == 1
-      return 0
-    else
-      return '='
-    endif
-  endif
+	" Get content of current line and the line below.
+	let l:cur_line = getline(a:lnum)
+	let l:next_line = getline(a:lnum+1)
+	if l:cur_line =~# '^"{'
+		return '>' . (matchend(l:cur_line, '"{*') - 1)
+	else 
+		if l:cur_line ==# '' && (matchend(l:next_line, '"{*') - 1) == 1
+			return 0
+		else
+			return '='
+		endif
+	endif
 endfunction
 
 " Function to handle the text on a fold.
 function! MyFoldText()
-  let line = getline(v:foldstart)
-  let folded_line_num = v:foldend - v:foldstart
-  let line_text = substitute(line, '^"{\+', '', 'g')
-  let fillcharcount = &textwidth - len(line_text) - len(folded_line_num)
-  return '+' . line_text . repeat('.', fillcharcount) . ' (' . folded_line_num . ' L)'
+	let line = getline(v:foldstart)
+	let folded_line_num = v:foldend - v:foldstart
+	let line_text = substitute(line, '^"{\+', '', 'g')
+	let fillcharcount = &textwidth - len(line_text) - len(folded_line_num)
+	return '+' . line_text . repeat('.', fillcharcount) . ' (' . folded_line_num . ' L)'
 endfunction
 " Sets the chars after the FoldText() to just spaces.
 
 " Remembers folds when leave buffer, window, or saving file.
 augroup AutoSaveFolds
-  autocmd!
-  autocmd BufWinLeave,BufLeave,BufWritePost ?* nested silent! mkview!
-  autocmd BufWinEnter ?* silent! loadview
+	autocmd!
+	autocmd BufWinLeave,BufLeave,BufWritePost ?* nested silent! mkview!
+	autocmd BufWinEnter ?* silent! loadview
 augroup END 
 
-"{{ [ Basic Settings ]
 "" enable loading the plugin files for specific file types
 filetype plugin on
 "" true colors support
 if (has("termguicolors"))
- set termguicolors
+	set termguicolors
 endif
 "" a buffer is not unloaded but instead hidden when it is exited.
 set hidden
@@ -484,13 +547,13 @@ set nowrap
 set noswapfile
 "" formatoptions
 augroup formatOpts
-  autocmd! 
-  autocmd BufNewFile,BufRead * setlocal formatoptions-=o
+	autocmd! 
+	autocmd BufNewFile,BufRead * setlocal formatoptions-=o
 augroup END
 
 " ===== [ Java ] =====
 augroup JavaWorkflow
-  setl shiftwidth=8
+	setl shiftwidth=8
 augroup END
 
 " ===== [ Writing ] =====
@@ -498,59 +561,59 @@ set dictionary+=/usr/share/dict/words
 
 " ===== [ Blog ] =====
 augroup blogMake
-  autocmd!
-  autocmd BufWritePost /*Blog/*.md execute "AsyncRun -cwd=<root>/Blog make"
+	autocmd!
+	autocmd BufWritePost /*Blog/*.md execute "AsyncRun -cwd=<root>/Blog make"
 augroup END
 
 " ===== [ Language Lessons ] =====
 augroup lessonsMake
-  autocmd!
-  autocmd BufWritePost /*Spanish_Lessons/*.md execute "AsyncRun -cwd=<root>/Spanish_Lessons make"
+	autocmd!
+	autocmd BufWritePost /*Spanish_Lessons/*.md execute "AsyncRun -cwd=<root>/Spanish_Lessons make"
 augroup END
 
 " ===== [ Save Cursor Position and Viewport When Switching Buffers ] =====
 autocmd BufReadPost *
-\ if line("'\"") >= 1 && line("'\"") <= line("$") && &ft !~# 'commit'
-\ |   exe "normal! g`\""
-\ | endif
+			\ if line("'\"") >= 1 && line("'\"") <= line("$") && &ft !~# 'commit'
+			\ |   exe "normal! g`\""
+			\ | endif
 
 " ===== [ Saving Command Output to Buffer or fzf ] =====
 " e.g. 
 " ':P messages' will place all the messages in a temporary buffer.
 " ':P! messages' will allow you to search the output of messages via fzf.
 function! s:split(expr) abort
-  let lines = split(execute(a:expr, 'silent'), "[\n\r]")
-  let name = printf('capture://%s', a:expr)
+	let lines = split(execute(a:expr, 'silent'), "[\n\r]")
+	let name = printf('capture://%s', a:expr)
 
-  if bufexists(name) == v:true
-    execute 'bwipeout' bufnr(name)
-  end
+	if bufexists(name) == v:true
+		execute 'bwipeout' bufnr(name)
+	end
 
-  execute 'botright' 'new' name
+	execute 'botright' 'vnew' name
 
-  setlocal buftype=nofile
-  setlocal bufhidden=hide
-  setlocal noswapfile
-  setlocal filetype=vim
+	setlocal buftype=nofile
+	setlocal bufhidden=hide
+	setlocal noswapfile
+	setlocal filetype=vim
 
-  call append(line('$'), lines)
+	call append(line('$'), lines)
 endfunction
 
 function! s:fzf(expr) abort
-  let lines = split(execute(a:expr, 'silent'), "[\n\r]")
+	let lines = split(execute(a:expr, 'silent'), "[\n\r]")
 
-  return fzf#run({
-      \  'source': lines,
-      \  'options': '--tiebreak begin --ansi --header-lines 1'
-      \})
+	return fzf#run({
+				\  'source': lines,
+				\  'options': '--tiebreak begin --ansi --header-lines 1'
+				\})
 endfunction
 
 function s:capture(expr, bang) abort
-  if a:bang
-    call s:fzf(a:expr)
-  else
-    call s:split(a:expr)
-  endif
+	if a:bang
+		call s:fzf(a:expr)
+	else
+		call s:split(a:expr)
+	endif
 endfunction
 
 command! -nargs=1 -bang -complete=command P call s:capture(<q-args>, <bang>0)
@@ -561,17 +624,17 @@ let g:python3_host_prog = '/Users/juaneduardoflores/.pyenv/versions/py3nvim/bin/
 
 " ===== [ FileType Specific Settings ] =====
 augroup pythonShift
-  autocmd!
-  autocmd FileType python setlocal shiftwidth=4
+	autocmd!
+	autocmd FileType python setlocal shiftwidth=4
 augroup END
 
 
 "{ [ Key Mappings ]
-let mapleader = "<Space>"
+let mapleader = "\<Space>"
 
 " ===== [ Goyo ] =====
 "" Toggle Goyo (f for focus)	
-nnoremap <leader>F :Goyo<CR>
+nnoremap <leader>F :ZenMode<CR>
 
 " ===== [ Terminal ] =====
 "" Use esc to leave terminal insert mode
@@ -693,8 +756,8 @@ nmap <leader>cl <Plug>(scnvim-postwindow-clear)
 " ===== [ Misc. ] =====
 "" Use enter to open help file link
 augroup helpFiles
-  autocmd!
-  autocmd Filetype help nnoremap <buffer> <CR> <c-]>
+	autocmd!
+	autocmd Filetype help nnoremap <buffer> <CR> <c-]>
 augroup END
 "" Open file location in finder
 nnoremap <F1> :silent exec "!open" "%:p:h"<CR>
