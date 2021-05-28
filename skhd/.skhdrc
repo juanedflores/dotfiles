@@ -71,4 +71,3 @@ shift + lcmd - m : yabai -m window --minimize
 
 # append url to a "store for later" file
 shift + lcmd - insert : pbpaste | sed 's/%//' >> /Users/juaneduardoflores/wiki/Saved/urls/saved_urls.txt | say "Gerettet"
-
