@@ -29,10 +29,7 @@ Plug 'tpope/vim-surround'
 "" custom snippets
 Plug 'SirVer/ultisnips'
 "" browse the tags of the current file 
-" Plug 'majutsushi/tagbar'
 Plug 'preservim/tagbar'
-"" Move lines of code up/down
-Plug 'matze/vim-move' 
 "" Highlight matching html tag
 Plug 'gregsexton/MatchTag' 
 "" Language packs (installed for better html indentation)
@@ -44,9 +41,7 @@ Plug 'folke/zen-mode.nvim'
 
 " ===== [ Windows ] =====
 "" zoom/in out of windows
-Plug 'juaneduardoflores/vimzoom'
-"" smart resizing
-" Plug 'camspiers/lens.vim'
+Plug 'juanedflores/vimzoom'
 
 " ===== [ Version Control ] =====
 "" git wrapper
@@ -62,6 +57,7 @@ Plug 'kassio/neoterm'
 "" fuzzy file finder
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
+"" fzf-preview
 Plug 'yuki-ycino/fzf-preview.vim', { 'branch': 'release', 'do': ':UpdateRemotePlugins' }
 "" file manager in terminal
 Plug 'ptzz/lf.vim'
@@ -93,7 +89,9 @@ Plug 'tools-life/taskwiki'
 "" eclim plugin for communication between Eclipse and vim
 Plug 'starcraftman/vim-eclim'
 "" better Java syntax highlighting
-Plug 'juaneduardoflores/java-syntax.vim'
+Plug 'juanedflores/java-syntax.vim'
+Plug 'mfussenegger/nvim-jdtls'
+Plug 'mfussenegger/nvim-dap'
 
 " ===== [ Writing Documents ] =====
 "" support for writing LaTeX documents
@@ -103,6 +101,10 @@ Plug 'dpelle/vim-LanguageTool'
 "" syntastic for proselint
 Plug 'vim-syntastic/syntastic' 
 
+" ===== [ Markdown ] =====
+" fold markdown headers
+" Plug 'masukomi/vim-markdown-folding'
+
 " ===== [ Color Schemes ] =====
 "" contrasting colors
 Plug 'srcery-colors/srcery-vim'
@@ -110,13 +112,19 @@ Plug 'srcery-colors/srcery-vim'
 Plug 'Sammyalhashe/random_colorscheme.vim'
 
 " ===== [ Visual ] =====
-"" dim non-focused windows
-" Plug 'blueyed/vim-diminactive'
+" color code
 Plug 'chrisbra/Colorizer'
+
+" ===== [ Neovim 0.5 ] =====
+" configure LSP
+Plug 'neovim/nvim-lspconfig'
+Plug 'kabouzeid/nvim-lspinstall'
 
 " ===== [ My Plugins ] =====
 "" add vimwiki link directory info
-" Plug 'juaneduardoflores/vimwiki-memorymachine', { 'do': ':UpdateRemotePlugins' }
+" Plug 'juanedflores/vimwiki-memorymachine', { 'do': ':UpdateRemotePlugins' }
+" daily diary
+Plug 'juanedflores/DailyDiary'
 call plug#end()
 
 "{{ [ lightline settings ]
@@ -243,6 +251,7 @@ endfunction
 "" size of floating terminal
 let g:floaterm_width=0.8
 let g:floaterm_height=0.7
+let g:floaterm_opener='edit'
 
 "{{ [ startify settings ]
 function s:projects()
@@ -259,7 +268,7 @@ let g:startify_lists = [
 			\ { 'header': ['   Configuration'], 'type': 'bookmarks' },
 			\ ]
 
-let g:startify_bookmarks = ['~/.skhdrc', '~/.yabairc', '~/.taskrc', '~/.gitconfig', '~/.eslintrc.json', '~/.zshrc', '~/.tern-config', '~/.eclimrc', '~/.config/kitty/kitty.conf', '~/.config/lf/lfrc', '~/.config/zathura/zathurarc', '~/.vit/config.ini', '~/Documents/Websites/ArtistWebsite/Blog/']
+let g:startify_bookmarks = ['~/.skhdrc', '~/.yabairc', '~/.taskrc', '~/.gitconfig', '~/.eslintrc.json', '~/.zshrc', '~/.tern-config', '~/.eclimrc', '~/.config/kitty/kitty.conf', '~/.config/lf/lfrc', '~/.config/zathura/zathurarc', '~/.vit/config.ini', '~/Documents/Websites/ArtistWebsite/Blog/', '~/.hammerspoon/init.lua']
 let g:startify_files_number = 15
 let g:startify_custom_footer = ''
 
@@ -285,26 +294,25 @@ let g:startify_custom_header = 'startify#pad(startify#fortune#boxed())'
 
 "{{ [ vimwiki settings ]
 let wiki_1 = {}
-let wiki_1.path = '~/wiki/'
+let wiki_1.path = '~/vimwiki/'
 
 let wiki_2 = {}
-let wiki_2.path = '~/wiki/Notes/'
+let wiki_2.path = '~/vimwiki/Notes/'
 let wiki_2.syntax = 'markdown'
 let wiki_2.ext = '.md'
 let wiki_2.index = 'notes_index.html'
 
 let wiki_3 = {}
-let wiki_3.path = '~/wiki/Progress_Projects/'
+let wiki_3.path = '~/vimwiki/Progress_Projects/'
 
 let wiki_4 = {}
-let wiki_4.path = '~/wiki/German_Notes/'
+let wiki_4.path = '~/vimwiki/German_Notes/'
 let wiki_4.syntax = 'markdown'
 let wiki_4.ext = '.md'
 
 let g:vimwiki_list = [wiki_1, wiki_2, wiki_3, wiki_4]
-let g:vimwiki_folding = 'syntax'
-
 let g:vimwiki_map_prefix = '<leader>u'
+let g:vimwiki_folding = 'expr'
 
 "" change appearance and functionality in vimwiki files
 augroup foldwiki
@@ -337,11 +345,6 @@ function! VimwikiLinkHandler(link)
 	endif
 endfunction
 
-"" make a template for diary entry
-augroup diaryTemplate
-	autocmd!
-	autocmd BufNewFile ~/wiki/diary/*.wiki :silent 0r !~/.config/nvim/bin/generate-vimwiki-diary-template.py '%'
-augroup END
 
 "{{ [ tidalcycles ]
 let g:tidal_target = "terminal"
@@ -361,6 +364,7 @@ augroup processing
 	autocmd FileType processing setl cms=//%s
 	autocmd FileType processing setl nosmartindent
 	autocmd FileType processing setl cindent
+	autocmd FileType processing nnoremap <buffer> <leader>r :RunProcessing<CR>
 augroup END
 
 "{{ [ vimtex ]
@@ -403,7 +407,7 @@ let g:syntastic_mode_map = { 'mode': 'passive',
 
 "{{ [ memorymachine ]
 let g:MemMachineEnable = 1
-let g:MemMachineIndex = "/Users/juaneduardoflores/wiki/Notes/notes_index.html.md"
+let g:MemMachineIndex = "/Users/juaneduardoflores/vimwiki/Notes/notes_index.html.md"
 
 "{{ [ pico-8 ]
 function! ChangeLightlineCol()
@@ -478,6 +482,112 @@ lua << EOF
   }
 EOF
 
+"{{ [ lspconfig install ]
+lua << EOF
+-- keymaps
+local on_attach = function(client, bufnr)
+  local function buf_set_keymap(...) vim.api.nvim_buf_set_keymap(bufnr, ...) end
+  local function buf_set_option(...) vim.api.nvim_buf_set_option(bufnr, ...) end
+
+  buf_set_option('omnifunc', 'v:lua.vim.lsp.omnifunc')
+
+  -- Mappings.
+  local opts = { noremap=true, silent=true }
+  buf_set_keymap('n', 'gD', '<Cmd>lua vim.lsp.buf.declaration()<CR>', opts)
+  buf_set_keymap('n', 'gd', '<Cmd>lua vim.lsp.buf.definition()<CR>', opts)
+  buf_set_keymap('n', 'K', '<Cmd>lua vim.lsp.buf.hover()<CR>', opts)
+  buf_set_keymap('n', 'gi', '<cmd>lua vim.lsp.buf.implementation()<CR>', opts)
+  buf_set_keymap('n', '<C-k>', '<cmd>lua vim.lsp.buf.signature_help()<CR>', opts)
+  buf_set_keymap('n', '<space>wa', '<cmd>lua vim.lsp.buf.add_workspace_folder()<CR>', opts)
+  buf_set_keymap('n', '<space>wr', '<cmd>lua vim.lsp.buf.remove_workspace_folder()<CR>', opts)
+  buf_set_keymap('n', '<space>wl', '<cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<CR>', opts)
+ 	buf_set_keymap('n', '<space>D', '<cmd>lua vim.lsp.buf.type_definition()<CR>', opts)
+  buf_set_keymap('n', '<space>rn', '<cmd>lua vim.lsp.buf.rename()<CR>', opts)
+  buf_set_keymap('n', 'gr', '<cmd>lua vim.lsp.buf.references()<CR>', opts)
+  buf_set_keymap('n', '<space>e', '<cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>', opts)
+  buf_set_keymap('n', '[d', '<cmd>lua vim.lsp.diagnostic.goto_prev()<CR>', opts)
+  buf_set_keymap('n', ']d', '<cmd>lua vim.lsp.diagnostic.goto_next()<CR>', opts)
+  buf_set_keymap('n', '<space>q', '<cmd>lua vim.lsp.diagnostic.set_loclist()<CR>', opts)
+
+  -- Set some keybinds conditional on server capabilities
+  if client.resolved_capabilities.document_formatting then
+    buf_set_keymap("n", "<space>f", "<cmd>lua vim.lsp.buf.formatting()<CR>", opts)
+  elseif client.resolved_capabilities.document_range_formatting then
+    buf_set_keymap("n", "<space>f", "<cmd>lua vim.lsp.buf.range_formatting()<CR>", opts)
+  end
+
+  -- Set autocommands conditional on server_capabilities
+  if client.resolved_capabilities.document_highlight then
+    vim.api.nvim_exec([[
+    augroup lsp_document_highlight
+    autocmd! * <buffer>
+    autocmd CursorHold <buffer> lua vim.lsp.buf.document_highlight()
+    autocmd CursorMoved <buffer> lua vim.lsp.buf.clear_references()
+    augroup END
+    ]], false)
+  end
+end 
+
+-- config that activates keymaps and enables snippet support
+local function make_config()
+  local capabilities = vim.lsp.protocol.make_client_capabilities()
+  capabilities.textDocument.completion.completionItem.snippetSupport = true
+  return {
+    -- enable snippet support
+    capabilities = capabilities,
+    -- map buffer local keybindings when the language server attaches
+    on_attach = on_attach,
+  }
+end
+
+-- lsp-install
+local function setup_servers()
+  require'lspinstall'.setup()
+
+  -- get all installed servers
+  local servers = require'lspinstall'.installed_servers()
+
+  for _, server in pairs(servers) do
+    local config = make_config()
+
+		-- language specific config
+    if server == "python" then
+      config.settings = lua_settings
+    end
+
+    require'lspconfig'[server].setup(config)
+  end
+end
+
+setup_servers()
+
+-- Automatically reload after `:LspInstall <server>` so we don't have to restart neovim
+require'lspinstall'.post_install_hook = function ()
+  setup_servers() -- reload installed servers
+  vim.cmd("bufdo e") -- this triggers the FileType autocmd that starts the server
+end
+
+-- Make diagnostics apepar in floating window
+vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
+  vim.lsp.diagnostic.on_publish_diagnostics, {
+    virtual_text = false,
+    underline = true,
+    signs = true,
+  }
+)
+vim.cmd [[autocmd CursorHold * lua vim.lsp.diagnostic.show_line_diagnostics()]]
+vim.cmd [[autocmd CursorHoldI * silent! lua vim.lsp.buf.signature_help()]]
+EOF
+
+
+"{{ [ nvim-jdtls ]
+if has('nvim-0.5')
+  augroup lsp
+    au!
+		au FileType java lua require'jdtls_config'.setup()
+    " au FileType java lua require('jdtls').start_or_attach({cmd = {'java-lsp.sh'}})
+  augroup end
+endif
 
 "{ [ Builtin Options and Settings ]
 "{{ [ Basic Settings ]
@@ -633,7 +743,7 @@ augroup END
 let mapleader = "\<Space>"
 
 " ===== [ Goyo ] =====
-"" Toggle Goyo (f for focus)	
+"" Toggle ZenMode (f for focus)	
 nnoremap <leader>F :ZenMode<CR>
 
 " ===== [ Terminal ] =====
@@ -684,6 +794,10 @@ nnoremap <C-y> 5<C-y>5k
 "" move viewport by one line up/down
 nnoremap § <C-Y>k
 noremap ¶ <C-E>j
+"" open a vsplit to the right
+nnoremap √ :vsplit<CR>
+"" close a buffer
+nnoremap œ :q<CR>
 
 " ===== [ Startify ] =====
 "" go to the start screen
@@ -705,6 +819,7 @@ nmap <leader>uu4 4<Plug>VimwikiIndex
 nmap <leader>uui <Plug>VimwikiDiaryIndex
 nmap <leader>uuu <Plug>VimwikiMakeDiaryNote
 nmap <leader>uuv :exec "vsplit"<CR> :exec "VimwikiMakeDiaryNote"<CR>
+nmap <leader>d :call DailyDiaryToggle()<CR>
 
 " ===== [ Window ] =====
 "" resize windows evenly
@@ -772,14 +887,13 @@ nnoremap <leader>cm :exec 'redir @+ \| 1message \| redir END'
 
 "{ [ Color Scheme ]
 let g:despacio_Sunset = 1
-" let g:despacio_Twilight = 1
-" let g:despacio_Midnight = 1
-" let g:despacio_Pitch = 1
 
 colorscheme despacio
 let g:default_theme = 'despacio'
 
 let g:random_theme = 1
+
+highlight LspDiagnosticsDefaultError guifg=#af5f5f
 
 " ===== [ Keywords ] =====
 syn match myNOTE "\<\l\{2\}\NOTE\>"
