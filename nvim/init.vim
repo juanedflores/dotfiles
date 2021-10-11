@@ -1,17 +1,13 @@
 " ===== [ Juan Flores Neovim Config File ] =====
 " ===== [ ------juaneduardoflores.com----- ] =====
 
+set termguicolors
+
 "{ [ Plugins ]
 call plug#begin('~/.config/nvim/plugged')
 " ===== [ Quality of Life ] =====
 "" starting screen
 Plug 'mhinz/vim-startify'
-" remove everything but code
-Plug 'junegunn/goyo.vim'
-" code focusing
-Plug 'junegunn/limelight.vim'
-" adds the line in the bottom with info
-Plug 'itchyny/lightline.vim'
 " run terminal commands asynchronously
 Plug 'skywind3000/asyncrun.vim'
 " nvim in the browser
@@ -20,10 +16,8 @@ Plug 'glacambre/firenvim', { 'do': { _ -> firenvim#install(0) } }
 " ===== [ Code Editing ] =====
 "" toggle comments
 Plug 'tpope/vim-commentary'
-" auto pairs parantheses like chars
-Plug 'jiangmiao/auto-pairs'
 "" code completion
-Plug 'neoclide/coc.nvim', {'branch': 'release'}
+" Plug 'neoclide/coc.nvim', {'branch': 'release'}
 "" keybindings for surrounding words or selections with something
 Plug 'tpope/vim-surround'
 "" custom snippets
@@ -34,10 +28,8 @@ Plug 'preservim/tagbar'
 Plug 'gregsexton/MatchTag' 
 "" Language packs (installed for better html indentation)
 Plug 'sheerun/vim-polyglot'
-"" Code Formatter
-Plug 'prettier/vim-prettier', { 'do': 'yarn install' }
-"" Zen Mode
-Plug 'folke/zen-mode.nvim'
+" display markers
+Plug 'kshenoy/vim-signature'
 
 " ===== [ Windows ] =====
 "" zoom/in out of windows
@@ -68,6 +60,8 @@ Plug 'scrooloose/nerdtree'
 Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
 " icons for nerdtree
 Plug 'ryanoasis/vim-devicons'
+" enable git icons on files
+Plug 'Xuyuanp/nerdtree-git-plugin'
 
 " ===== [ Creative Coding ] =====
 "" tidalcycles
@@ -88,8 +82,7 @@ Plug 'tools-life/taskwiki'
 " ===== [ Java Development ] =====
 "" eclim plugin for communication between Eclipse and vim
 Plug 'starcraftman/vim-eclim'
-"" better Java syntax highlighting
-Plug 'juanedflores/java-syntax.vim'
+" java language server
 Plug 'mfussenegger/nvim-jdtls'
 Plug 'mfussenegger/nvim-dap'
 
@@ -100,10 +93,6 @@ Plug 'lervag/vimtex'
 Plug 'dpelle/vim-LanguageTool' 
 "" syntastic for proselint
 Plug 'vim-syntastic/syntastic' 
-
-" ===== [ Markdown ] =====
-" fold markdown headers
-" Plug 'masukomi/vim-markdown-folding'
 
 " ===== [ Color Schemes ] =====
 "" contrasting colors
@@ -119,61 +108,38 @@ Plug 'chrisbra/Colorizer'
 " configure LSP
 Plug 'neovim/nvim-lspconfig'
 Plug 'kabouzeid/nvim-lspinstall'
+Plug 'creativenull/diagnosticls-nvim'
+" better syntax highlighting
+Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'} 
+Plug 'nvim-treesitter/playground'
+" better quickfix window
+Plug 'kevinhwang91/nvim-bqf'
+" some icons
+Plug 'kyazdani42/nvim-web-devicons'
+" file explorer
+Plug 'kyazdani42/nvim-tree.lua'
+" new statusline
+Plug 'glepnir/galaxyline.nvim' , {'branch': 'main'}
+" auto pair
+Plug 'windwp/nvim-autopairs'
+" Zen Mode
+Plug 'folke/zen-mode.nvim'
+" focus
+Plug 'folke/twilight.nvim'
+" colorizer
+Plug 'norcalli/nvim-colorizer.lua'
 
+Plug 'folke/lsp-colors.nvim'
+
+Plug 'hrsh7th/nvim-compe'
+
+Plug 'AndrewRadev/tagalong.vim'
 " ===== [ My Plugins ] =====
-"" add vimwiki link directory info
-" Plug 'juanedflores/vimwiki-memorymachine', { 'do': ':UpdateRemotePlugins' }
 " daily diary
 Plug 'juanedflores/DailyDiary'
+"" add vimwiki link directory info
+" Plug 'juanedflores/vimwiki-memorymachine', { 'do': ':UpdateRemotePlugins' }
 call plug#end()
-
-"{{ [ lightline settings ]
-"" noshowmode because -- INSERT -- is unecessary with lightline plugin
-set noshowmode
-let g:lightline = {
-			\ 'colorscheme': 'jellybeans',
-			\ 'active': {
-			\   'left': [ [ 'mode', 'paste' ],
-			\             [ 'cocstatus', 'readonly', 'filename', 'modified' ],
-			\		    [ 'zoomed', 'gitbranch' ] ]
-			\ },
-			\ 'component_expand': {
-			\	  'zoomed': 'IsZoomed',
-			\ },
-			\ 'component_function': {
-			\   'cocstatus': 'coc#status',
-			\   'gitbranch': 'FugitiveHead',
-			\ },
-			\ 'component_type': {
-			\   'zoomed': 'warning',
-			\}
-			\ }
-
-" Use auocmd to force lightline update.
-autocmd User CocStatusChange,CocDiagnosticChange call lightline#update()
-
-"{{ [ Goyo settings ]
-"" Goyo size
-let g:goyo_width=85
-let g:goyo_height=85
-
-function! s:goyo_enter()
-	set nowrap
-	set noshowmode
-	set noshowcmd
-	execute "normal \<C-W>="
-	execute "normal 0"
-endfunction
-function! s:goyo_leave()
-	execute "source ~/.config/nvim/colors/specialcolors.vim"
-	execute "edit"
-endfunction
-autocmd! User GoyoEnter nested call <SID>goyo_enter()
-autocmd! User GoyoLeave nested call <SID>goyo_leave()
-
-"{{ [ limelight settings ]
-"" Color of text not in focus
-let g:limelight_conceal_guifg = '#1a212e'
 
 "{{ [ NERDTree settings ]
 "" Function to open nerd tree in the current file directory.
@@ -190,6 +156,7 @@ function! NERDTreeToggleInCurDir()
 	endif
 endfunction
 
+let g:NERDTreeMapMenu='µ'
 
 "{{ [ ultisnips settings ]
 " let g:UltiSnipsExpandTrigger="ƒ"
@@ -483,79 +450,23 @@ lua << EOF
 EOF
 
 "{{ [ lspconfig install ]
+
 lua << EOF
--- keymaps
-local on_attach = function(client, bufnr)
-  local function buf_set_keymap(...) vim.api.nvim_buf_set_keymap(bufnr, ...) end
-  local function buf_set_option(...) vim.api.nvim_buf_set_option(bufnr, ...) end
-
-  buf_set_option('omnifunc', 'v:lua.vim.lsp.omnifunc')
-
-  -- Mappings.
-  local opts = { noremap=true, silent=true }
-  buf_set_keymap('n', 'gD', '<Cmd>lua vim.lsp.buf.declaration()<CR>', opts)
-  buf_set_keymap('n', 'gd', '<Cmd>lua vim.lsp.buf.definition()<CR>', opts)
-  buf_set_keymap('n', 'K', '<Cmd>lua vim.lsp.buf.hover()<CR>', opts)
-  buf_set_keymap('n', 'gi', '<cmd>lua vim.lsp.buf.implementation()<CR>', opts)
-  buf_set_keymap('n', '<C-k>', '<cmd>lua vim.lsp.buf.signature_help()<CR>', opts)
-  buf_set_keymap('n', '<space>wa', '<cmd>lua vim.lsp.buf.add_workspace_folder()<CR>', opts)
-  buf_set_keymap('n', '<space>wr', '<cmd>lua vim.lsp.buf.remove_workspace_folder()<CR>', opts)
-  buf_set_keymap('n', '<space>wl', '<cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<CR>', opts)
- 	buf_set_keymap('n', '<space>D', '<cmd>lua vim.lsp.buf.type_definition()<CR>', opts)
-  buf_set_keymap('n', '<space>rn', '<cmd>lua vim.lsp.buf.rename()<CR>', opts)
-  buf_set_keymap('n', 'gr', '<cmd>lua vim.lsp.buf.references()<CR>', opts)
-  buf_set_keymap('n', '<space>e', '<cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>', opts)
-  buf_set_keymap('n', '[d', '<cmd>lua vim.lsp.diagnostic.goto_prev()<CR>', opts)
-  buf_set_keymap('n', ']d', '<cmd>lua vim.lsp.diagnostic.goto_next()<CR>', opts)
-  buf_set_keymap('n', '<space>q', '<cmd>lua vim.lsp.diagnostic.set_loclist()<CR>', opts)
-
-  -- Set some keybinds conditional on server capabilities
-  if client.resolved_capabilities.document_formatting then
-    buf_set_keymap("n", "<space>f", "<cmd>lua vim.lsp.buf.formatting()<CR>", opts)
-  elseif client.resolved_capabilities.document_range_formatting then
-    buf_set_keymap("n", "<space>f", "<cmd>lua vim.lsp.buf.range_formatting()<CR>", opts)
-  end
-
-  -- Set autocommands conditional on server_capabilities
-  if client.resolved_capabilities.document_highlight then
-    vim.api.nvim_exec([[
-    augroup lsp_document_highlight
-    autocmd! * <buffer>
-    autocmd CursorHold <buffer> lua vim.lsp.buf.document_highlight()
-    autocmd CursorMoved <buffer> lua vim.lsp.buf.clear_references()
-    augroup END
-    ]], false)
-  end
-end 
-
--- config that activates keymaps and enables snippet support
-local function make_config()
-  local capabilities = vim.lsp.protocol.make_client_capabilities()
-  capabilities.textDocument.completion.completionItem.snippetSupport = true
-  return {
-    -- enable snippet support
-    capabilities = capabilities,
-    -- map buffer local keybindings when the language server attaches
-    on_attach = on_attach,
-  }
-end
-
 -- lsp-install
 local function setup_servers()
   require'lspinstall'.setup()
-
   -- get all installed servers
   local servers = require'lspinstall'.installed_servers()
-
   for _, server in pairs(servers) do
-    local config = make_config()
-
+		for _, server in pairs(servers) do
+    	require'lspconfig'[server].setup{}
+  	end
+    --local config = make_config()
 		-- language specific config
-    if server == "python" then
-      config.settings = lua_settings
-    end
-
-    require'lspconfig'[server].setup(config)
+    --if server == "python" then
+    --  config.settings = lua_settings
+    --end
+    --require'lspconfig'[server].setup(config)
   end
 end
 
@@ -579,18 +490,140 @@ vim.cmd [[autocmd CursorHold * lua vim.lsp.diagnostic.show_line_diagnostics()]]
 vim.cmd [[autocmd CursorHoldI * silent! lua vim.lsp.buf.signature_help()]]
 EOF
 
+augroup formatonsave
+	au!
+	au BufWritePre *.json lua vim.lsp.buf.range_formatting({},{0,0},{vim.fn.line("$")+1,0})
+	" au BufWritePre *.js lua vim.lsp.buf.formatting()
+augroup end
 
 "{{ [ nvim-jdtls ]
 if has('nvim-0.5')
   augroup lsp
     au!
+		" au FileType json lua require'jsonls_config'.setup()
 		au FileType java lua require'jdtls_config'.setup()
-    " au FileType java lua require('jdtls').start_or_attach({cmd = {'java-lsp.sh'}})
   augroup end
 endif
 
+
+"{{ [ treesitter ]
+lua << EOF
+require'nvim-treesitter.configs'.setup {
+  highlight = {
+    enable = true,
+		custom_captures = {
+      -- Highlight the @foo.bar capture group with the "Identifier" highlight group.
+			["foo.bar"] = "Identifier",
+    },
+    disable = {},
+  },
+  ensure_installed = {
+		"java",
+		"javascript",
+  },  
+	indent = {
+    enable = true
+  },
+  incremental_selection = {
+    enable = true,
+    keymaps = {
+      init_selection = "gnn",
+      node_incremental = "gni",
+      scope_incremental = "gnc",
+      node_decremental = "gnd",
+    },
+  },
+  playground = {
+    enable = true,
+    disable = {},
+    updatetime = 25, -- Debounced time for highlighting nodes in the playground from source code
+    persist_queries = false, -- Whether the query persists across vim sessions
+    keybindings = {
+      toggle_query_editor = 'o',
+      toggle_hl_groups = 'i',
+      toggle_injected_languages = 't',
+      toggle_anonymous_nodes = 'a',
+      toggle_language_display = 'I',
+      focus_language = 'f',
+      unfocus_language = 'F',
+      update = 'R',
+      goto_node = '<cr>',
+      show_help = '?',
+    },
+	  query_linter = { 
+			enable = true,
+    	use_virtual_text = true,
+    	lint_events = {"BufWrite", "CursorHold"},
+  	},
+  }
+}
+EOF
+
+"{{ [ TrueZen ]
+lua << EOF
+integrations = {
+  integration_galaxyline = false,
+  integration_vim_airline = false,
+  integration_vim_powerline = false,
+  integration_tmux = false,
+  integration_express_line = false,
+  integration_vim_signify = false,
+  integration_tzfocus_tzataraxis = false,
+  integration_gitsigns = false
+}
+EOF
+
+"{{ [ Galaxy Line ]
+lua require'galaxyline_config'
+
+"{{ [ nvim-autopairs ]
+lua require'nvim-autopairs'.setup()
+"{{ [ Twilight ]
+lua << EOF
+  require("twilight").setup {
+		 dimming = {
+			alpha = 0.05, -- amount of dimming
+			-- we try to get the foreground from the highlight groups or fallback color
+			color = { "Normal", "#ffffff" },
+		},
+		context = 10, -- amount of lines we will try to show around the current line
+		-- treesitter is used to automatically expand the visible text,
+		-- but you can further control the types of nodes that should always be fully expanded
+		expand = { -- for treesitter, we we always try to expand to the top-most ancestor with these types
+			"function",
+			"method",
+			"table",
+			"if_statement",
+		},
+		exclude = {".vim"}, -- exclude these filetypes dimming = {
+  }
+EOF
+
+"{{ [ nvim-colorizer ]
+lua << EOF
+-- Use the `default_options` as the second parameter, which uses
+-- `foreground` for every mode. This is the inverse of the previous
+-- setup configuration.
+require 'colorizer'.setup {
+  '*'; -- Highlight all files, but customize some others.
+  css = { rgb_fn = true; }; -- Enable parsing rgb(...) functions in css.
+  html = { names = false; } -- Disable parsing "names" like Blue or Gray
+}
+EOF
+
+"{{ [ nvim-compe ]
+lua << EOF
+require'compe'.setup({
+	enabled = true,
+	source = {
+		path = true,
+		buffer = true,
+		nvim_lsp = true,
+	},
+})
+EOF
+
 "{ [ Builtin Options and Settings ]
-"{{ [ Basic Settings ]
 "{{ [ Code Folding ]
 " Function to handle folding in the init.vim file.
 function! VimFolds(lnum)
@@ -625,12 +658,9 @@ augroup AutoSaveFolds
 	autocmd BufWinEnter ?* silent! loadview
 augroup END 
 
+"{{ [ Basic Settings ]
 "" enable loading the plugin files for specific file types
 filetype plugin on
-"" true colors support
-if (has("termguicolors"))
-	set termguicolors
-endif
 "" a buffer is not unloaded but instead hidden when it is exited.
 set hidden
 "" sets numbers on
@@ -659,11 +689,6 @@ set noswapfile
 augroup formatOpts
 	autocmd! 
 	autocmd BufNewFile,BufRead * setlocal formatoptions-=o
-augroup END
-
-" ===== [ Java ] =====
-augroup JavaWorkflow
-	setl shiftwidth=8
 augroup END
 
 " ===== [ Writing ] =====
@@ -773,12 +798,11 @@ nnoremap <leader>W :vertical sb#<CR>
 " ===== [ FZF ] =====
 "" show and select any opened buffer
 nnoremap <leader>o :CocCommand fzf-preview.Buffers<CR>
-nnoremap <leader>O :CocCommand fzf-preview.DirectoryFiles<CR>
+nnoremap <leader>O :CocCommand fzf-preview.ProjectFiles<CR>
 
 " ===== [ LF ] =====
 "" open lf file manager
-nnoremap <leader>p :FloatermNew lf<CR>
-nnoremap <leader>P :LfCurrentDirectory<CR>
+nnoremap <leader>p ::FloatermNew lf<CR>
 
 " ===== [ Code Movement/Editing ] =====
 "" z. will shift placement of cursor to top 1/4 of file view instead of middle
@@ -887,13 +911,22 @@ nnoremap <leader>cm :exec 'redir @+ \| 1message \| redir END'
 
 "{ [ Color Scheme ]
 let g:despacio_Sunset = 1
-
 colorscheme despacio
 let g:default_theme = 'despacio'
 
 let g:random_theme = 1
 
+
 highlight LspDiagnosticsDefaultError guifg=#af5f5f
+
+lua << EOF
+ require("lsp-colors").setup({
+   Error = "#af5f5f",
+   Warning = "#e0af68",
+   Information = "#0db9d7",
+   Hint = "#10B981"
+ })
+EOF
 
 " ===== [ Keywords ] =====
 syn match myNOTE "\<\l\{2\}\NOTE\>"
@@ -901,4 +934,5 @@ hi def link myNOTE SignColumn
 
 " ===== [ General ] =====
 execute "source ~/.config/nvim/colors/specialcolors.vim"
+
 " vim: foldmethod=expr foldexpr=VimFolds(v\:lnum) foldtext=MyFoldText() fillchars=fold\:\ 
