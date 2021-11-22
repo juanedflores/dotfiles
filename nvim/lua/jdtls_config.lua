@@ -1,8 +1,8 @@
 local M = {}
 function M.setup()
-  vim.cmd[[set softtabstop=2]]
-  vim.cmd[[set shiftwidth=2]]
-  vim.cmd[[set noexpandtab]]
+  vim.cmd[[setlocal softtabstop=2]]
+  vim.cmd[[setlocal shiftwidth=2]]
+  vim.cmd[[setlocal noexpandtab]]
 
   -- local function jdtls_on_attach(client, bufnr)
   --   on_attach(client, bufnr)
@@ -21,7 +21,7 @@ function M.setup()
 
   local config = {}
   config.cmd = {'java-lsp.sh'}
-  config.on_attach = jdtls_on_attach
+  -- config.on_attach = jdtls_on_attach
 
   config['on_attach'] = function(client, bufnr)
     -- With `hotcodereplace = 'auto' the debug adapter will try to apply code changes
@@ -45,9 +45,6 @@ function M.setup()
 
   config.init_options = {
     bundles = bundles;
-    -- bundles = {
-    --   vim.fn.glob("/Users/juaneduardoflores/java-debug/com.microsoft.java.debug.plugin/target/com.microsoft.java.debug.plugin-*.jar")
-    -- }
   }
 
   require('jdtls.setup').add_commands()
@@ -83,14 +80,16 @@ function M.setup()
   map('n','<leader>ca', '<cmd>lua require"jdtls".code_action()<CR>')
   map('n','<leader>ar',  '<cmd>lua vim.lsp.buf.rename()<CR>')
   -- Few language severs support these three
-  map('n','<leader>cf',  '<cmd>lua vim.lsp.buf.formatting()<CR>')
+  map('n','<leader>f',  '<cmd>lua vim.lsp.buf.formatting()<CR>')
   map('n','<leader>ai',  '<cmd>lua vim.lsp.buf.incoming_calls()<CR>')
   map('n','<leader>ao',  '<cmd>lua vim.lsp.buf.outgoing_calls()<CR>')
   -- Diagnostics mapping
-  map('n','<leader>ee', '<cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>')
+  map('n','<leader>ee', '<cmd>lua vim.lsp.diagnostic.set_loclist()<CR>')
+  -- map('n','<leader>ee', '<cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>')
   map('n','<leader>en', '<cmd>lua vim.lsp.diagnostic.goto_next()<CR>')
   map('n','<leader>ep', '<cmd>lua vim.lsp.diagnostic.goto_prev()<CR>')
   -- Debugging
+  map("n","<leader>sr", "<cmd>lua require('jdtls.dap').setup_dap_main_class_configs()<CR>")
   map("n","<leader>r", "<cmd>lua require('dap').continue()<CR>")
   map("n","<leader>tb", "<cmd>lua require('dap').toggle_breakpoint()<CR>")
 

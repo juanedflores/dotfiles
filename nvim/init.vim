@@ -17,11 +17,11 @@ Plug 'glacambre/firenvim', { 'do': { _ -> firenvim#install(0) } }
 "" toggle comments
 Plug 'tpope/vim-commentary'
 "" code completion
-" Plug 'neoclide/coc.nvim', {'branch': 'release'}
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
 "" keybindings for surrounding words or selections with something
 Plug 'tpope/vim-surround'
 "" custom snippets
-Plug 'SirVer/ultisnips'
+"" Plug 'SirVer/ultisnips'
 "" browse the tags of the current file 
 Plug 'preservim/tagbar'
 "" Highlight matching html tag
@@ -68,16 +68,22 @@ Plug 'Xuyuanp/nerdtree-git-plugin'
 Plug 'tidalcycles/vim-tidal'
 "" SuperCollider
 Plug 'davidgranstrom/scnvim', { 'do': {-> scnvim#install() } }
+"" SuperCollider snippets
+Plug 'madskjeldgaard/lua-supercollider-snippets'
 "" Processing
 Plug 'sophacles/vim-processing'
 "" Pico-8 Syntax
 Plug 'aquova/vim-pico8-syntax'
+"" Tidal Cycles
+Plug 'tidalcycles/vim-tidal'
 
 " ===== [ Wiki/TaskManager ] =====
 "" manage notes and documentation
 Plug 'vimwiki/vimwiki'
 "" taskwarrior in vimwiki
 Plug 'tools-life/taskwiki'
+"" taskwarrior interface for vim
+Plug 'xarthurx/taskwarrior.vim' 
 
 " ===== [ Java Development ] =====
 "" eclim plugin for communication between Eclipse and vim
@@ -131,9 +137,13 @@ Plug 'norcalli/nvim-colorizer.lua'
 
 Plug 'folke/lsp-colors.nvim'
 
-Plug 'hrsh7th/nvim-compe'
+Plug 'hrsh7th/nvim-cmp'
+Plug 'hrsh7th/cmp-nvim-lsp'
 
 Plug 'AndrewRadev/tagalong.vim'
+
+Plug 'norcalli/snippets.nvim'
+
 " ===== [ My Plugins ] =====
 " daily diary
 Plug 'juanedflores/DailyDiary'
@@ -224,7 +234,7 @@ let g:floaterm_opener='edit'
 function s:projects()
 	return [
 				\ { 'line': 'Phages Website', 'path': '~/Documents/Websites/Phages/PhagesWebsite/js/sketch.js' },
-				\ { 'line': 'Artist Website', 'path': '~/Documents/Websites/ArtistWebsite/index.html' },
+				\ { 'line': 'Artist Website', 'path': '~/Documents/Websites/juanedflores-Website/index.html' },
 				\ { 'line': 'MASA Debris Installation', 'path': '~/Documents/Processing/Project_MASA/SpaceDebris/SpaceDebris.pde' },
 				\ ]
 endfunction
@@ -458,25 +468,17 @@ local function setup_servers()
   -- get all installed servers
   local servers = require'lspinstall'.installed_servers()
   for _, server in pairs(servers) do
-		for _, server in pairs(servers) do
-    	require'lspconfig'[server].setup{}
-  	end
-    --local config = make_config()
-		-- language specific config
-    --if server == "python" then
-    --  config.settings = lua_settings
-    --end
-    --require'lspconfig'[server].setup(config)
+    require'lspconfig'[server].setup{}
   end
 end
 
 setup_servers()
 
 -- Automatically reload after `:LspInstall <server>` so we don't have to restart neovim
-require'lspinstall'.post_install_hook = function ()
-  setup_servers() -- reload installed servers
-  vim.cmd("bufdo e") -- this triggers the FileType autocmd that starts the server
-end
+ require'lspinstall'.post_install_hook = function ()
+   setup_servers() -- reload installed servers
+   vim.cmd("bufdo e") -- this triggers the FileType autocmd that starts the server
+ end
 
 -- Make diagnostics apepar in floating window
 vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
@@ -485,6 +487,9 @@ vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
     underline = true,
     signs = true,
   }
+)
+vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(
+  vim.lsp.handlers.hover, { focusable = false }
 )
 vim.cmd [[autocmd CursorHold * lua vim.lsp.diagnostic.show_line_diagnostics()]]
 vim.cmd [[autocmd CursorHoldI * silent! lua vim.lsp.buf.signature_help()]]
@@ -611,17 +616,14 @@ require 'colorizer'.setup {
 }
 EOF
 
-"{{ [ nvim-compe ]
+"{{ [ snippets ]"
 lua << EOF
-require'compe'.setup({
-	enabled = true,
-	source = {
-		path = true,
-		buffer = true,
-		nvim_lsp = true,
-	},
-})
+SCsnippets = require'supercollider-snippets'
+require'snippets'.snippets = {
+  supercollider = SCsnippets;
+}
 EOF
+
 
 "{ [ Builtin Options and Settings ]
 "{{ [ Code Folding ]
@@ -886,11 +888,16 @@ let g:coc_snippet_next = '<c-m>'
 " Use <C-b> for jump to previous placeholder
 let g:coc_snippet_prev = '<c-b>'
 
+inoremap <C-l> <cmd>lua return require'snippets'.expand_or_advance(1)<CR>
+" " Use <C-n> for select text for visual placeholder of snippet.
+inoremap <C-h> <cmd>lua return require'snippets'.advance_snippet(-1)<CR>
+
 " Use K to show documentation in preview window.
 nnoremap <silent> K :call <SID>show_documentation()<CR>
 
 " ===== [ SuperCollider ] =====
 nmap <leader>cl <Plug>(scnvim-postwindow-clear)
+
 
 " ===== [ Misc. ] =====
 "" Use enter to open help file link
@@ -935,4 +942,3 @@ hi def link myNOTE SignColumn
 " ===== [ General ] =====
 execute "source ~/.config/nvim/colors/specialcolors.vim"
 
-" vim: foldmethod=expr foldexpr=VimFolds(v\:lnum) foldtext=MyFoldText() fillchars=fold\:\ 

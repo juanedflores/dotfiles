@@ -10,5 +10,3 @@ setlocal foldmethod=expr
 setlocal foldexpr=nvim_treesitter#foldexpr()
 setlocal foldtext=MyFoldText()
 setlocal fillchars=fold\:\ 
-
-echom "is this running?"

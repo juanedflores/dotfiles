@@ -74,6 +74,7 @@ class Main(object):
 
     @ pynvim.autocmd('BufWinEnter', pattern='*.md', eval=None, sync=False)
     def on_vimwikienter(self):
+        self.nvim.out_write('loading memory machine!')
         is_enabled = self.nvim.eval('g:MemMachineEnable')
         buf = self.nvim.current.buffer
         MemIndex = self.nvim.eval('g:MemMachineIndex')

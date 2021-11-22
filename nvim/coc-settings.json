@@ -13,6 +13,6 @@
   "python.trace.server": "messages",
   "python.formatting.provider": "autopep8",
   "python.formatting.autopep8Path": "/Users/juaneduardoflores/.pyenv/shims/autopep8",
-  "java.format.settings.url": "/Users/juaneduardoflores/.config/coc/extensions/node_modules/redhat.java/eclipse-formatter.xml",
+  "java.format.settings.url": "/Users/juaneduardoflores/.config/coc/extensions/node_modules/coc-java/formatters/eclipse-formatter.xml",
   "java.format.enabled": true
 }
