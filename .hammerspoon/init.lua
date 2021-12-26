@@ -16,4 +16,4 @@ hs.hotkey.bind({"cmd", "shift", "ctrl"}, "P", function()
 end)
 
 local gtranslate = require "gtranslate/gtranslate"
-gtranslate.init("AIzaSyAUtiwmo3xSS3Xwzt8qQfxBo8DYZ-UIBEQ")
+gtranslate.init()
