@@ -56,11 +56,11 @@ M.find_wiki = function(opts)
   opts.entry_maker = opts.entry_maker or make_entry.gen_from_file(opts)
 
   pickers.new(opts, {
-    prompt_title = '~~ Dotfiles ~~',
+    prompt_title = '~~ Wiki ~~',
     finder = finders.new_oneshot_job(
       { "git",
-      "--git-dir="..os.getenv("HOME").."/vimwiki/.git",
-      "--work-tree="..os.getenv("HOME").."/vimwiki/",
+      "--git-dir="..os.getenv("HOME").."/vimwiki/Notes/.git",
+      "--work-tree="..os.getenv("HOME").."/vimwiki/Notes/",
       "ls-tree", "--full-tree", "-r", "--name-only", "HEAD" },
       opts
     ),

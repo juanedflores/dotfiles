@@ -2,6 +2,7 @@
 -- AClock:show()
 -- Taskwarrior = hs.loadSpoon("Taskwarrior")
 -- Taskwarrior:show()
+
 TaskwarriorTwo = hs.loadSpoon("TaskwarriorTwo")
 TaskwarriorTwo:show()
 
@@ -15,5 +16,4 @@ hs.hotkey.bind({"cmd", "shift", "ctrl"}, "P", function()
 end)
 
 local gtranslate = require "gtranslate/gtranslate"
--- init(APIKEY, source, target, modkeys, hotkey)
-gtranslate.init("AIzaSyAiz6P1aHDIr0Dn28jRdfUzXgesUj78Ymg", "en", "es", {"cmd", "alt", "shift"}, 'T') 
+gtranslate.init("AIzaSyAUtiwmo3xSS3Xwzt8qQfxBo8DYZ-UIBEQ")
