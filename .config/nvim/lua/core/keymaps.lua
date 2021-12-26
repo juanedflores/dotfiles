@@ -22,7 +22,7 @@ nmap ('<leader>p', ':Lf<CR>')
 -- ===== [ Terminal ] =====
 -- use esc to leave terminal insert mode
 tmap ('<Esc>', [[<C-\><C-n>]])
-nmap ('<c-t>', ':2ToggleTerm<CR>')
+nmap ('<c-t>', ':ToggleTerm<CR>')
 nmap ('†', ':1ToggleTerm direction=vertical close_on_exit=false<CR>')
 
 -- ===== [ Startify ] =====
