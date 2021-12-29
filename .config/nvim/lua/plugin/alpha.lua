@@ -19,7 +19,7 @@ dashboard.section.buttons.val = {
   dashboard.button( "e", "  > New file" , ":ene <BAR> startinsert <CR>"),
   dashboard.button( "f", "  > Find file", ":cd $HOME | Telescope find_files<CR>"),
   dashboard.button( "r", "  > Recent"   , ":Telescope oldfiles<CR>"),
-  dashboard.button( "s", "  > Configs" , ":lua require('plugin.telescope').find_dots{}<CR>"),
+  dashboard.button( "c", "  > Configs" , ":lua require('plugin.telescope').find_dots{}<CR>"),
   dashboard.button( "w", "  > Wiki" , ":lua require('plugin.telescope').find_wiki{}<CR>"),
   dashboard.button( "q", "  > Quit NVIM", ":qa<CR>"),
 }
