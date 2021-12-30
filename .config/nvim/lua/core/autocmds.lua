@@ -3,6 +3,7 @@ U.nvim_create_augroups({
   --   { 'BufNewFile,BufRead', '*', 'setlocal formatoptions-=o' }
   -- }
   general = {
-    { 'BufWinEnter', '*', 'set fo-=o' } -- Avoid newline continuation of comments
-  }
+    { "BufWinEnter", "*", "set fo-=o" }, -- Avoid newline continuation of comments
+    { "BufEnter", "*", "silent! lcd %:p:h" },
+  },
 })

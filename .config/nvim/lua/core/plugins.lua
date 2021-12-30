@@ -88,6 +88,14 @@ return packer.startup(function(use)
 
   -- File Manager for Lf
   use({ "is0n/fm-nvim", setup = [[require('plugin.fm-nvim')]] })
+  use({
+    "kyazdani42/nvim-tree.lua",
+    requires = {
+      "kyazdani42/nvim-web-devicons", -- optional, for file icon
+    },
+    setup = [[require('plugin.nvim-tree')]],
+    opt = false,
+  })
 
   -- Stabilize windows
   use({
@@ -116,6 +124,8 @@ return packer.startup(function(use)
   -- Note Taking
   use({ "vimwiki/vimwiki", setup = [[require('plugin.vimwiki')]] })
   -- use({ "tools-life/taskwiki" })
+
+  use({ "windwp/nvim-autopairs", setup = [[require('plugin.nvim-autopairs')]] })
 
   -- Autoinstall/compile plugins
   --   if vim.fn.isdirectory(vim.fn.glob(plugin_path)) > 0 then

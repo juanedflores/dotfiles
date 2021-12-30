@@ -19,6 +19,12 @@ nmap("<leader>W", ":vertical sb#<CR>")
 -- open lf file manager
 nmap("<leader>p", ":Lf<CR>")
 
+-- ===== [ nvim-tree ] =====
+-- file navigation
+nmap("ß", ":NvimTreeToggle<CR>")
+nmap("<leader>r", ":NvimTreeRefresh<CR>")
+nmap("<leader>n", ":NvimTreeFindFile<CR>")
+
 -- ===== [ Terminal ] =====
 -- use esc to leave terminal insert mode
 tmap("<Esc>", [[<C-\><C-n>]])
