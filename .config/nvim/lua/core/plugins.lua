@@ -24,7 +24,7 @@ return packer.startup(function(use)
   })
 
   -- Java LSP
-  use({ "mfussenegger/nvim-jdtls" })
+  use({ "mfussenegger/nvim-jdtls", setup = [[require("plugin.jdtls")]] })
   use({ "mhartington/formatter.nvim", setup = [[require('plugin.formatter')]] })
   use({ "mfussenegger/nvim-dap", setup = [[require('plugin.dap')]] })
 
@@ -127,10 +127,14 @@ return packer.startup(function(use)
 
   use({ "windwp/nvim-autopairs", setup = [[require('plugin.nvim-autopairs')]] })
 
+  use({ "davidgranstrom/scnvim", run = ":call scnvim#install()" })
+  use({ "tidalcycles/vim-tidal", setup = [[require('plugin.vim-tidal')]] })
+
   -- Autoinstall/compile plugins
-  --   if vim.fn.isdirectory(vim.fn.glob(plugin_path)) > 0 then
-  --     packer.install()
-  --   end
-  --   if vim.fn.empty(vim.fn.glob(packer_compiled)) > 0 then
-  --     packer.compile()
+  if vim.fn.isdirectory(vim.fn.glob(plugin_path)) > 0 then
+    packer.install()
+  end
+  if vim.fn.empty(vim.fn.glob(packer_compiled)) > 0 then
+    packer.compile()
+  end
 end)
