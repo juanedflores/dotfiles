@@ -8,6 +8,7 @@ local servers = {
   sumneko_lua = require("plugin.nvim-lspconfig.server-configs.sumneko").config,
   html = { cmd = { "vscode-html-language-server", "--stdio" } },
   cssls = { cmd = { "vscode-css-language-server", "--stdio" } },
+  clangd = { filetypes = { "glsl" } },
   pyright = {},
 }
 

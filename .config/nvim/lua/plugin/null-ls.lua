@@ -22,7 +22,7 @@ M.setup = function()
       b.formatting.stylua.with({
         extra_args = { "--config-path", vim.fn.expand("~/stylua.toml") },
       }),
-
+      b.formatting.clang_format,
       b.formatting.autopep8,
       b.formatting.prettier.with({
         prefer_local = "/Users/juaneduardoflores/.nvm/versions/node/v12.22.3/bin/",

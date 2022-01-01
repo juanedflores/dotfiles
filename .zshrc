@@ -5,6 +5,7 @@ export PATH="$HOME/nvim-osx64/bin:$PATH"
 export PATH="/Applications/CMake.app/Contents/bin":"$PATH"
 export PATH="$HOME/apache-maven-3.8.1/bin":"$PATH"
 export PATH="$HOME/.local/bin":"$PATH"
+export PATH="/usr/local/opt/llvm/bin:$PATH"
 
 export NVM_DIR=~/.nvm
 source $(brew --prefix nvm)/nvm.sh

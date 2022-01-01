@@ -130,6 +130,8 @@ return packer.startup(function(use)
   use({ "davidgranstrom/scnvim", run = ":call scnvim#install()" })
   use({ "tidalcycles/vim-tidal", setup = [[require('plugin.vim-tidal')]] })
 
+  use({ "timtro/glslView-nvim", ft = "glsl" })
+
   -- Autoinstall/compile plugins
   if vim.fn.isdirectory(vim.fn.glob(plugin_path)) > 0 then
     packer.install()

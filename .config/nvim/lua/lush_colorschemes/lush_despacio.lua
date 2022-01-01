@@ -1,6 +1,9 @@
 local lush = require("lush")
 local hsl = lush.hsl
 
+local bg = hsl("#303030")
+local bg_darker = hsl("#303030").darken(05)
+
 -- LSP/Linters mistakenly show `undefined global` errors in the spec, they may
 -- support an annotation like the following. Consult your server documentation.
 ---@diagnostic disable: undefined-global
@@ -66,7 +69,7 @@ local theme = lush(function()
     DiffDelete({ fg = "#5f8787" }), -- diff mode: Deleted line |diff.txt|
     DiffText({ fg = "#af5f5f" }), -- diff mode: Changed text within a changed line |diff.txt|
     EndOfBuffer({ fg = "#303030" }), -- filler lines (~) after the end of the buffer.  By default, this is highlighted like |hl-NonText|.
-    Folded({ fg = "#6c6c6c" }), -- line used for closed folds
+    Folded({ fg = "#626262", bg = bg_darker }), -- line used for closed folds
     -- TermCursor { }, -- cursor in a focused terminal
     -- TermCursorNC { }, -- cursor in an unfocused terminal
     VertSplit({ fg = "#444444" }), -- the column separating vertically split windows
