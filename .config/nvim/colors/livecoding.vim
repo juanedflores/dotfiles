@@ -18,3 +18,5 @@ lua package.loaded['lush_colorschemes.lush_livecoding'] = nil
 
 " include our theme file and pass it to lush to apply
 lua require('lush')(require('lush_colorschemes.lush_livecoding'))
+
+hi NORMAL guibg=none
