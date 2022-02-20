@@ -47,7 +47,7 @@ local theme = lush(function()
     Visual({ fg = '#121212', bg = '#dfaf00' }), -- Visual mode selection
     Question({ fg = hsl('#af875f') }),
     Search({ fg = hsl('#000000'), bg = hsl('#87afaf') }),
-    MatchParen({ bg = hsl('#87afaf') }), -- The character under the cursor or just before it, if it is a paired bracket, and its match. |pi_paren.txt|
+    MatchParen({ bg = hsl('#d78700') }), -- The character under the cursor or just before it, if it is a paired bracket, and its match. |pi_paren.txt|
     Error({ fg = hsl('#d75f5f'), bg = hsl('#121212') }), -- (preferred) any erroneous construct
     ErrorMsg({ fg = hsl('#d75f5f') }), -- error messages on the command line
     WarningMsg({ fg = hsl('#ff875f') }), -- warning messages
@@ -217,6 +217,7 @@ local theme = lush(function()
     -- TSTitle              { };    -- Text that is part of a title.
     -- TSLiteral            { };    -- Literal text.
     -- TSURI                { };    -- Any URI like a link or email.
+    TelescopeSelection({ bg = '#87afaf' }), -- tab pages line, active tab page label
   }
 end)
 

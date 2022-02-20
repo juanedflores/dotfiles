@@ -6,6 +6,7 @@ U.nvim_create_augroups({
     { 'FileType', 'glsl', 'nmap <leader>r :GlslView<CR>' },
     { 'FileType', 'glsl', ':set autoindent<CR>' },
     { 'FileType', 'glsl', ':set cindent<CR>' },
+    { 'BufWinEnter', '*.frag', 'set ft=c' },
   },
   supercollider = {
     { 'FileType', 'supercollider', 'nmap <leader>fd :Telescope scdoc<CR>' },

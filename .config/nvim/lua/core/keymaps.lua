@@ -59,7 +59,7 @@ nmap('<leader>uu1', ':VimwikiIndex 1<CR>')
 nmap('<leader>uu2', ':VimwikiIndex 2<CR>')
 nmap('<leader>uu3', ':VimwikiIndex 3<CR>')
 
-nmap('<leader>d :call', 'DailyDiaryToggle()<CR>')
+nmap('<leader>d', ':call DailyDiaryToggle()<CR>')
 
 -- ===== [ SuperCollider Snippets ] =====
 imap('ƒ', [[<cmd>lua return require'snippets'.expand_or_advance(1)<CR>]])

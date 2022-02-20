@@ -16,6 +16,7 @@ set('noswapfile')
 set('concealcursor', 'n')
 set('foldmethod', 'expr')
 set('foldexpr', 'nvim_treesitter#foldexpr()')
+set('nohlsearch')
 
 vim.cmd([[
 if has("gui_vimr")

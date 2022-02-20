@@ -61,6 +61,7 @@ return packer.startup(function(use)
   -- Treesitter
   use({
     'nvim-treesitter/nvim-treesitter',
+    commit = '668de0951a36ef17016074f1120b6aacbe6c4515',
     run = ':TSUpdate',
     setup = [[require('plugin.nvim-treesitter')]],
   })
@@ -144,6 +145,10 @@ return packer.startup(function(use)
   use({ 'tidalcycles/vim-tidal', setup = [[require('plugin.vim-tidal')]] })
 
   use({ 'timtro/glslView-nvim', ft = 'glsl' })
+
+  -- Github Copilot
+  use('github/copilot.vim')
+  use({ 'sindrets/diffview.nvim', requires = 'nvim-lua/plenary.nvim' })
 
   use({
     'juanedflores/DailyDiary',

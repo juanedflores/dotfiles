@@ -66,7 +66,7 @@ cmp.setup({
     { name = 'nvim_lua' },
     { name = 'nvim_lsp', priority = 10 },
     { name = 'path' },
-    { name = 'vsnip', keyword_length = 5 },
+    { name = 'vsnip' },
     { name = 'buffer', priority = 2, keyword_length = 5, max_item_count = 10 },
     { name = 'ultisnips' },
   },

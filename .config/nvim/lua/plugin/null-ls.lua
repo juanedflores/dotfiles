@@ -11,13 +11,15 @@ M.setup = function()
       b.formatting.stylua.with({
         args = { '--config-path', '/Users/juanedflores/Documents/GitHub/dotfiles/stylua.toml', '-' },
       }),
-      b.formatting.clang_format,
+      -- b.formatting.clang_format.with({
+      --   'c',
+      -- }),
       b.formatting.autopep8,
-      b.formatting.eslint_d,
-      b.diagnostics.eslint_d,
+      -- b.formatting.eslint_d,
+      -- b.diagnostics.eslint_d,
       b.code_actions.eslint_d,
       b.formatting.prettier.with({
-        prefer_local = '/Users/juaneduardoflores/.nvm/versions/node/v12.22.3/bin/',
+        prefer_local = '/Users/juanedflores/.nvm/versions/node/v16.13.1/bin/',
         filetypes = {
           'javascript',
           'svelte',

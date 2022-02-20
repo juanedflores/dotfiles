@@ -7,11 +7,15 @@ local M = {}
 
 M.config = {
   on_attach = function(client, bufnr)
+    if client.config.flags then
+      client.config.flags.allow_incremental_sync = true
+    end
     client.resolved_capabilities.document_formatting = false
     client.resolved_capabilities.document_range_formatting = false
     local ts_utils = require('nvim-lsp-ts-utils')
     ts_utils.setup({})
     ts_utils.setup_client(client)
+    print('LSP started.')
     lua_nmap('gs', ':TSLspOrganize<CR>')
     lua_nmap('gi', ':TSLspRenameFile<CR>')
     lua_nmap('go', ':TSLspImportAll<CR>')
@@ -38,6 +42,10 @@ M.config = {
     lua_nmap('<leader>f', 'vim.lsp.buf.formatting()')
     vim.cmd([[autocmd! BufWritePre <buffer> lua vim.lsp.buf.formatting_sync(nil, 1000)]])
   end,
+
+  -- cmd = {
+  --   'typescript-language-server --stdio',
+  -- },
 }
 
 return M
