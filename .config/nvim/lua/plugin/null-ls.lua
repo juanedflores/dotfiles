@@ -18,10 +18,25 @@ M.setup = function()
       -- b.formatting.eslint_d,
       -- b.diagnostics.eslint_d,
       b.code_actions.eslint_d,
-      b.formatting.prettier.with({
-        prefer_local = '/Users/juanedflores/.nvm/versions/node/v16.13.1/bin/',
+      -- b.formatting.prettier.with({
+      --   prefer_local = '/Users/juanedflores/.nvm/versions/node/v16.13.1/bin/',
+      --   filetypes = {
+      --     -- 'javascript',
+      --     'svelte',
+      --     'json',
+      --     'jsonc',
+      --     'css',
+      --     'less',
+      --     'scss',
+      --     'html',
+      --     'yaml',
+      --   },
+      -- }),
+      b.formatting.prettierd.with({
+        command = '/Users/juanedflores/.nvm/versions/node/v16.13.1/bin/prettierd',
+        -- prefer_local = '/Users/juanedflores/.nvm/versions/node/v16.13.1/bin/prettierd',
         filetypes = {
-          'javascript',
+          -- 'javascript',
           'svelte',
           'json',
           'jsonc',
@@ -32,6 +47,7 @@ M.setup = function()
           'yaml',
         },
       }),
+      -- b.formatting.prettierd,
     },
   })
 end

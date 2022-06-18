@@ -18,6 +18,12 @@ set('foldmethod', 'expr')
 set('foldexpr', 'nvim_treesitter#foldexpr()')
 set('nohlsearch')
 
+-- ultisnips
+vim.cmd([[
+let g:UltiSnipsEditSplit="vertical"
+]])
+
+-- vimr
 vim.cmd([[
 if has("gui_vimr")
   " Here goes some VimR specific settings like

@@ -150,6 +150,11 @@ return packer.startup(function(use)
   use('github/copilot.vim')
   use({ 'sindrets/diffview.nvim', requires = 'nvim-lua/plenary.nvim' })
 
+  -- KRL (Robots)
+  use('KnoP-01/krl-for-vim')
+
+  use('skywind3000/asyncrun.vim')
+
   use({
     'juanedflores/DailyDiary',
   })

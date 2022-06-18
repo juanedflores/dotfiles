@@ -11,4 +11,16 @@ U.nvim_create_augroups({
   supercollider = {
     { 'FileType', 'supercollider', 'nmap <leader>fd :Telescope scdoc<CR>' },
   },
+  blog = {
+    {
+      'BufWritePost',
+      '/*Blog/*.md',
+      'AsyncRun -cwd=<root>/Blog make',
+    },
+  },
+
+  --   augroup blogMake
+  -- 	autocmd!
+  -- 	autocmd BufWritePost /*Blog/*.md execute "AsyncRun -cwd=<root>/Blog make"
+  -- augroup END
 })
