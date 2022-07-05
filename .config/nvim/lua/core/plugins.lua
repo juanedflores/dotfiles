@@ -80,7 +80,7 @@ return packer.startup(function(use)
   -- Status Line
   use({
     'nvim-lualine/lualine.nvim',
-    requires = { 'kyazdani42/nvim-web-devicons', opt = true },
+    requires = { 'kyazdani42/nvim-web-devicons' },
     setup = [[require('plugin.lualine')]],
   })
 
@@ -91,6 +91,7 @@ return packer.startup(function(use)
       require('Comment').setup()
     end,
     setup = [[require('plugin.comment')]],
+    opt = false,
   })
 
   -- Focus Mode
@@ -104,6 +105,7 @@ return packer.startup(function(use)
       'kyazdani42/nvim-web-devicons', -- optional, for file icon
     },
     setup = [[require('plugin.nvim-tree')]],
+    tag = 'nightly',
     opt = false,
   })
 
@@ -123,7 +125,11 @@ return packer.startup(function(use)
   })
 
   -- SuperCollider
-  use({ 'davidgranstrom/scnvim', run = ':call scnvim#install()' })
+  use({
+    'davidgranstrom/scnvim',
+    opt = false,
+    setup = [[require('plugin.scnvim')]],
+  })
   use({ 'davidgranstrom/telescope-scdoc.nvim' })
 
   -- Colorscheme
@@ -134,11 +140,29 @@ return packer.startup(function(use)
   use('projekt0n/github-nvim-theme')
 
   -- Terminal
-  use({ 'akinsho/toggleterm.nvim', setup = [[require('plugin.toggleterm')]] })
+  use({
+    'akinsho/toggleterm.nvim',
+    setup = [[require('plugin.toggleterm')]],
+    opt = false,
+  })
+
+  use({
+    'kylechui/nvim-surround',
+    config = function()
+      require('nvim-surround').setup()
+    end,
+    opt = false,
+  })
+
+  use({
+    'lukas-reineke/indent-blankline.nvim',
+    setup = [[require('plugin.indent-blankline')]],
+    opt = false,
+  })
 
   -- Note Taking
-  use({ 'vimwiki/vimwiki', setup = [[require('plugin.vimwiki')]] })
-  use({ 'tools-life/taskwiki' })
+  use({ 'vimwiki/vimwiki', opt = true, setup = [[require('plugin.vimwiki')]] })
+  use({ 'tools-life/taskwiki', ft = { 'vimwiki' }, opt = false, event = 'VimEnter' })
 
   use({ 'windwp/nvim-autopairs', setup = [[require('plugin.nvim-autopairs')]] })
 

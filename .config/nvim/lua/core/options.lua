@@ -1,6 +1,6 @@
 local set = U.set
 
-vim.g.python3_host_prog = '/Users/juanedflores/.pyenv/versions/py3nvim/bin/python'
+vim.g.python3_host_prog = '/opt/homebrew/bin/python3'
 
 set('termguicolors')
 set('hidden')
@@ -30,3 +30,6 @@ if has("gui_vimr")
   colorscheme zenbones
 endif
 ]])
+
+vim.g.copilot_no_tab_map = true
+vim.api.nvim_set_keymap('i', '<C-J>', 'copilot#Accept("<CR>")', { silent = true, expr = true })

@@ -23,6 +23,9 @@ for name, opts in pairs(servers) do
       on_attach = on_attach_common,
       on_init = on_init_common,
       capabilities = capabilities,
+      html = {
+        format = { enable = 'false' },
+      },
     }, opts))
   end
 end

@@ -20,7 +20,10 @@ dashboard.section.buttons.val = {
   dashboard.button('f', '  > Find file', ':cd $HOME | Telescope find_files<CR>'),
   dashboard.button('r', '  > Recent', ':Telescope oldfiles<CR>'),
   dashboard.button('c', '  > Configs', ":lua require('plugin.telescope').find_dots{}<CR>"),
-  dashboard.button('w', '  > Wiki', ":lua require('plugin.telescope').find_wiki{}<CR>"),
+  dashboard.button('w', '  > Wiki', ":lua require('plugin.telescope').find_wiki{}<CR>"),
+  dashboard.button('b', 'ß  > Blog', ':e /Users/juanedflores/Documents/Websites/juanedflores-Website/blog.html<CR>'),
+  dashboard.button('t', '†  > Tidal', ':e /Users/juanedflores/Documents/Tidalcycles/playground.tidal<CR>'),
+  dashboard.button('s', '§  > SuperCollider', ':e /Users/juanedflores/Documents/SuperCollider/playground.scd<CR>'),
   dashboard.button('q', '  > Quit NVIM', ':qa<CR>'),
 }
 

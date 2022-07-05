@@ -19,8 +19,8 @@ U.nvim_create_augroups({
     },
   },
 
-  --   augroup blogMake
-  -- 	autocmd!
-  -- 	autocmd BufWritePost /*Blog/*.md execute "AsyncRun -cwd=<root>/Blog make"
-  -- augroup END
+  remember_folds = {
+    { 'BufWinLeave', '*.*', 'mkview' },
+    { 'BufWinEnter', '*.*', 'silent! loadview' },
+  },
 })
