@@ -7,32 +7,18 @@
 -- vim.g.nvim_tree_respect_buf_cwd = 1
 
 require('nvim-tree').setup({
-  respect_buf_cwd = true,
-  -- renderer.indent_markers.enable = true,
-  --   disable_netrw = true,
-  --   hijack_netrw = true,
-  --   open_on_setup = false,
-  --   ignore_ft_on_setup = {},
-  --   open_on_tab = false,
-  --   hijack_cursor = false,
-  --   update_cwd = false,
-  --   update_to_buf_dir = {
-  --     enable = false,
-  --     auto_open = false,
-  --   },
-  --   diagnostics = {
-  --     enable = false,
-  --     icons = {
-  --       hint = "",
-  --       info = "",
-  --       warning = "",
-  --       error = "",
-  --     },
-  --   },
+  sort_by = 'name',
+  auto_reload_on_write = true,
+  respect_buf_cwd = false,
+  update_cwd = false,
   update_focused_file = {
     enable = true,
     update_cwd = true,
+    update_root = true,
     ignore_list = {},
+  },
+  hijack_directories = {
+    enable = false,
   },
   --   system_open = {
   --     cmd = nil,

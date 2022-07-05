@@ -106,6 +106,7 @@ return packer.startup(function(use)
     },
     setup = [[require('plugin.nvim-tree')]],
     tag = 'nightly',
+    commit = 'f43b8af8f40004e476cc43d178b82350b3249d1a',
     opt = false,
   })
 

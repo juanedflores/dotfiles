@@ -23,14 +23,14 @@ nmap('<leader>p', ':Lf<CR>')
 
 -- ===== [ nvim-tree ] =====
 -- file navigation
-nmap('ß', ':NvimTreeToggle<CR>')
+nmap('ß', ':lua require"nvim-tree".toggle(false, true)<CR>')
 nmap('<leader>r', ':NvimTreeRefresh<CR>')
 nmap('<leader>n', ':NvimTreeFindFile<CR>')
 
 -- ===== [ Terminal ] =====
 -- use esc to leave terminal insert mode
 tmap('<Esc>', [[<C-\><C-n>]])
-nmap('<c-t>', ':ToggleTerm<CR>')
+nmap('<c-t>', ':ToggleTerm direction=float close_on_exit=false<CR>')
 nmap('†', ':ToggleTerm direction=vertical close_on_exit=false<CR>')
 
 -- ===== [ Startify ] =====
