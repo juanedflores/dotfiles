@@ -59,7 +59,11 @@ nmap('<leader>uu1', ':VimwikiIndex 1<CR>')
 nmap('<leader>uu2', ':VimwikiIndex 2<CR>')
 nmap('<leader>uu3', ':VimwikiIndex 3<CR>')
 
+-- ===== [ DailyDiary ] =====
 nmap('<leader>d', ':call DailyDiaryToggle()<CR>')
+
+-- ===== [ Fold Preview ] =====
+nmap('<C-k>', ":lua require('ufo').peekFoldedLinesUnderCursor()<CR>")
 
 -- ===== [ SuperCollider Snippets ] =====
 imap('ƒ', [[<cmd>lua return require'snippets'.expand_or_advance(1)<CR>]])
@@ -68,3 +72,7 @@ vim.cmd([[nmap ∂ <Plug>(scnvim-postwindow-clear)]])
 
 -- ===== [ UltiSnips ] =====
 nmap('<leader>ue', ':UltiSnipsEdit<CR>')
+
+-- ===== [ Pasting (Put) ] =====
+nmap('p', "p=']")
+nmap('P', "P=']")

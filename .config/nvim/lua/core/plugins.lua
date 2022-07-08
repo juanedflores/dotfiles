@@ -183,11 +183,15 @@ return packer.startup(function(use)
   use('skywind3000/asyncrun.vim')
 
   -- better folds
-  use({
-    'anuvyklack/pretty-fold.nvim',
-    requires = 'anuvyklack/nvim-keymap-amend', -- only for preview
-    setup = [[require('plugin.pretty-fold')]],
-  })
+  -- use({
+  --   'anuvyklack/pretty-fold.nvim',
+  --   requires = 'anuvyklack/nvim-keymap-amend', -- only for preview
+  --   setup = [[require('plugin.pretty-fold')]],
+  -- })
+
+  use({ 'kevinhwang91/nvim-ufo', requires = 'kevinhwang91/promise-async', setup = [[require('plugin.ufo')]] })
+
+  use('AndrewRadev/tagalong.vim')
 
   use({
     'juanedflores/DailyDiary',

@@ -42,7 +42,8 @@ local theme = lush(function()
     Underlined({ gui = 'underline', fg = hsl('#87afaf') }), -- (preferred) text that stands out, HTML links
     Bold({ gui = 'bold', fg = '#ffffff' }),
     Italic({ gui = 'italic' }),
-    FoldColumn({ fg = hsl('#87afaf') }),
+    -- FoldColumn({ fg = hsl('#87afaf') }),
+    FoldColumn({ fg = hsl('#303030') }),
     Todo({ fg = hsl('#d78700') }), -- (preferred) anything that needs extra attention; mostly the keywords TODO FIXME and XXX
     Visual({ fg = '#121212', bg = '#dfaf00' }), -- Visual mode selection
     Question({ fg = hsl('#af875f') }),
@@ -67,7 +68,7 @@ local theme = lush(function()
     DiffDelete({ fg = '#5f8787' }), -- diff mode: Deleted line |diff.txt|
     DiffText({ fg = '#af5f5f' }), -- diff mode: Changed text within a changed line |diff.txt|
     EndOfBuffer({ fg = '#303030' }), -- filler lines (~) after the end of the buffer.  By default, this is highlighted like |hl-NonText|.
-    Folded({ fg = hsl('#af875f') }), -- line used for closed folds
+    Folded({ fg = hsl('#af875f'), bg = hsl('#262626') }), -- line used for closed folds
     -- TermCursor { }, -- cursor in a focused terminal
     -- TermCursorNC { }, -- cursor in an unfocused terminal
     VertSplit({ fg = '#444444' }), -- the column separating vertically split windows
