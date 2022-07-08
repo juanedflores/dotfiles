@@ -31,7 +31,7 @@ nmap('<leader>n', ':NvimTreeFindFile<CR>')
 -- use esc to leave terminal insert mode
 tmap('<Esc>', [[<C-\><C-n>]])
 nmap('<c-t>', ':ToggleTerm direction=float close_on_exit=false<CR>')
-nmap('†', ':ToggleTerm direction=vertical close_on_exit=false<CR>')
+nmap('†', ':2ToggleTerm direction=vertical close_on_exit=false<CR>')
 
 -- ===== [ Startify ] =====
 -- go to the start screen

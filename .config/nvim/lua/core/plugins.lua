@@ -175,10 +175,19 @@ return packer.startup(function(use)
   use('github/copilot.vim')
   use({ 'sindrets/diffview.nvim', requires = 'nvim-lua/plenary.nvim' })
 
+  use('sheerun/vim-polyglot')
+
   -- KRL (Robots)
   use('KnoP-01/krl-for-vim')
 
   use('skywind3000/asyncrun.vim')
+
+  -- better folds
+  use({
+    'anuvyklack/pretty-fold.nvim',
+    requires = 'anuvyklack/nvim-keymap-amend', -- only for preview
+    setup = [[require('plugin.pretty-fold')]],
+  })
 
   use({
     'juanedflores/DailyDiary',
