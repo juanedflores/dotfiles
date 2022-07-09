@@ -6,4 +6,4 @@ require('core.keymaps')
 require('core.autocmds')
 require('core.options')
 
-vim.cmd('colorscheme lush_despacio')
+vim.cmd('colorscheme duskfox')

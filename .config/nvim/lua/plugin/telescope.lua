@@ -18,9 +18,18 @@ telescope.setup({
       theme = 'dropdown',
     },
   },
+  extensions = {
+    emoji = {
+      action = function(emoji)
+        vim.fn.setreg('*', emoji.value)
+        print([[Press p or "*p to paste this emoji]] .. emoji.value)
+      end,
+    },
+  },
 })
 
-require('telescope').load_extension('scdoc')
+telescope.load_extension('scdoc')
+telescope.load_extension('emoji')
 
 M = {}
 

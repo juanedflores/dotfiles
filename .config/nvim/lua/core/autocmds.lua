@@ -9,6 +9,7 @@ U.nvim_create_augroups({
     { 'BufWinEnter', '*.frag', 'set ft=c' },
   },
   supercollider = {
+    { 'BufWinEnter', '*.scd', 'set ft=supercollider' },
     { 'FileType', 'supercollider', 'nmap <leader>fd :Telescope scdoc<CR>' },
   },
   blog = {
@@ -19,8 +20,9 @@ U.nvim_create_augroups({
     },
   },
   remember_folds = {
-    { 'BufWinLeave', '*.*', 'mkview' },
-    { 'BufWinEnter', '*.*', 'silent! loadview' },
-    -- { 'BufWinEnter', '*.html', ':e' },
+    -- { 'BufWinLeave', '*.*', ':mkview<CR>' },
+    -- { 'BufWinEnter', '*.*', ':silent! loadview<CR>' },
+    { 'BufWinLeave', '?*', 'mkview 1' },
+    { 'BufWinEnter', '?*', 'silent! loadview 1' },
   },
 })

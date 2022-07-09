@@ -18,7 +18,7 @@ return function(client)
   -- ACTION mappings
   lua_nmap('<leader>af', 'vim.lsp.buf.code_action()')
   lua_nmap('<leader>ar', 'vim.lsp.buf.rename()')
-  -- lua_map('<leader>ar',  'vim.lsp.buf.rename()')
+
   -- Few language severs support these three
   lua_nmap('<leader>ai', 'vim.lsp.buf.incoming_calls()')
   lua_nmap('<leader>ao', 'vim.lsp.buf.outgoing_calls()')
@@ -28,6 +28,7 @@ return function(client)
   lua_nmap('<leader>ed', 'vim.diagnostic.open_float()')
   lua_nmap('<leader>en', 'vim.lsp.diagnostic.goto_next()')
   lua_nmap('<leader>ep', 'vim.lsp.diagnostic.goto_prev()')
+  -- vim.lsp.diagnostic
 
   lua_nmap('<leader>f', 'vim.lsp.buf.formatting()')
 

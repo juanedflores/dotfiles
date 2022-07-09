@@ -10,7 +10,7 @@ local servers = {
   html = { cmd = { 'vscode-html-language-server', '--stdio' } },
   cssls = { cmd = { 'vscode-css-language-server', '--stdio' } },
   clangd = { filetypes = { 'glsl', 'c', 'arduino' } },
-  pyright = {},
+  pyright = { cmd = { 'pyright-langserver', '--stdio' } },
 }
 
 for name, opts in pairs(servers) do

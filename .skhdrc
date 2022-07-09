@@ -6,3 +6,5 @@ cmd + shift - return : open /Applications/Firefox.app
 cmd + shift + ctrl - return : open ~
 # open dictionary
 cmd + shift - d : open /System/Applications/Dictionary.app
+# open calculator
+cmd + shift - c : open /Applications/Numi.app
