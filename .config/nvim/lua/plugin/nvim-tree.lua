@@ -2,36 +2,23 @@
 -- each of these are documented in `:help nvim-tree.OPTION_NAME`
 
 -- local tree_cb = require("nvim-tree.config").nvim_tree_callback
-vim.g.nvim_tree_indent_markers = 1
-vim.g.nvim_tree_width = 25
-vim.g.nvim_tree_respect_buf_cwd = 1
+-- vim.g.nvim_tree_indent_markers = 1
+-- vim.g.nvim_tree_width = 25
+-- vim.g.nvim_tree_respect_buf_cwd = 1
 
-require("nvim-tree").setup({
-  --   disable_netrw = true,
-  --   hijack_netrw = true,
-  --   open_on_setup = false,
-  --   ignore_ft_on_setup = {},
-  auto_close = 1,
-  --   open_on_tab = false,
-  --   hijack_cursor = false,
-  --   update_cwd = false,
-  --   update_to_buf_dir = {
-  --     enable = false,
-  --     auto_open = false,
-  --   },
-  --   diagnostics = {
-  --     enable = false,
-  --     icons = {
-  --       hint = "",
-  --       info = "",
-  --       warning = "",
-  --       error = "",
-  --     },
-  --   },
+require('nvim-tree').setup({
+  sort_by = 'name',
+  auto_reload_on_write = true,
+  respect_buf_cwd = false,
+  update_cwd = false,
   update_focused_file = {
-    enable = 1,
+    enable = true,
     update_cwd = true,
+    update_root = true,
     ignore_list = {},
+  },
+  hijack_directories = {
+    enable = false,
   },
   --   system_open = {
   --     cmd = nil,
@@ -42,8 +29,8 @@ require("nvim-tree").setup({
   --     custom = {},
   --   },
   git = {
-    enable = 1,
-    ignore = 1,
+    enable = true,
+    ignore = true,
     timeout = 500,
   },
   --   view = {

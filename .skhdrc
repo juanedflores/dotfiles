@@ -3,6 +3,7 @@ cmd - return : /Applications/Kitty.app/Contents/MacOS/kitty --single-instance -d
 # open browser
 cmd + shift - return : open /Applications/Firefox.app
 # open finder
+<<<<<<< HEAD
 cmd + shift+ ctrl - return : open ~
 
 # focus window
@@ -71,3 +72,10 @@ shift + lcmd - m : yabai -m window --minimize
 
 # append url to a "store for later" file
 shift + lcmd - insert : pbpaste | sed 's/%//' >> /Users/juaneduardoflores/wiki/Saved/urls/saved_urls.txt | say "Gerettet"
+=======
+cmd + shift + ctrl - return : open ~
+# open dictionary
+cmd + shift - d : open /System/Applications/Dictionary.app
+# open calculator
+cmd + shift - c : open /Applications/Numi.app
+>>>>>>> 3b2841bc913140d60f9cc21f3b0ae71128c7ae25

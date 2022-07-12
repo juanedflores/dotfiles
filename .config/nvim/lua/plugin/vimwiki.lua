@@ -3,7 +3,7 @@ let wiki_1 = {}
 let wiki_1.path = '~/vimwiki/'
 
 let wiki_2 = {}
-let wiki_2.path = '/Users/juaneduardoflores/Library/Mobile\ Documents/iCloud~md~obsidian/Documents/Zettelkasten'
+let wiki_2.path = '/Users/juanedflores/Library/Mobile\ Documents/iCloud~md~obsidian/Documents/Zettelkasten'
 let wiki_2.syntax = 'markdown'
 let wiki_2.ext = '.md'
 let wiki_2.index = '_Index_of_Zettelkasten'
@@ -36,13 +36,25 @@ function! VimwikiLinkHandler(link)
   echom(a:link)
   let link = a:link
   let l:cur_dir_tail = expand('%:t')
+
   if strpart(l:cur_dir_tail, 0, 10) == "_Index_of_"
     let link = "/" . link
     call vimwiki#base#open_link(':e', link)
     return 1
+  elseif link =~# '^vfile:'
+    let link = link[1:]
   else 
     return 0
   endif
-endfunction
 
+  let link_infos = vimwiki#base#resolve_link(link)
+  if link_infos.filename == ''
+    echomsg 'Vimwiki Error: Unable to resolve link!'
+    return 0
+  else
+    exe 'tabnew ' . fnameescape(link_infos.filename)
+    return 1
+  endif
+
+endfunction
 ]])

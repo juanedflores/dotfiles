@@ -1,78 +1,77 @@
-local lush = require("lush")
+local lush = require('lush')
 local hsl = lush.hsl
-
-local bg = hsl("#303030")
-local bg_darker = hsl("#303030").darken(05)
 
 -- LSP/Linters mistakenly show `undefined global` errors in the spec, they may
 -- support an annotation like the following. Consult your server documentation.
 ---@diagnostic disable: undefined-global
 local theme = lush(function()
   return {
-    Normal({ bg = hsl("#303030") }),
-    Comment({ fg = hsl("#626262") }),
-    String({ fg = hsl("#5f8787") }), --   a string constant: "this is a string"
+    Normal({ bg = hsl('#303030') }),
+    -- Normal({ bg = hsl('#303030'), fg = hsl('#768390') }),
+    Comment({ fg = hsl('#626262') }),
+    String({ fg = hsl('#5f8787') }), --   a string constant: "this is a string"
     -- Character { }, --  a character constant: 'c', '\n'
     -- Number         { }, --   a number constant: 234, 0xff
     -- Boolean        { }, --  a boolean constant: TRUE, false
     -- Float          { }, --    a floating point constant: 2.3e10
-    PreProc({ fg = hsl("#d7875f") }),
-    Function({ fg = hsl("#d7875f") }), -- function name (also: methods for classes)
-    Identifier({ fg = hsl("#dfaf87") }), -- (preferred) any variable name
-    Statement({ fg = hsl("#af875f") }), -- (preferred) any statement
-    Constant({ fg = hsl("#d78700") }), -- (preferred) any constant
-    Type({ fg = hsl("#d78700") }), -- (preferred) int, long, char, etc.
+    PreProc({ fg = hsl('#d7875f') }),
+    Function({ fg = hsl('#d7875f') }), -- function name (also: methods for classes)
+    Identifier({ fg = hsl('#dfaf87') }), -- (preferred) any variable name
+    Statement({ fg = hsl('#af875f') }), -- (preferred) any statement
+    Constant({ fg = hsl('#d78700') }), -- (preferred) any constant
+    Type({ fg = hsl('#d78700') }), -- (preferred) int, long, char, etc.
     -- Structure { }, --  struct, union, enum, etc.
-    Special({ fg = hsl("#875f5f") }),
-    Conditional({ fg = hsl("#875f5f") }), --  if, then, else, endif, switch, etc.
-    Operator({ fg = hsl("#949494") }), -- "sizeof", "+", "*", etc.
+    Special({ fg = hsl('#875f5f') }),
+    Conditional({ fg = hsl('#875f5f') }), --  if, then, else, endif, switch, etc.
+    Operator({ fg = hsl('#949494') }), -- "sizeof", "+", "*", etc.
     -- Repeat         { }, --   for, do, while, etc.
     -- Label          { }, --    case, default, etc.
     -- Keyword        { }, --  any other keyword
     -- Exception      { }, --  try, catch, throw
-    Title({ fg = hsl("#d7875f") }), -- titles for output from ":set all", ":autocmd" etc.
-    StorageClass({ fg = hsl("#dfaf87") }), -- static, register, volatile, etc.
-    htmlItalic({ fg = hsl("#ff875f") }),
-    htmlEndTag({ fg = hsl("#dfaf87") }),
-    cssTagName({ fg = hsl("#ff875f") }),
-    cssClassName({ fg = hsl("#ff875f") }),
-    cssIdentifier({ fg = hsl("#ff875f") }),
+    Title({ fg = hsl('#d7875f') }), -- titles for output from ":set all", ":autocmd" etc.
+    StorageClass({ fg = hsl('#dfaf87') }), -- static, register, volatile, etc.
+    htmlItalic({ fg = hsl('#ff875f') }),
+    htmlEndTag({ fg = hsl('#dfaf87') }),
+    cssTagName({ fg = hsl('#ff875f') }),
+    cssClassName({ fg = hsl('#ff875f') }),
+    cssIdentifier({ fg = hsl('#ff875f') }),
     -- WINDOW UI
-    MoreMsg({ fg = hsl("#af875f") }),
-    SpecialComment({ fg = hsl("#767676") }), -- special things inside a comment
-    VimCommentTitle({ fg = hsl("#767676") }),
-    Underlined({ gui = "underline", fg = hsl("#87afaf") }), -- (preferred) text that stands out, HTML links
-    Bold({ gui = "bold", fg = "#ffffff" }),
-    Italic({ gui = "italic" }),
-    FoldColumn({ fg = hsl("#87afaf") }),
-    Todo({ fg = hsl("#d78700") }), -- (preferred) anything that needs extra attention; mostly the keywords TODO FIXME and XXX
-    Visual({ fg = "#121212", bg = "#dfaf00" }), -- Visual mode selection
-    Question({ fg = hsl("#af875f") }),
-    Search({ fg = hsl("#000000"), bg = hsl("#87afaf") }),
-    MatchParen({ bg = hsl("#87afaf") }), -- The character under the cursor or just before it, if it is a paired bracket, and its match. |pi_paren.txt|
-    Error({ fg = hsl("#d75f5f"), bg = hsl("#121212") }), -- (preferred) any erroneous construct
-    ErrorMsg({ fg = hsl("#d75f5f") }), -- error messages on the command line
-    WarningMsg({ fg = hsl("#ff875f") }), -- warning messages
-    netrwExe({ fg = hsl("#5f8787") }),
-    netrwlist({ fg = hsl("#875f5f") }),
-    Directory({ fg = hsl("#af875f") }), -- directory names (and other special names in listings)
-    LineNr({ fg = "#4e4e4e" }), -- Line number for ":number" and ":#" commands, and when 'number' or 'relativenumber' option is set.
-    CursorLineNr({ fg = hsl("#c6c6c6") }), -- Like LineNr when 'cursorline' or 'relativenumber' is set for the cursor line.
-    WildMenu({ fg = hsl("#c6c6c6") }),
-    ModeMsg({ fg = hsl("#dfdfdf") }), -- 'showmode' message (e.g., "-- INSERT -- ")
-    SignColumn({ fg = hsl("#87af87") }),
+    MoreMsg({ fg = hsl('#af875f') }),
+    SpecialComment({ fg = hsl('#767676') }), -- special things inside a comment
+    VimCommentTitle({ fg = hsl('#767676') }),
+    Underlined({ gui = 'underline', fg = hsl('#87afaf') }), -- (preferred) text that stands out, HTML links
+    Bold({ gui = 'bold', fg = '#ffffff' }),
+    Italic({ gui = 'italic' }),
+    -- FoldColumn({ fg = hsl('#87afaf') }),
+    FoldColumn({ fg = hsl('#303030') }),
+    Todo({ fg = hsl('#d78700') }), -- (preferred) anything that needs extra attention; mostly the keywords TODO FIXME and XXX
+    Visual({ fg = '#121212', bg = '#dfaf00' }), -- Visual mode selection
+    Question({ fg = hsl('#af875f') }),
+    Search({ fg = hsl('#000000'), bg = hsl('#87afaf') }),
+    MatchParen({ bg = hsl('#d78700') }), -- The character under the cursor or just before it, if it is a paired bracket, and its match. |pi_paren.txt|
+    Error({ fg = hsl('#d75f5f'), bg = hsl('#121212') }), -- (preferred) any erroneous construct
+    ErrorMsg({ fg = hsl('#d75f5f') }), -- error messages on the command line
+    WarningMsg({ fg = hsl('#ff875f') }), -- warning messages
+    netrwExe({ fg = hsl('#5f8787') }),
+    netrwlist({ fg = hsl('#875f5f') }),
+    Directory({ fg = hsl('#af875f') }), -- directory names (and other special names in listings)
+    LineNr({ fg = '#4e4e4e' }), -- Line number for ":number" and ":#" commands, and when 'number' or 'relativenumber' option is set.
+    CursorLineNr({ fg = hsl('#c6c6c6') }), -- Like LineNr when 'cursorline' or 'relativenumber' is set for the cursor line.
+    WildMenu({ fg = hsl('#c6c6c6') }),
+    ModeMsg({ fg = hsl('#dfdfdf') }), -- 'showmode' message (e.g., "-- INSERT -- ")
+    SignColumn({ fg = hsl('#87af87') }),
     -- MORE WINDOW UI
-    ColorColumn({ bg = hsl("#303030") }), -- used for the columns set with 'colorcolumn'
-    Conceal({ fg = "#076678" }), -- placeholder characters substituted for concealed text (see 'conceallevel')
-    DiffAdd({ fg = "#87afaf" }), -- diff mode: Added line |diff.txt|
-    DiffChange({ fg = "#87afaf" }), -- diff mode: Changed line |diff.txt|
-    DiffDelete({ fg = "#5f8787" }), -- diff mode: Deleted line |diff.txt|
-    DiffText({ fg = "#af5f5f" }), -- diff mode: Changed text within a changed line |diff.txt|
-    EndOfBuffer({ fg = "#303030" }), -- filler lines (~) after the end of the buffer.  By default, this is highlighted like |hl-NonText|.
-    Folded({ fg = "#626262", bg = bg_darker }), -- line used for closed folds
+    ColorColumn({ bg = hsl('#303030') }), -- used for the columns set with 'colorcolumn'
+    Conceal({ fg = '#076678' }), -- placeholder characters substituted for concealed text (see 'conceallevel')
+    DiffAdd({ fg = '#87afaf' }), -- diff mode: Added line |diff.txt|
+    DiffChange({ fg = '#87afaf' }), -- diff mode: Changed line |diff.txt|
+    DiffDelete({ fg = '#5f8787' }), -- diff mode: Deleted line |diff.txt|
+    DiffText({ fg = '#af5f5f' }), -- diff mode: Changed text within a changed line |diff.txt|
+    EndOfBuffer({ fg = '#303030' }), -- filler lines (~) after the end of the buffer.  By default, this is highlighted like |hl-NonText|.
+    Folded({ fg = hsl('#af875f'), bg = hsl('#262626') }), -- line used for closed folds
     -- TermCursor { }, -- cursor in a focused terminal
     -- TermCursorNC { }, -- cursor in an unfocused terminal
-    VertSplit({ fg = "#444444" }), -- the column separating vertically split windows
+    VertSplit({ fg = '#444444' }), -- the column separating vertically split windows
     -- FoldColumn   { }, -- 'foldcolumn'
     -- SignColumn   { }, -- column where |signs| are displayed
     -- IncSearch    { }, -- 'incsearch' highlighting; also used for the text replaced with ":s///c"
@@ -80,27 +79,27 @@ local theme = lush(function()
     -- MsgArea      { }, -- Area for messages and cmdline
     -- MsgSeparator { }, -- Separator for scrolled messages, `msgsep` flag of 'display'
     -- MoreMsg      { }, -- |more-prompt|
-    NonText({ fg = "#444444" }), -- '@' at the end of the window, characters from 'showbreak' and other characters that do not really exist in the text (e.g., ">" displayed when a double-wide character doesn't fit at the end of the line). See also |hl-EndOfBuffer|.
+    NonText({ fg = '#444444' }), -- '@' at the end of the window, characters from 'showbreak' and other characters that do not really exist in the text (e.g., ">" displayed when a double-wide character doesn't fit at the end of the line). See also |hl-EndOfBuffer|.
     -- Normal       { }, -- normal text
     -- NormalFloat  { }, -- Normal text in floating windows.
     -- NormalNC     { }, -- normal text in non-current windows
-    Pmenu({ fg = "#767676", bg = "#3a3a3a" }), -- Popup menu: normal item.
-    PmenuSel({ fg = "#eeeeee", bg = "#3a3a3a" }), -- Popup menu: selected item.
-    PmenuSbar({ fg = "#3a3a3a", bg = "#3a3a3a" }), -- Popup menu: scrollbar.
-    PmenuThumb({ fg = "#3a3a3a", bg = "#3a3a3a" }), -- Popup menu: Thumb of the scrollbar.
+    Pmenu({ fg = '#767676', bg = '#3a3a3a' }), -- Popup menu: normal item.
+    PmenuSel({ fg = '#eeeeee', bg = '#3a3a3a' }), -- Popup menu: selected item.
+    PmenuSbar({ fg = '#3a3a3a', bg = '#3a3a3a' }), -- Popup menu: scrollbar.
+    PmenuThumb({ fg = '#3a3a3a', bg = '#3a3a3a' }), -- Popup menu: Thumb of the scrollbar.
     -- Question     { }, -- |hit-enter| prompt and yes/no questions
     -- QuickFixLine { }, -- Current |quickfix| item in the quickfix window. Combined with |hl-CursorLine| when the cursor is there.
     -- Search       { }, -- Last search pattern highlighting (see 'hlsearch').  Also used for similar items that need to stand out.
-    SpecialKey({ fg = "#444444" }), -- Unprintable characters: text displayed differently from what it really is.  But not 'listchars' whitespace. |hl-Whitespace|
+    SpecialKey({ fg = '#444444' }), -- Unprintable characters: text displayed differently from what it really is.  But not 'listchars' whitespace. |hl-Whitespace|
     -- SpellBad     { }, -- Word that is not recognized by the spellchecker. |spell| Combined with the highlighting used otherwise.
     -- SpellCap     { }, -- Word that should start with a capital. |spell| Combined with the highlighting used otherwise.
     -- SpellLocal   { }, -- Word that is recognized by the spellchecker as one that is used in another region. |spell| Combined with the highlighting used otherwise.
     -- SpellRare    { }, -- Word that is recognized by the spellchecker as one that is hardly ever used.  |spell| Combined with the highlighting used otherwise.
-    StatusLine({ fg = "#eeeeee", bg = "#262626" }), -- status line of current window
-    StatusLineNC({ fg = "#767676", bg = "#262626" }), -- status lines of not-current windows Note: if this is equal to "StatusLine" Vim will use "^^^" in the status line of the current window.
-    TabLine({ fg = "#767676", bg = "#262626" }), -- tab pages line, not active tab page label
-    TabLineFill({ fg = "", bg = "#262626" }), -- tab pages line, where there are no labels
-    TabLineSel({ fg = "#eeeeee", bg = "#262626" }), -- tab pages line, active tab page label
+    StatusLine({ fg = '#eeeeee', bg = '#262626' }), -- status line of current window
+    StatusLineNC({ fg = '#767676', bg = '#262626' }), -- status lines of not-current windows Note: if this is equal to "StatusLine" Vim will use "^^^" in the status line of the current window.
+    TabLine({ fg = '#767676', bg = '#262626' }), -- tab pages line, not active tab page label
+    TabLineFill({ fg = '', bg = '#262626' }), -- tab pages line, where there are no labels
+    TabLineSel({ fg = '#eeeeee', bg = '#262626' }), -- tab pages line, active tab page label
     -- VisualNOS    { }, -- Visual mode selection when vim is "Not Owning the Selection".
     -- Whitespace   { }, -- "nbsp", "space", "tab" and "trail" in 'listchars'
     -- WildMenu     { }, -- current match in 'wildmenu' completion
@@ -219,6 +218,7 @@ local theme = lush(function()
     -- TSTitle              { };    -- Text that is part of a title.
     -- TSLiteral            { };    -- Literal text.
     -- TSURI                { };    -- Any URI like a link or email.
+    TelescopeSelection({ bg = '#87afaf' }), -- tab pages line, active tab page label
   }
 end)
 

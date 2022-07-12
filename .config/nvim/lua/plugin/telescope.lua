@@ -6,20 +6,30 @@ local previewers = require('telescope.previewers')
 local utils = require('telescope.utils')
 local conf = require('telescope.config').values
 
-telescope.setup{
+telescope.setup({
   defaults = {
-    layout_strategy='vertical',
+    layout_strategy = 'vertical',
     layout_config = {
-      vertical = { width = 0.8 }
-    }
+      vertical = { width = 0.8 },
+    },
   },
   pickers = {
     find_files = {
-      theme = "dropdown",
-    }
+      theme = 'dropdown',
+    },
   },
-}
+  extensions = {
+    emoji = {
+      action = function(emoji)
+        vim.fn.setreg('*', emoji.value)
+        print([[Press p or "*p to paste this emoji]] .. emoji.value)
+      end,
+    },
+  },
+})
 
+telescope.load_extension('scdoc')
+telescope.load_extension('emoji')
 
 M = {}
 
@@ -27,20 +37,23 @@ M.find_dots = function(opts)
   opts.shorten_path = utils.get_default(opts.shorten_path, true)
   opts = opts or {}
   --
-  opts.cwd = os.getenv("HOME").."/Documents/GitHub/dotfiles/"
+  opts.cwd = os.getenv('HOME') .. '/Documents/GitHub/dotfiles/'
   -- By creating the entry maker after the cwd options,
   -- we ensure the maker uses the cwd options when being created.
   opts.entry_maker = opts.entry_maker or make_entry.gen_from_file(opts)
 
   pickers.new(opts, {
     prompt_title = '~~ Dotfiles ~~',
-    finder = finders.new_oneshot_job(
-      { "git",
-      "--git-dir="..os.getenv("HOME").."/Documents/GitHub/dotfiles/.git",
-      "--work-tree="..os.getenv("HOME").."/Documents/GitHub/dotfiles/",
-      "ls-tree", "--full-tree", "-r", "--name-only", "HEAD" },
-      opts
-    ),
+    finder = finders.new_oneshot_job({
+      'git',
+      '--git-dir=' .. os.getenv('HOME') .. '/Documents/GitHub/dotfiles/.git',
+      '--work-tree=' .. os.getenv('HOME') .. '/Documents/GitHub/dotfiles/',
+      'ls-tree',
+      '--full-tree',
+      '-r',
+      '--name-only',
+      'HEAD',
+    }, opts),
     previewer = previewers.vim_buffer_cat.new(opts),
     sorter = conf.file_sorter(opts),
   }):find()
@@ -50,24 +63,26 @@ M.find_wiki = function(opts)
   opts.shorten_path = utils.get_default(opts.shorten_path, true)
   opts = opts or {}
   --
-  opts.cwd = os.getenv("HOME").."/vimwiki/"
+  opts.cwd = os.getenv('HOME') .. '/Library/Mobile Documents/iCloud~md~obsidian/Documents/Zettelkasten/'
   -- By creating the entry maker after the cwd options,
   -- we ensure the maker uses the cwd options when being created.
   opts.entry_maker = opts.entry_maker or make_entry.gen_from_file(opts)
 
   pickers.new(opts, {
     prompt_title = '~~ Wiki ~~',
-    finder = finders.new_oneshot_job(
-      { "git",
-      "--git-dir="..os.getenv("HOME").."/vimwiki/Notes/.git",
-      "--work-tree="..os.getenv("HOME").."/vimwiki/Notes/",
-      "ls-tree", "--full-tree", "-r", "--name-only", "HEAD" },
-      opts
-    ),
+    finder = finders.new_oneshot_job({
+      'git',
+      '--git-dir=' .. os.getenv('HOME') .. '/Library/Mobile Documents/iCloud~md~obsidian/Documents/Zettelkasten/.git',
+      '--work-tree=' .. os.getenv('HOME') .. '/Library/Mobile Documents/iCloud~md~obsidian/Documents/Zettelkasten/',
+      'ls-tree',
+      '--full-tree',
+      '-r',
+      '--name-only',
+      'HEAD',
+    }, opts),
     previewer = previewers.vim_buffer_cat.new(opts),
     sorter = conf.file_sorter(opts),
   }):find()
 end
-
 
 return M

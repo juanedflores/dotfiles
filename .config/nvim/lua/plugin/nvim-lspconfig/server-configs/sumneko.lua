@@ -3,9 +3,9 @@ local on_init = require("plugin.nvim-lspconfig.on-init")
 
 local M = {}
 
-local sumneko_root_path = "/Users/juaneduardoflores/.local/share/nvim/lsp_servers/sumneko_lua/extension/server"
+local sumneko_root_path = "/Users/juanedflores/tools/lua-language-server"
 
-local sumneko_binary = sumneko_root_path .. "/bin/" .. "/lua-language-server"
+local sumneko_binary = sumneko_root_path .. "/bin" .. "/lua-language-server"
 
 M.config = {
   cmd = { sumneko_binary, "-E", sumneko_root_path .. "/main.lua" },
