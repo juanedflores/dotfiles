@@ -38,6 +38,13 @@ cmd opend ${{
 }}
 map o opend
 
+cmd processing ${{
+    printf "Directory Name: "
+    read name
+    mkdir "$name"
+    cp "../template/template.pde" "$name/$name.pde"
+}}
+
 # define a custom 'rename' command without prompt for overwrite
 cmd rename %[ -e $1 ] && printf "file exists" || mv $f $1
 map r push :rename<space>

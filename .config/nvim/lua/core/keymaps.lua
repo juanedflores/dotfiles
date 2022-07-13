@@ -30,7 +30,7 @@ nmap('<leader>n', ':NvimTreeFindFile<CR>')
 -- ===== [ Terminal ] =====
 -- use esc to leave terminal insert mode
 tmap('<Esc>', [[<C-\><C-n>]])
-nmap('<leader>tt', ':ToggleTerm direction=float close_on_exit=false<CR>')
+nmap('<leader>t', ':ToggleTerm direction=float close_on_exit=false<CR>')
 nmap('†', ':2ToggleTerm direction=vertical close_on_exit=false<CR>')
 
 -- ===== [ Startify ] =====
@@ -67,8 +67,6 @@ nmap('<C-k>', ":lua require('ufo').peekFoldedLinesUnderCursor()<CR>")
 
 -- ===== [ SuperCollider Snippets ] =====
 imap('ƒ', [[<cmd>lua return require'snippets'.expand_or_advance(1)<CR>]])
--- ===== [ SuperCollider ] =====
-vim.cmd([[nmap ∂ <Plug>(scnvim-postwindow-clear)]])
 
 -- ===== [ UltiSnips ] =====
 nmap('<leader>ue', ':UltiSnipsEdit<CR>')

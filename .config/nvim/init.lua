@@ -6,4 +6,4 @@ require('core.keymaps')
 require('core.autocmds')
 require('core.options')
 
-vim.cmd('colorscheme duskfox')
+vim.cmd('colorscheme nightfox')

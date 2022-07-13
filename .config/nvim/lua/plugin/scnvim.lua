@@ -11,7 +11,7 @@ scnvim.setup({
     },
     ['<CR>'] = map('postwin.toggle'),
     ['<M-CR>'] = map('postwin.toggle', 'i'),
-    ['<M-L>'] = map('postwin.clear', { 'n', 'i' }),
+    ['∂'] = map('postwin.clear', { 'n', 'i' }),
     ['<C-k>'] = map('signature.show', { 'n', 'i' }),
     ['<F12>'] = map('sclang.hard_stop', { 'n', 'x', 'i' }),
     ['<leader>st'] = map(scnvim.start),

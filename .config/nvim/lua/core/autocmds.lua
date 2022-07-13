@@ -12,6 +12,9 @@ U.nvim_create_augroups({
     { 'BufWinEnter', '*.scd', 'set ft=supercollider' },
     { 'FileType', 'supercollider', 'nmap <leader>fd :Telescope scdoc<CR>' },
   },
+  processing = {
+    { 'BufWinEnter', '*.pde', 'nmap <leader>r :make<CR>' },
+  },
   blog = {
     {
       'BufWritePost',

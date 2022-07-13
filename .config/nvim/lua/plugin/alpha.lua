@@ -24,6 +24,7 @@ dashboard.section.buttons.val = {
   dashboard.button('b', 'ß  > Blog', ':e /Users/juanedflores/Documents/Websites/juanedflores-Website/blog.html<CR>'),
   dashboard.button('t', '†  > Tidal', ':e /Users/juanedflores/Documents/Tidalcycles/playground.tidal<CR>'),
   dashboard.button('s', '§  > SuperCollider', ':e /Users/juanedflores/Documents/SuperCollider/playground.scd<CR>'),
+  dashboard.button('p', 'P  > Processing', ':e /Users/juanedflores/Documents/Processing/my_sketches/test/test.pde<CR>'),
   dashboard.button('q', '  > Quit NVIM', ':qa<CR>'),
 }
 

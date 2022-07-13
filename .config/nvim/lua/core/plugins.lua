@@ -133,6 +133,8 @@ return packer.startup(function(use)
   })
   use({ 'davidgranstrom/telescope-scdoc.nvim' })
 
+  use('sophacles/vim-processing')
+
   use('xiyaowong/telescope-emoji.nvim')
 
   -- Colorscheme

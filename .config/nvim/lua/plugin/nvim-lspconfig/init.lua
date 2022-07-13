@@ -9,7 +9,7 @@ local servers = {
   tsserver = require('plugin.nvim-lspconfig.server-configs.tsserver').config,
   html = { cmd = { 'vscode-html-language-server', '--stdio' } },
   cssls = { cmd = { 'vscode-css-language-server', '--stdio' } },
-  clangd = { filetypes = { 'glsl', 'c', 'arduino' } },
+  clangd = { filetypes = { 'glsl', 'c', 'arduino', 'processing' } },
   pyright = { cmd = { 'pyright-langserver', '--stdio' } },
 }
 

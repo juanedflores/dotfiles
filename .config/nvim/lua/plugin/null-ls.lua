@@ -11,9 +11,13 @@ M.setup = function()
       b.formatting.stylua.with({
         args = { '--config-path', '/Users/juanedflores/Documents/GitHub/dotfiles/stylua.toml', '-' },
       }),
-      -- b.formatting.clang_format.with({
-      --   'c',
-      -- }),
+      b.formatting.clang_format.with({
+        command = '/opt/homebrew/bin/clang-format',
+        filetypes = {
+          'c',
+          'processing',
+        },
+      }),
       b.formatting.autopep8,
       -- b.formatting.eslint_d,
       -- b.diagnostics.eslint_d,
