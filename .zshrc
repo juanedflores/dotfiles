@@ -22,7 +22,7 @@ export PATH="/Users/juanedflores/.pyenv/bin:$PATH"
 # python binaries
 export PATH="/Users/juanedflores/Library/Python/3.9/bin:$PATH"
 # nvim gui
-export PATH="/Users/juanedflores/tools/nvui-macos-x64/bin/:$PATH"
+# export PATH="/Users/juanedflores/tools/nvui-macos-x64/bin/:$PATH"
 # robodk
 export PATH="/Applications/RoboDK/RoboDK.app/Contents/MacOS/:$PATH"
 # nvim cli
