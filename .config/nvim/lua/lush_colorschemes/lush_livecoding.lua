@@ -10,7 +10,7 @@ local theme = lush(function()
     Comment({ fg = hsl('#626262'), bg = hsl('#000000') }),
     String({ fg = hsl('#5f8787'), bg = hsl('#000000') }), --   a string constant: "this is a string"
     -- Character { }, --  a character constant: 'c', '\n'
-    -- Number         { }, --   a number constant: 234, 0xff
+    Number({ fg = hsl('#00ffa9'), bg = hsl('#000000') }), --   a number constant: 234, 0xff
     -- Boolean        { }, --  a boolean constant: TRUE, false
     -- Float          { }, --    a floating point constant: 2.3e10
     PreProc({ fg = hsl('#d7875f'), bg = hsl('#000000') }),
@@ -22,12 +22,12 @@ local theme = lush(function()
     -- Structure { }, --  struct, union, enum, etc.
     Special({ fg = hsl('#875f5f'), bg = hsl('#000000') }),
     Conditional({ fg = hsl('#875f5f'), bg = hsl('#000000') }), --  if, then, else, endif, switch, etc.
-    Operator({ fg = hsl('#949494'), bg = hsl('#000000') }), -- "sizeof", "+", "*", etc.
+    -- Operator({ fg = hsl('#949494'), bg = hsl('#000000') }), -- "sizeof", "+", "*", etc.
     -- Repeat         { }, --   for, do, while, etc.
     -- Label          { }, --    case, default, etc.
     -- Keyword        { }, --  any other keyword
     -- Exception      { }, --  try, catch, throw
-    Title({ fg = hsl('#d7875f'), bg = hsl('#000000') }), -- titles for output from ":set all", ":autocmd" etc.
+    Title({ fg = hsl('#FF00A4'), bg = hsl('#000000') }), -- titles for output from ":set all", ":autocmd" etc.'), bg = hsl('#000000') }), -- titles for output from ":set all", ":autocmd" etc.
     StorageClass({ fg = hsl('#dfaf87'), bg = hsl('#000000') }), -- static, register, volatile, etc.
     htmlItalic({ fg = hsl('#ff875f'), bg = hsl('#000000') }),
     htmlEndTag({ fg = hsl('#dfaf87'), bg = hsl('#000000') }),

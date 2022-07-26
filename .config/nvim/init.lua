@@ -6,4 +6,5 @@ require('core.keymaps')
 require('core.autocmds')
 require('core.options')
 
-vim.cmd('colorscheme nightfox')
+vim.g.default_colorscheme = 'nightfox'
+vim.cmd('colorscheme ' .. vim.g.default_colorscheme)

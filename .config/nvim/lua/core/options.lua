@@ -4,7 +4,7 @@ vim.g.python3_host_prog = '/opt/homebrew/bin/python3'
 
 set('termguicolors')
 set('hidden')
-set('number')
+set('number relativenumber')
 set('shiftwidth', '2')
 set('tabstop', '2')
 set('expandtab')

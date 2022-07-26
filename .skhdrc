@@ -3,78 +3,8 @@ cmd - return : /Applications/Kitty.app/Contents/MacOS/kitty --single-instance -d
 # open browser
 cmd + shift - return : open /Applications/Firefox.app
 # open finder
-
-cmd + shift+ ctrl - return : open ~
-
-# focus window
-# lcmd - h : yabai -m window --focus west
-# lcmd - j : yabai -m window --focus south
-# lcmd - k : yabai -m window --focus north
-# lcmd - l : yabai -m window --focus east
-
-# move window
-# lcmd + shift - h : yabai -m window --warp west
-# lcmd + shift - j : yabai -m window --warp south
-# lcmd + shift - k : yabai -m window --warp north
-# lcmd + shift - l : yabai -m window --warp east
-
-# swap window
-# lcmd + ctrl + shift - h : yabai -m window --swap west
-# lcmd + ctrl + shift - j : yabai -m window --swap south
-# lcmd + ctrl + shift - k : yabai -m window --swap north
-# lcmd + ctrl + shift - l : yabai -m window --swap east
-
-# make window fill screen
-lcmd + shift - z : yabai -m window --toggle zoom-fullscreen
-
-# increase window size
-lcmd - delete : yabai -m window --resize left:-50:0
-lcmd - end : yabai -m window --resize bottom:0:50
-lcmd - home : yabai -m window --resize top:0:-50
-lcmd - pagedown : yabai -m window --resize right:50:0
-
-# decrease window size
-lcmd + shift - pagedown : yabai -m window --resize left:50:0
-lcmd + shift - home : yabai -m window --resize bottom:0:-50
-lcmd + shift - end : yabai -m window --resize top:0:50
-lcmd + shift - delete : yabai -m window --resize right:-50:0
-
-# focus monitor
-shift + ralt - 1  : yabai -m display --focus 1
-shift + ralt - 2  : yabai -m display --focus 2
-shift + ralt - 3  : yabai -m display --focus 3
-
-# send window to monitor and follow focus
-shift + ralt + ctrl - 1  : yabai -m window --display 1; yabai -m display --focus 1
-shift + ralt + ctrl - 2  : yabai -m window --display 2; yabai -m display --focus 2
-shift + ralt + ctrl - 3  : yabai -m window --display 3; yabai -m display --focus 3
-
-# toggle desktop offset
-alt + shift - a : yabai -m space --toggle padding; yabai -m space --toggle gap
-
-# float / unfloat window and center on screen
-alt + shift - t : yabai -m window --toggle float;\
-		 yabai -m window --grid 4:4:1:1:2:2
-
-# make floating window fill left-half of screen
-shift + lcmd - left   : yabai -m window --grid 1:2:0:0:1:1
-# make floating window fill right-half of screen
-shift + lcmd - right  : yabai -m window --grid 1:2:1:0:1:1
-
-# toggle window split type
-alt - e : yabai -m window --toggle split
-
-# balance size of windows
-shift + alt - 0 : yabai -m space --balance
-
-# minimize window
-shift + lcmd - m : yabai -m window --minimize
-
-# append url to a "store for later" file
-shift + lcmd - insert : pbpaste | sed 's/%//' >> /Users/juaneduardoflores/wiki/Saved/urls/saved_urls.txt | say "Gerettet"
-
 cmd + shift + ctrl - return : open ~
-# open dictionary
+# open dictionary
 cmd + shift - d : open /System/Applications/Dictionary.app
 # open calculator
-cmd + shift - c : open /Applications/Numi.app
+cmd + shift - n : open /Applications/Numi.app

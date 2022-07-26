@@ -95,7 +95,7 @@ return packer.startup(function(use)
   })
 
   -- Focus Mode
-  use({ 'folke/zen-mode.nvim' })
+  use({ 'folke/zen-mode.nvim', setup = [[require('plugin.zen-mode')]] })
 
   -- File Manager for Lf
   use({ 'is0n/fm-nvim', setup = [[require('plugin.fm-nvim')]] })

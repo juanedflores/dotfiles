@@ -1,7 +1,7 @@
 require('nvim-treesitter.configs').setup({
-  highlight = { enable = true, additional_vim_regex_highlighting = false, disable = { 'html' } },
+  highlight = { enable = true, additional_vim_regex_highlighting = true, disable = { 'html' } },
   ensure_installed = 'maintained',
-  indent = { enable = false },
+  indent = { enable = true },
   -- autotag = { enable = true },
   -- context_commentstring = { enable = true, enable_autocmd = true },
   incremental_selection = {

@@ -20,3 +20,17 @@ lua package.loaded['lush_colorschemes.lush_livecoding'] = nil
 lua require('lush')(require('lush_colorschemes.lush_livecoding'))
 
 hi NORMAL guibg=none
+hi haskellBrackets guibg=black
+hi haskellParens guibg=black
+hi haskellOperators guifg=red guibg=black
+
+" call matchadd("tidal1", '\<hush\>\|pat\|\<stack\>\s\|\<superimpose\>\|\<settings\>\s\|\<stack\>\s\|\<legato\>\s\|\<speed\>\s\|\$\s\|#\s')
+call matchadd("tidal1", '\<hush\>\|pat\|\<stack\>\s\|\<superimpose\>\|\<settings\>\s\|\<stack\>\s\|\<legato\>\s\|\<speed\>\s')
+call matchadd("tidal2", '\<d1\>\|\<d2\>\|\<d3\>\|\<d4\>\|\<d5\>\|\<d6\>\|\<d7\>\|\<d8\>')
+call matchadd("tidal3", '\<s\>')
+
+hi tidal1 guifg='#d78700' guibg=black
+hi tidal2 guifg='#d75f5f' guibg=black
+hi tidal3 guifg='#6495ED' guibg=black
+
+set cursorline cursorcolumn

@@ -66,6 +66,9 @@ export LSCOLORS=Gxfxcxdxbxegedabagacad
 
 bindkey '^n' autosuggest-accept
 
+C_INCLUDE_PATH=/usr/local 
+export C_INCLUDE_PATH
+
 HISTFILE=~/.cache/zsh_history
 HISTSIZE=10000
 SAVEHIST=5000

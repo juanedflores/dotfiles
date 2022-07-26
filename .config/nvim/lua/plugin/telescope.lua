@@ -34,7 +34,7 @@ telescope.load_extension('emoji')
 M = {}
 
 M.find_dots = function(opts)
-  opts.shorten_path = utils.get_default(opts.shorten_path, true)
+  -- opts.shorten_path = utils.get_default(opts.shorten_path, true)
   opts = opts or {}
   --
   opts.cwd = os.getenv('HOME') .. '/Documents/GitHub/dotfiles/'
@@ -60,7 +60,7 @@ M.find_dots = function(opts)
 end
 
 M.find_wiki = function(opts)
-  opts.shorten_path = utils.get_default(opts.shorten_path, true)
+  -- opts.shorten_path = utils.get_default(opts.shorten_path, true)
   opts = opts or {}
   --
   opts.cwd = os.getenv('HOME') .. '/Library/Mobile Documents/iCloud~md~obsidian/Documents/Zettelkasten/'
