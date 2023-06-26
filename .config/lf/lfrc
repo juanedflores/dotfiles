@@ -38,6 +38,12 @@ cmd opend ${{
 }}
 map o opend
 
+cmd playa ${{
+    afplay $f
+}}
+map p playa
+
+
 cmd processing ${{
     printf "Directory Name: "
     read name

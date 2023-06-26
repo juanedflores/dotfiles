@@ -5,8 +5,8 @@ require('zen-mode').setup({
     -- * an absolute number of cells when > 1
     -- * a percentage of the width / height of the editor when <= 1
     -- * a function that returns the width or the height
-    width = 120, -- width of the Zen window
-    height = 50, -- height of the Zen window
+    width = 80, -- width of the Zen window
+    height = 35, -- height of the Zen window
     -- by default, no options are changed for the Zen window
     -- uncomment any of the options below, or add other vim.wo options you want to apply
     options = {
@@ -49,7 +49,8 @@ require('zen-mode').setup({
   -- callback where you can add custom code when the Zen window closes
   on_close = function()
     if vim.bo.filetype == 'tidal' then
-      vim.cmd([[ colorscheme livecoding]])
+      vim.cmd([[ colorscheme livecoding | set nosmartindent]])
+      -- vim.cmd([[ set nosmartindent ]])
     else
       vim.cmd([[colorscheme ]] .. vim.g.default_colorscheme)
     end

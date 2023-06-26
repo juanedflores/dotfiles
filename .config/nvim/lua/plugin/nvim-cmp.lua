@@ -1,5 +1,5 @@
 local cmp = require('cmp')
-local cmp_ultisnips_mappings = require('cmp_nvim_ultisnips.mappings')
+-- local cmp_ultisnips_mappings = require('cmp_nvim_ultisnips.mappings')
 
 local lsp_symbols = {
   Text = '   (Text) ',
@@ -55,12 +55,13 @@ cmp.setup({
         fallback()
       end
     end,
-    ['<Tab>'] = cmp.mapping(function(fallback)
-      cmp_ultisnips_mappings.expand_or_jump_forwards(fallback)
-    end, { 'i', 's' }),
-    ['<S-Tab>'] = cmp.mapping(function(fallback)
-      cmp_ultisnips_mappings.jump_backwards(fallback)
-    end, { 'i', 's' }),
+    -- ,
+    -- ['<Tab>'] = cmp.mapping(function(fallback)
+    -- cmp_ultisnips_mappings.expand_or_jump_forwards(fallback)
+    -- end, { 'i', 's' }),
+    -- ['<S-Tab>'] = cmp.mapping(function(fallback)
+    -- cmp_ultisnips_mappings.jump_backwards(fallback)
+    -- end, { 'i', 's' }),
   },
   sources = {
     { name = 'nvim_lua' },
@@ -68,14 +69,14 @@ cmp.setup({
     { name = 'path' },
     { name = 'vsnip' },
     { name = 'buffer', priority = 2, keyword_length = 5, max_item_count = 10 },
-    { name = 'ultisnips' },
+    -- { name = 'ultisnips' },
   },
   formatting = {
     format = function(entry, item)
       item.kind = lsp_symbols[item.kind]
       item.menu = ({
         buffer = '[Buffer]',
-        ultisnips = '[Snippet]',
+        -- ultisnips = '[Snippet]',
       })[entry.source.name]
 
       return item

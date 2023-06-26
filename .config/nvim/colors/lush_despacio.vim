@@ -2,6 +2,7 @@
 set background=dark
 let g:colors_name="lush_despacio"
 
+
 " By setting our module to nil, we clear lua's cache,
 " which means the require ahead will *always* occur.
 "
@@ -18,3 +19,7 @@ lua package.loaded['lush_colorschemes.lush_despacio'] = nil
 
 " include our theme file and pass it to lush to apply
 lua require('lush')(require('lush_colorschemes.lush_despacio'))
+
+execute "hi link @text.todo Todo"
+
+hi @text.todo guifg=green

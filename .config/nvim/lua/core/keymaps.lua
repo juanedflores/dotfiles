@@ -10,6 +10,7 @@ nmap('z.', [[:silent execute "normal! z." . winheight(0)/4 . "\<lt>C-E>"<CR>]])
 -- ===== [ Focus Mode ] =====
 -- Toggle ZenMode (f for focus)
 nmap('<leader>F', ':ZenMode<CR>')
+nmap('<leader>zf', ':TZFocus<CR>')
 
 -- ===== [ Last Buffer ] =====
 -- go back to last buffer
@@ -23,7 +24,7 @@ nmap('<leader>p', ':Lf<CR>')
 
 -- ===== [ nvim-tree ] =====
 -- file navigation
-nmap('ß', ':lua require"nvim-tree".toggle(false, true)<CR>')
+nmap('ß', ':NvimTreeToggle<CR>')
 nmap('<leader>r', ':NvimTreeRefresh<CR>')
 nmap('<leader>n', ':NvimTreeFindFile<CR>')
 
@@ -67,6 +68,19 @@ nmap('<C-k>', ":lua require('ufo').peekFoldedLinesUnderCursor()<CR>")
 
 -- ===== [ SuperCollider Snippets ] =====
 imap('ƒ', [[<cmd>lua return require'snippets'.expand_or_advance(1)<CR>]])
+
+-- ===== [ Cursorcerer ] =====
+nmap(
+  '<leader>cc',
+  ':AsyncRun /Users/juanedflores/Library/PreferencePanes/Cursorcerer.prefPane/Contents/Resources/Cursorcerer.app/Contents/MacOS/Cursorcerer<CR>'
+)
+
+-- ===== [ Tidalcycles ] =====
+-- local command =
+--   'find,.,-maxdepth,1,-type,d,|,while,read,-r,dir,do,printf,"%s:\t","$dir";,find,"$dir",-type,f,|,wc,-l;,done'
+-- nmap('<leader>sa', [[:Telescope find_files find_command=]] .. command .. [[<CR>]])
+-- command .. [[:Telescope find_files find_command=ls,-n,/Users/juanedflores/Documents/SuperCollider/Dirt/samples/ prompt_prefix=🔍 previewer=false<CR>]]
+nmap('<leader>sa', [[:Lf /Users/juanedflores/Documents/SuperCollider/Dirt/samples<CR>]])
 
 -- ===== [ UltiSnips ] =====
 nmap('<leader>ue', ':UltiSnipsEdit<CR>')

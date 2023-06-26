@@ -1,16 +1,24 @@
 local lspconfig = require('lspconfig')
-require('plugin.nvim-lspconfig.handlers')
+-- require('plugin.nvim-lspconfig.handlers')
 local on_attach_common = require('plugin.nvim-lspconfig.on-attach')
 local on_init_common = require('plugin.nvim-lspconfig.on-init')
 local capabilities = require('plugin.nvim-lspconfig.capabilities')
+local lsp_defaults = lspconfig.util.default_config
+
+lsp_defaults.capabilities = vim.tbl_deep_extend(
+  'force',
+  lsp_defaults.capabilities,
+  require('cmp_nvim_lsp').default_capabilities()
+)
 
 local servers = {
-  sumneko_lua = require('plugin.nvim-lspconfig.server-configs.sumneko').config,
-  tsserver = require('plugin.nvim-lspconfig.server-configs.tsserver').config,
-  html = { cmd = { 'vscode-html-language-server', '--stdio' } },
-  cssls = { cmd = { 'vscode-css-language-server', '--stdio' } },
+  lua_ls = require('plugin.nvim-lspconfig.server-configs.sumneko').config,
+  -- tsserver = require('plugin.nvim-lspconfig.server-configs.tsserver').config,
   clangd = { filetypes = { 'glsl', 'c', 'arduino', 'processing' } },
-  pyright = { cmd = { 'pyright-langserver', '--stdio' } },
+  pyright = { require('lspconfig').pyright },
+  html = { require('lspconfig').html },
+  cssls = { cmd = { 'vscode-css-language-server', '--stdio' } },
+  emmet_ls = { filetypes = { 'javascript' } },
 }
 
 for name, opts in pairs(servers) do

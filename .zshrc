@@ -14,9 +14,15 @@ export JAVA_HOME=/Library/Java/JavaVirtualMachines/zulu-11.jdk/Contents/Home
 
 # luamake
 alias luamake=/Users/juanedflores/tools/lua-language-server/3rd/luamake/luamake
+alias taskwarrior=/Users/juanedflores/tools/taskwarrior-tui
 
 # export PATH="/opt/homebrew/opt/llvm/bin:$PATH"
 
+# vcv rack
+export RACK_DIR="/Users/juanedflores/tools/Rack-SDK"
+
+# wiki-tui
+export PATH="/Users/juanedflores/.cargo/bin:$PATH"
 # pyenv
 export PATH="/Users/juanedflores/.pyenv/bin:$PATH"
 # python binaries

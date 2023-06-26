@@ -216,6 +216,8 @@ local theme = lush(function()
     -- TSTitle              { };    -- Text that is part of a title.
     -- TSLiteral            { };    -- Literal text.
     -- TSURI                { };    -- Any URI like a link or email.
+    TelescopeSelection({ bg = hsl('#000000') }),
+    TelescopeNormal({ bg = hsl('#000000') }),
   }
 end)
 

@@ -3,8 +3,8 @@ local function lua_nmap(lhs, rhs, opts)
   buf_nmap(lhs, '<cmd>lua  ' .. rhs .. '<CR>', opts)
 end
 
-return function(client)
-  client.resolved_capabilities.document_formatting = false
+return function(client, bufnr)
+  -- client.resolved_capabilities.document_formatting = false
 
   print('LSP started.')
 
@@ -30,7 +30,7 @@ return function(client)
   lua_nmap('<leader>ep', 'vim.lsp.diagnostic.goto_prev()')
   -- vim.lsp.diagnostic
 
-  lua_nmap('<leader>f', 'vim.lsp.buf.formatting()')
+  lua_nmap('<leader>f', 'vim.lsp.buf.format()')
 
-  vim.cmd([[autocmd! BufWritePre <buffer> lua vim.lsp.buf.formatting_sync(nil, 1000)]])
+  vim.cmd([[autocmd! BufWritePre <buffer> lua vim.lsp.buf.format(nil, 1000)]])
 end
