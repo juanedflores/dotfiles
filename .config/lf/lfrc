@@ -41,7 +41,7 @@ map o opend
 cmd playa ${{
     afplay $f
 }}
-map p playa
+# map p playa
 
 
 cmd processing ${{

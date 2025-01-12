@@ -43,9 +43,10 @@ M.config = {
     vim.cmd([[autocmd! BufWritePre <buffer> lua vim.lsp.buf.formatting_sync(nil, 1000)]])
   end,
 
-  -- cmd = {
-  --   'typescript-language-server --stdio',
-  -- },
+  cmd = {
+    'typescript-language-server --stdio',
+  },
+  filetypes = { 'typescript', 'typescriptreact', 'typescript.tsx' },
 }
 
 return M

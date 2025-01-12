@@ -4,7 +4,9 @@ local hsl = lush.hsl
 -- LSP/Linters mistakenly show `undefined global` errors in the spec, they may
 -- support an annotation like the following. Consult your server documentation.
 ---@diagnostic disable: undefined-global
-local theme = lush(function()
+local theme = lush(function(injected_functions)
+  -- you probably want to alias it locally
+  local sym = injected_functions.sym
   return {
     Normal({ bg = hsl('#303030') }),
     -- Normal({ bg = hsl('#303030'), fg = hsl('#768390') }),
@@ -218,7 +220,16 @@ local theme = lush(function()
     -- TSTitle              { };    -- Text that is part of a title.
     -- TSLiteral            { };    -- Literal text.
     -- TSURI                { };    -- Any URI like a link or email.
-    TelescopeSelection({ bg = '#87afaf' }), -- tab pages line, active tab page label
+    -- TelescopeSelection({ bg = '#87afaf' }), -- tab pages line, active tab page label
+    -- TelescopeSelection({ bg = '#87afaf' }), -- tab pages line, active tab page label
+
+    -- MARKDOWN
+    sym('@text.title.1')({ fg = '#0031a9' }),
+    sym('@text.title.2')({ fg = '#6f5500' }),
+    sym('@text.title.3')({ fg = '#884900' }),
+    sym('@text.title.4')({ fg = '#005f5f' }),
+    sym('@text.title.5')({ fg = '#721045' }),
+    sym('@text.title.6')({ fg = '#531ab6' }),
   }
 end)
 

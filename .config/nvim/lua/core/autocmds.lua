@@ -22,9 +22,40 @@ U.nvim_create_augroups({
       'AsyncRun -cwd=<root>/Blog make',
     },
   },
+  teaching_electronics = {
+    {
+      'BufWritePost',
+      '/*electronic_component_database/*.md',
+      'AsyncRun -cwd=<root> make',
+    },
+  },
+  teaching_mechanisms = {
+    {
+      'BufWritePost',
+      '/*mechanisms/*.md',
+      'AsyncRun -cwd=<root> make',
+    },
+  },
+  teaching_arduino = {
+    {
+      'BufWritePost',
+      '/*arduino_sketches/*.md',
+      'AsyncRun -cwd=<root> make',
+    },
+  },
+  obsidian = {
+    {
+      'BufWritePost',
+      '/*Zettelkasten/*/*.md',
+      'AsyncRun -cwd=<root> make',
+    },
+  },
   tidal = {
     { 'BufWinEnter', '*.tidal', 'set nosmartindent' },
     { 'BufWinEnter', '*.tidal', "lua vim.bo.commentstring = '--%s'" },
+  },
+  markdown = {
+    { 'BufWinEnter', '*.md', 'set wrap' },
   },
   love = {
     { 'FileType', 'lua', 'nmap <leader>r :AsyncRun -cwd=<root> /Applications/love.app/Contents/MacOS/love .<CR>' },

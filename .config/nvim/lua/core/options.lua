@@ -1,6 +1,6 @@
 local set = U.set
-
-vim.g.python3_host_prog = '/opt/homebrew/bin/python3'
+-- vim.g.python3_host_prog = '/opt/homebrew/bin/python3'
+vim.g.python3_host_prog = '/Users/juanedflores/.pyenv/shims/python3'
 
 set('termguicolors')
 set('hidden')
@@ -20,7 +20,9 @@ set('foldmethod', 'expr')
 set('foldexpr', 'nvim_treesitter#foldexpr()')
 set('nohlsearch')
 set('smartindent')
-
+set('conceallevel', '2')
+set('list')
+set('listchars=tab:@', ',trail:-,eol:$')
 -- ultisnips
 vim.cmd([[
 let g:UltiSnipsEditSplit="vertical"

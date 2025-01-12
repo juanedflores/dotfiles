@@ -80,10 +80,10 @@ require('nvim-tree').setup({
   --     relativenumber = false,
   --     signcolumn = "yes",
   --   },
-  --   trash = {
-  --     cmd = "trash",
-  --     require_confirm = true,
-  --   },
+  trash = {
+    cmd = 'trash',
+    require_confirm = false,
+  },
 })
 
 -- require("nvim-tree").setup{}

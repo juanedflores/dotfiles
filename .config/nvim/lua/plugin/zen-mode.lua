@@ -1,12 +1,13 @@
 require('zen-mode').setup({
   window = {
-    backdrop = 0.95, -- shade the backdrop of the Zen window. Set to 1 to keep the same as Normal
+    -- backdrop = 0.95, -- shade the backdrop of the Zen window. Set to 1 to keep the same as Normal
+    backdrop = 1.0,
     -- height and width can be:
     -- * an absolute number of cells when > 1
     -- * a percentage of the width / height of the editor when <= 1
     -- * a function that returns the width or the height
-    width = 80, -- width of the Zen window
-    height = 35, -- height of the Zen window
+    width = 120, -- width of the Zen window
+    height = 50, -- height of the Zen window
     -- by default, no options are changed for the Zen window
     -- uncomment any of the options below, or add other vim.wo options you want to apply
     options = {
@@ -34,25 +35,32 @@ require('zen-mode').setup({
     -- - allow_remote_control socket-only
     -- - listen_on unix:/tmp/kitty
     kitty = {
-      enabled = false,
+      enabled = true,
       font = '-4', -- font size increment
     },
   },
 
-  on_open = function(win)
-    if vim.bo.filetype == 'tidal' then
-      vim.cmd([[ colorscheme livecoding]])
-    else
-      vim.cmd([[colorscheme ]] .. vim.g.default_colorscheme)
-    end
+  -- on_open = function(win)
+  --   if vim.bo.filetype == 'tidal' then
+  --     vim.cmd([[ colorscheme livecoding]])
+  --   else
+  --     -- vim.cmd([[colorscheme ]] .. vim.g.default_colorscheme)
+  --   end
+  -- end,
+  -- -- callback where you can add custom code when the Zen window closes
+  -- on_close = function()
+  --   if vim.bo.filetype == 'tidal' then
+  --     vim.cmd([[ colorscheme livecoding | set nosmartindent]])
+  --     -- vim.cmd([[ set nosmartindent ]])
+  --   else
+  --     -- vim.cmd([[colorscheme ]] .. vim.g.default_colorscheme)
+  --   end
+  -- end,
+  on_open = function()
+    -- vim.cmd('TWEnable')
+    -- vim.cmd('colorscheme ' .. vim.g.default_colorscheme)
   end,
-  -- callback where you can add custom code when the Zen window closes
   on_close = function()
-    if vim.bo.filetype == 'tidal' then
-      vim.cmd([[ colorscheme livecoding | set nosmartindent]])
-      -- vim.cmd([[ set nosmartindent ]])
-    else
-      vim.cmd([[colorscheme ]] .. vim.g.default_colorscheme)
-    end
+    -- vim.cmd('TWDisable')
   end,
 })

@@ -14,12 +14,15 @@ toggleterm.setup({
   highlights = {
     Normal = {
       guibg = '#1c1e24',
+      guifg = '#ffffff',
     },
     NormalFloat = {
       guibg = '#1c1e24',
+      guifg = '#ffffff',
     },
     FloatBorder = {
-      guifg = '#595959',
+      guifg = '#ffffff',
+      guibg = '#1c1e24',
       -- guibg = '#1c1e24',
     },
   },

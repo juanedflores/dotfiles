@@ -10,7 +10,7 @@ nmap('z.', [[:silent execute "normal! z." . winheight(0)/4 . "\<lt>C-E>"<CR>]])
 -- ===== [ Focus Mode ] =====
 -- Toggle ZenMode (f for focus)
 nmap('<leader>F', ':ZenMode<CR>')
-nmap('<leader>zf', ':TZFocus<CR>')
+nmap('<D-f>', ':TZFocus<CR>')
 
 -- ===== [ Last Buffer ] =====
 -- go back to last buffer
@@ -31,7 +31,7 @@ nmap('<leader>n', ':NvimTreeFindFile<CR>')
 -- ===== [ Terminal ] =====
 -- use esc to leave terminal insert mode
 tmap('<Esc>', [[<C-\><C-n>]])
-nmap('<leader>t', ':ToggleTerm direction=float close_on_exit=false<CR>')
+nmap('<leader>t', ':1ToggleTerm direction=float close_on_exit=false<CR>')
 nmap('†', ':2ToggleTerm direction=vertical close_on_exit=false<CR>')
 
 -- ===== [ Startify ] =====
@@ -85,6 +85,11 @@ nmap('<leader>sa', [[:Lf /Users/juanedflores/Documents/SuperCollider/Dirt/sample
 -- ===== [ UltiSnips ] =====
 nmap('<leader>ue', ':UltiSnipsEdit<CR>')
 
+-- ===== [ Notify ] =====
+nmap('∂', ':lua require("noice").cmd("dismiss")<CR>')
+
 -- ===== [ Pasting (Put) ] =====
 nmap('p', "p=']")
 nmap('P', "P=']")
+
+vmap('<C-e>', ":lua require('nvim-python-repl').send_visual_to_repl()<CR>")

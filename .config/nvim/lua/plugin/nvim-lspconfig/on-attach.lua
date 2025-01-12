@@ -29,6 +29,8 @@ return function(client, bufnr)
   lua_nmap('<leader>en', 'vim.lsp.diagnostic.goto_next()')
   lua_nmap('<leader>ep', 'vim.lsp.diagnostic.goto_prev()')
   -- vim.lsp.diagnostic
+  -- © is <option + c>
+  lua_nmap('©', 'vim.diagnostic.enable(not vim.diagnostic.is_enabled())')
 
   lua_nmap('<leader>f', 'vim.lsp.buf.format()')
 

@@ -8,6 +8,12 @@ M.setup = function()
     debounce = 150,
     autostart = true,
     sources = {
+      -- b.formatting.prettier.with({
+      --   prefer_local = 'node_modules/.bin',
+      --   filetypes = {
+      --     'javascript',
+      --   },
+      -- }),
       b.formatting.stylua.with({
         args = { '--config-path', '/Users/juanedflores/Documents/GitHub/dotfiles/stylua.toml', '-' },
       }),
@@ -24,23 +30,23 @@ M.setup = function()
       b.code_actions.eslint_d,
       -- b.formatting.prettier.with({
       --   prefer_local = '/Users/juanedflores/.nvm/versions/node/v16.13.1/bin/',
-      --   filetypes = {
-      --     -- 'javascript',
-      --     'svelte',
-      --     'json',
-      --     'jsonc',
-      --     'css',
-      --     'less',
-      --     'scss',
-      --     'html',
-      --     'yaml',
-      --   },
+      -- filetypes = {
+      --   'javascript',
+      --   'svelte',
+      --   'json',
+      --   'jsonc',
+      --   'css',
+      --   'less',
+      --   'scss',
+      --   'html',
+      --   'yaml',
+      -- },
       -- }),
       b.formatting.prettierd.with({
         command = '/Users/juanedflores/.nvm/versions/node/v16.13.1/bin/prettierd',
         -- prefer_local = '/Users/juanedflores/.nvm/versions/node/v16.13.1/bin/prettierd',
         filetypes = {
-          -- 'javascript',
+          'javascript',
           'svelte',
           'json',
           'jsonc',

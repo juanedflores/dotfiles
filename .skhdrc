@@ -8,3 +8,5 @@ cmd + shift + ctrl - return : open ~
 cmd + shift - d : open /System/Applications/Dictionary.app
 # open calculator
 cmd + shift - n : open /Applications/Numi.app
+# open calculator
+# cmd + shift - m : open  /System/Applications/Calendar.app/

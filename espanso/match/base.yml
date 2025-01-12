@@ -65,3 +65,15 @@ matches:
   # code block
   - trigger: ":cb"
     replace: "```\n$|$\n```"
+
+  # page break
+  - trigger: ":brk"
+    replace: '<div style="page-break-after: always; visibility: hidden"> \pagebreak </div>'
+
+  # paragraph
+  - trigger: ":par"
+    replace: "<p>\n$|$\n</p>"
+
+  # details collapse
+  - trigger: ":det"
+    replace: "<details>\n<summary>Description</summary>\n<p>\n$|$\n</p>\n</details>"

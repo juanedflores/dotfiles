@@ -36,7 +36,7 @@ cmp.setup({
   -- },
   snippet = {
     expand = function(args)
-      vim.fn['vsnip#anonymous'](args.body)
+      vim.fn['UltiSnips#Anon'](args.body)
     end,
   },
   mapping = {
@@ -67,16 +67,16 @@ cmp.setup({
     { name = 'nvim_lua' },
     { name = 'nvim_lsp', priority = 10 },
     { name = 'path' },
-    { name = 'vsnip' },
+    -- { name = 'vsnip' },
     { name = 'buffer', priority = 2, keyword_length = 5, max_item_count = 10 },
-    -- { name = 'ultisnips' },
+    { name = 'ultisnips' },
   },
   formatting = {
     format = function(entry, item)
       item.kind = lsp_symbols[item.kind]
       item.menu = ({
         buffer = '[Buffer]',
-        -- ultisnips = '[Snippet]',
+        ultisnips = '[Snippet]',
       })[entry.source.name]
 
       return item

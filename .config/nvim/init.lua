@@ -1,3 +1,4 @@
+-- <leader> is spacebar
 vim.g.mapleader = ' '
 
 require('core.utils')
@@ -6,10 +7,16 @@ require('core.keymaps')
 require('core.autocmds')
 require('core.options')
 
--- vim.g.default_colorscheme = 'nordfox'
-vim.g.default_colorscheme = 'lush_despacio'
-vim.cmd('colorscheme ' .. vim.g.default_colorscheme)
+vim.g.vimwiki_ext2syntax = {}
 
-vim.cmd([[
-let g:vimwiki_list = [{'path': '/Users/juanedflores/Library/Mobile\ Documents/iCloud~md~obsidian/Documents/Zettelkasten', 'syntax': 'markdown', 'ext': '.md', 'diary_rel_path': 'DailyDiary/'}]
-]])
+-- vim.g.default_colorscheme = 'ayu'
+-- vim.g.default_colorscheme = 'lush_despacio'
+-- vim.g.default_colorscheme = 'solarized-osaka'
+-- vim.g.default_colorscheme = 'retrobox'
+-- vim.g.default_colorscheme = 'quiet'
+-- vim.g.default_colorscheme = 'rose-pine'
+vim.g.default_colorscheme = 'everforest'
+
+vim.o.background = 'light'
+
+vim.cmd('colorscheme ' .. vim.g.default_colorscheme)
