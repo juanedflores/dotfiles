@@ -1,4 +1,5 @@
 export EDITOR="nvim"
+export VISUAL="nvim"
 
 # node version manager
 export NVM_DIR="$HOME/.nvm"
@@ -29,10 +30,11 @@ export PATH="/Users/juanedflores/.local/bin:$PATH"
 export PATH="/Users/juanedflores/.cargo/bin:$PATH"
 # pyenv
 export PATH="/Users/juanedflores/.pyenv/bin:$PATH"
+export PATH="/opt/homebrew/bin:$PATH"
 # python binaries
 export PATH="/Users/juanedflores/Library/Python/3.9/bin:$PATH"
 # nvim gui
-# export PATH="/Users/juanedflores/tools/nvui-macos-x64/bin/:$PATH"
+export PATH="/Users/juanedflores/tools/nvim-macos-arm64-0.14/bin/:$PATH"
 # robodk
 export PATH="/Applications/RoboDK/RoboDK.app/Contents/MacOS/:$PATH"
 # nvim cli
@@ -41,6 +43,8 @@ export PATH="/Applications/RoboDK/RoboDK.app/Contents/MacOS/:$PATH"
 export PATH="/Users/juanedflores/tools/apache-maven-3.8.4/bin/:$PATH"
 export PATH="/Users/juanedflores/.platformio/penv/bin/:$PATH"
 export PATH="/Users/juanedflores/tools/arduino-language-server_0.7.6_macOS_ARM64/:$PATH"
+export PATH="/Users/juanedflores/tools/usr/local/bin/:$PATH"
+export PATH="/Users/juanedflores/tools/bin/:$PATH"
 
 
 eval "$(pyenv init -)"
@@ -71,6 +75,7 @@ export CPPFLAGS="-I/opt/homebrew/opt/zlib/include"
 # export CPPFLAGS="-I/opt/homebrew/opt/llvm/include"
 
 alias bs="browser-sync start --no-notify --server --files ."
+
 # alias to love
 alias love="/Applications/love.app/Contents/MacOS/love"
 # alias for taskwarrior tui

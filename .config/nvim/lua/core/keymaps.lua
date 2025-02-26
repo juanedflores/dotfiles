@@ -17,10 +17,13 @@ nmap('<D-f>', ':TZFocus<CR>')
 nmap('<leader>w', ':b#<CR>')
 -- open last buffer on right
 nmap('<leader>W', ':vertical sb#<CR>')
+nmap('<leader>l', ':bnext<cr>')
+nmap('<leader>h', ':bprevious<cr>')
+nmap('<leader>q', ':bdelete<cr>')
 
 -- ===== [ Lf ] =====
 -- open lf file manager
-nmap('<leader>p', ':Lf<CR>')
+-- nmap('<leader>p', ':Lf<CR>')
 
 -- ===== [ nvim-tree ] =====
 -- file navigation
@@ -64,16 +67,26 @@ nmap('<leader>uu3', ':VimwikiIndex 3<CR>')
 nmap('<leader>d', ':call DailyDiaryToggle()<CR>')
 
 -- ===== [ Fold Preview ] =====
-nmap('<C-k>', ":lua require('ufo').peekFoldedLinesUnderCursor()<CR>")
+-- nmap('<C-k>', ":lua require('ufo').peekFoldedLinesUnderCursor()<CR>")
 
 -- ===== [ SuperCollider Snippets ] =====
-imap('ƒ', [[<cmd>lua return require'snippets'.expand_or_advance(1)<CR>]])
+-- imap('ƒ', [[<cmd>lua return require'snippets'.expand_or_advance(1)<CR>]])
 
 -- ===== [ Cursorcerer ] =====
 nmap(
   '<leader>cc',
   ':AsyncRun /Users/juanedflores/Library/PreferencePanes/Cursorcerer.prefPane/Contents/Resources/Cursorcerer.app/Contents/MacOS/Cursorcerer<CR>'
 )
+
+-- ===== [ Open Current Markdown html ] =====
+nmap(
+  '<leader>R',
+  ':te browser-sync start --no-notify --server $(git rev-parse --show-toplevel) --startPath "/%:p:h:h:t/%:r/%:r.html" --files="."<CR>'
+  -- ':! echo "/Blog/%:r/%:r.html"<CR>'
+  -- ':! git rev-parse --show-toplevel'
+)
+
+-- expand(%:p:h)
 
 -- ===== [ Tidalcycles ] =====
 -- local command =
@@ -93,3 +106,5 @@ nmap('p', "p=']")
 nmap('P', "P=']")
 
 vmap('<C-e>', ":lua require('nvim-python-repl').send_visual_to_repl()<CR>")
+
+nmap('<leader>,', ":lua require('md-pdf').convert_md_to_pdf()<CR>")

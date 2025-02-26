@@ -1,5 +1,5 @@
 # open terminal
-cmd - return : /Applications/Kitty.app/Contents/MacOS/kitty --single-instance -d ~
+cmd - return : /Applications/Alacritty.app/Contents/MacOS/alacritty
 # open browser
 cmd + shift - return : open /Applications/Firefox.app
 # open finder
@@ -10,3 +10,5 @@ cmd + shift - d : open /System/Applications/Dictionary.app
 cmd + shift - n : open /Applications/Numi.app
 # open calculator
 # cmd + shift - m : open  /System/Applications/Calendar.app/
+cmd - up : /Applications/Alacritty.app/Contents/MacOS/alacritty msg config window.opacity=1.0
+cmd - down : /Applications/Alacritty.app/Contents/MacOS/alacritty msg config window.opacity=0.5

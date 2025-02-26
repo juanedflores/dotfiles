@@ -29,8 +29,11 @@ M.config = {
       },
       diagnostics = {
         enable = true,
+        disable = { 'lowercase-global' },
         globals = {
           'vim',
+          'hs',
+          'clip',
           'describe',
           'it',
           'before_each',

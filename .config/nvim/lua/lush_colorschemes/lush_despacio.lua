@@ -8,7 +8,7 @@ local theme = lush(function(injected_functions)
   -- you probably want to alias it locally
   local sym = injected_functions.sym
   return {
-    Normal({ bg = hsl('#303030') }),
+    Normal({ bg = hsl('#222222') }),
     -- Normal({ bg = hsl('#303030'), fg = hsl('#768390') }),
     Comment({ fg = hsl('#626262') }),
     String({ fg = hsl('#5f8787') }), --   a string constant: "this is a string"

@@ -14,6 +14,7 @@ set('splitright splitbelow')
 set('autochdir')
 set('noshowmode')
 set('nowrap')
+set('linebreak')
 set('noswapfile')
 set('concealcursor', 'n')
 set('foldmethod', 'expr')
@@ -23,6 +24,8 @@ set('smartindent')
 set('conceallevel', '2')
 set('list')
 set('listchars=tab:@', ',trail:-,eol:$')
+
+-- set('shcf', '-ic')
 -- ultisnips
 vim.cmd([[
 let g:UltiSnipsEditSplit="vertical"

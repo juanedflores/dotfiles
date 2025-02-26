@@ -15,7 +15,11 @@ M.setup = function()
       --   },
       -- }),
       b.formatting.stylua.with({
+        command = '/opt/homebrew/bin/stylua',
         args = { '--config-path', '/Users/juanedflores/Documents/GitHub/dotfiles/stylua.toml', '-' },
+        filetypes = {
+          'lua',
+        },
       }),
       b.formatting.clang_format.with({
         command = '/opt/homebrew/bin/clang-format',

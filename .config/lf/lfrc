@@ -1,4 +1,4 @@
-#set color256
+# set color256
 
 # interpreter for shell commands (needs to be POSIX compatible)
 set shell sh

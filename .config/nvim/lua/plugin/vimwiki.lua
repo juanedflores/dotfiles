@@ -18,19 +18,23 @@ vim.cmd([[
 " let g:vimwiki_folding = 'expr'
 " let g:syntax = 'markdown'
 
+let g:vimwiki_global_ext = 1
+let g:vimwiki_ext2syntax = {}
+let g:vimwiki_map_prefix = '<Leader>u'
+
 augroup foldwiki
   autocmd!
   " autocmd BufWinEnter *.md colorscheme modus_operandi
-  autocmd BufWinEnter *.md,*.wiki hi VimwikiHeader1 guifg=#7fe3ff gui=bold
-  autocmd BufWinEnter *.md,*.wiki hi VimwikiHeader2 guifg=#C2B02E gui=bold
-  autocmd BufWinEnter *.md,*.wiki hi VimwikiHeader3 guifg=#7a4f2f gui=bold
-  autocmd BufWinEnter *.md,*.wiki hi VimwikiHeader4 guifg=#646C2F gui=bold
-  autocmd BufWinEnter *.md,*.wiki hi VimwikiHeader5 guifg=#326B62 gui=bold
-  autocmd BufWinEnter *.md,*.wiki hi VimwikiHeader6 guifg=#7DA182 gui=bold
-  autocmd BufWinEnter *.md,*.wiki setlocal linebreak nowrap
+  "autocmd BufWinEnter *.md,*.wiki hi VimwikiHeader1 guifg=#7fe3ff gui=bold
+  "autocmd BufWinEnter *.md,*.wiki hi VimwikiHeader2 guifg=#C2B02E gui=bold
+  "autocmd BufWinEnter *.md,*.wiki hi VimwikiHeader3 guifg=#7a4f2f gui=bold
+  "autocmd BufWinEnter *.md,*.wiki hi VimwikiHeader4 guifg=#646C2F gui=bold
+  "autocmd BufWinEnter *.md,*.wiki hi VimwikiHeader5 guifg=#326B62 gui=bold
+  "autocmd BufWinEnter *.md,*.wiki hi VimwikiHeader6 guifg=#7DA182 gui=bold
+  "autocmd BufWinEnter *.md,*.wiki setlocal linebreak nowrap
   "autocmd BufWinEnter *.md,*.wiki :set ft=markdown linebreak wrap
   "autocmd BufWinEnter *.md,*.wiki :set ft=markdown
-  "autocmd Filetype markdown :set ft=markdown
+  autocmd Filetype vimwiki :set ft=markdown
   "autocmd BufWinEnter *.md :echo("hi") foldmethod=expr
   "autocmd BufAdd markdown setlocal foldmethod=expr
 
