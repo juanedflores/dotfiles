@@ -43,17 +43,17 @@ require('lazy').setup({
       require('plugin.lualine')
     end,
   },
-  {
-    -- dropbar: top bar breadcrumbs
-    'Bekaboo/dropbar.nvim',
-    dependencies = {
-      'nvim-telescope/telescope-fzf-native.nvim',
-      build = 'make',
-    },
-    config = function()
-      require('plugin.dropbar')
-    end,
-  },
+  -- {
+  --   -- dropbar: top bar breadcrumbs
+  --   'Bekaboo/dropbar.nvim',
+  --   dependencies = {
+  --     'nvim-telescope/telescope-fzf-native.nvim',
+  --     build = 'make',
+  --   },
+  --   config = function()
+  --     require('plugin.dropbar')
+  --   end,
+  -- },
   {
     -- toggleterm: terminal
     'akinsho/toggleterm.nvim',
@@ -255,12 +255,19 @@ require('lazy').setup({
       require('plugin.dap')
     end,
   },
+  -- {
+  --   -- null-ls: linter
+  --   'jose-elias-alvarez/null-ls.nvim',
+  --   config = function()
+  --     require('plugin.null-ls')
+  --   end,
+  -- },
   {
-    -- null-ls: linter
-    'jose-elias-alvarez/null-ls.nvim',
+    'stevearc/conform.nvim',
     config = function()
-      require('plugin.null-ls')
+      require('plugin.conform')
     end,
+    opts = {},
   },
   {
     -- markview: render markdown files
@@ -303,6 +310,9 @@ require('lazy').setup({
     'windwp/nvim-autopairs',
     event = 'InsertEnter',
     config = true,
+  },
+  {
+    'github/copilot.vim',
   },
   {
     -- blink-cmp: completion plugin
@@ -355,8 +365,10 @@ require('lazy').setup({
         ['.md'] = 'markdown',
         ['.markdown'] = 'markdown',
         ['.mdown'] = 'markdown',
+        ['.wiki'] = 'markdown',
       }
       vim.g.vimwiki_global_ext = 0
+      -- vim.g.vimwikidiaryPath = '~/DailyDiary/'
       vim.g.vimwiki_list = {
         {
           syntax = 'markdown',
@@ -470,13 +482,13 @@ require('lazy').setup({
       })
     end,
   },
-  {
-    -- marks: display marks
-    'chentoast/marks.nvim',
-    config = function()
-      require('plugin.marks')
-    end,
-  },
+  -- {
+  --   -- marks: display marks
+  --   'chentoast/marks.nvim',
+  --   config = function()
+  --     require('plugin.marks')
+  --   end,
+  -- },
   {
     -- vim-processing: work with processing
     'sophacles/vim-processing',
@@ -516,6 +528,9 @@ require('lazy').setup({
     end,
   },
   {
+    'madskjeldgaard/nvim-supercollider-piano',
+  },
+  {
     -- vim-tidal : tidalcycles:
     'tidalcycles/vim-tidal',
     config = function()
@@ -534,10 +549,15 @@ require('lazy').setup({
   {
     -- player-one.nvim : sounds with keypresses and events
     'jackplus-xyz/player-one.nvim',
-    opts = {
-      is_enabled = false,
-      theme = 'synth',
-    },
+    -- opts = {
+    --   is_enabled = false,
+    --   -- theme = 'chiptune',
+    --   theme = 'crystal',
+    --   -- theme = 'synth',
+    -- },
+    config = function()
+      require('plugin.player-one')
+    end,
   },
   {
     -- snacks.nvim : smooth scrolling, ts scope
@@ -715,5 +735,48 @@ require('lazy').setup({
     config = function()
       require('plugin.rose-pine')
     end,
+  },
+  {
+    'eandrju/cellular-automaton.nvim',
+    config = function()
+      require('plugin.cellular-automaton')
+    end,
+  },
+  {
+    'oflisback/obsidian-bridge.nvim',
+    config = function()
+      require('plugin.obsidian-bridge')
+    end,
+    opts = {
+      -- your config here
+    },
+    event = {
+      'BufReadPre *.md',
+      'BufNewFile *.md',
+    },
+    lazy = true,
+    dependencies = {
+      'nvim-lua/plenary.nvim',
+    },
+  },
+  {
+    'ribelo/taskwarrior.nvim',
+    config = function()
+      require('plugin.taskwarrior')
+    end,
+  },
+  {
+    'Bakudankun/PICO-8.vim',
+    init = function()
+      vim.g.pico8_config = {
+        pico8_path = '/Applications/PICO-8.app/Contents/MacOS/pico8',
+      }
+    end,
+  },
+  {
+    'BordenJardine/pico8-vim-colorscheme',
+  },
+  {
+    'Mofiqul/vscode.nvim',
   },
 })

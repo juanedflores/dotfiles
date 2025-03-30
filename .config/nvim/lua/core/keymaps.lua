@@ -108,3 +108,5 @@ nmap('P', "P=']")
 vmap('<C-e>', ":lua require('nvim-python-repl').send_visual_to_repl()<CR>")
 
 nmap('<leader>,', ":lua require('md-pdf').convert_md_to_pdf()<CR>")
+
+nmap('<leader>T', ':lua require("taskwarrior_nvim").browser({"ready"})<CR>')

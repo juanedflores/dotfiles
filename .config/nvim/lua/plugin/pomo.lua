@@ -1,3 +1,46 @@
+local PrintNotifier = {}
+
+PrintNotifier.new = function(timer, opts)
+  local self = setmetatable({}, { __index = PrintNotifier })
+  self.timer = timer
+  self.hidden = false
+  self.opts = opts -- not used
+  self.id = 1
+  return self
+end
+
+PrintNotifier.start = function(self)
+  print(string.format('Starting timer for %ds', self.timer.time_limit))
+  vim.cmd('lua require("taskwarrior_nvim").browser({"ready"})')
+  -- print(task.uuid)
+  -- print(id)
+  -- vim.o.shell = '/bin/zsh -i'
+end
+
+PrintNotifier.tick = function(self, time_left)
+  -- if not self.hidden then
+  --   print(string.format('Timer #%d, %s, %ds remaining...', self.timer.id, self.timer.name, time_left))
+  -- end
+end
+
+PrintNotifier.done = function(self)
+  vim.cmd('CellularAutomaton make_it_rain')
+  -- vim.cmd("call timer_start(2000, { tid -> execute('call DailyDiaryToggle()')})")
+  -- vim.cmd('call DailyDiaryToggle()')
+  -- local id = vim.fn.system("task active rc.verbose=nothing limit:1 | cut -f1 -d' '")
+  vim.cmd('Task +ACTIVE stop')
+end
+
+PrintNotifier.stop = function(self) end
+
+PrintNotifier.show = function(self)
+  self.hidden = false
+end
+
+PrintNotifier.hide = function(self)
+  self.hidden = true
+end
+
 require('pomo').setup({
 
   -- How often the notifiers are updated.
@@ -7,28 +50,24 @@ require('pomo').setup({
   -- You can also configure different notifiers for timers given specific names, see
   -- the 'timers' field below.
   notifiers = {
-    -- The "Default" notifier uses 'vim.notify' and works best when you have 'nvim-notify' installed.
+    -- {
+    --   name = 'Default',
+    --   opts = {
+    --     sticky = true,
+    --     title_icon = '󱎫',
+    --     text_icon = '󰄉',
+    --   },
+    -- },
     {
-      name = 'Default',
+      init = PrintNotifier.new,
       opts = {
-        -- With 'nvim-notify', when 'sticky = true' you'll have a live timer pop-up
-        -- continuously displayed. If you only want a pop-up notification when the timer starts
-        -- and finishes, set this to false.
-        sticky = true,
-
-        -- Configure the display icons:
-        -- title_icon = '󱎫',
-        -- text_icon = '󰄉',
-        -- Replace the above with these if you don't have a patched font:
-        title_icon = '羽',
-        text_icon = '',
+        sticky = false,
+        title_icon = '󱎫',
+        text_icon = '󰄉',
       },
     },
 
-    -- The "System" notifier sends a system notification when the timer is finished.
-    -- Currently this is only available on MacOS.
-    -- Tracking: https://github.com/epwalsh/pomo.nvim/issues/3
-    { name = 'System' },
+    -- { name = 'System' },
 
     -- You can also define custom notifiers by providing an "init" function instead of a name.
     -- See "Defining custom notifiers" below for an example 👇

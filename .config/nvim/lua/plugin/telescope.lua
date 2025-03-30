@@ -29,7 +29,7 @@ telescope.setup({
 
 -- telescope.load_extension('scdoc')
 -- telescope.load_extension('emoji')
-telescope.load_extension('fzf')
+-- telescope.load_extension('fzf')
 
 M = {}
 

@@ -1,13 +1,12 @@
 -- Capabilities
 -- local capabilities = require('cmp_nvim_lsp').default_capabilitites(vim.lsp.protocol.make_client_capabilities())
-local capabilities = vim.lsp.protocol.make_client_capabilities()
+
 
 -- local capabilities = require('cmp_nvim_lsp').default_capabilities()
 --
 -- capabilities.textDocument.completion.completionItem.documentationFormat = {
 --   'markdown',
 -- }
-capabilities.textDocument.completion.completionItem.snippetSupport = true
 -- capabilities.textDocument.completion.completionItem.preselectSupport = true
 -- capabilities.textDocument.completion.completionItem.insertReplaceSupport = true
 -- capabilities.textDocument.completion.completionItem.labelDetailsSupport = true
@@ -18,4 +17,7 @@ capabilities.textDocument.completion.completionItem.snippetSupport = true
 --   properties = { 'documentation', 'detail', 'additionalTextEdits' },
 -- }
 --
+
+local capabilities = vim.lsp.protocol.make_client_capabilities()
+capabilities.textDocument.completion.completionItem.snippetSupport = true
 return capabilities

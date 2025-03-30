@@ -85,11 +85,17 @@ U.nvim_create_augroups({
   markdown = {
     { 'BufWinEnter', '*.md', 'set wrap' },
   },
+  -- wiki = {
+  --   { 'BufWinEnter', '/*Zettelkasten/*.md', ':ObsidianOpen' },
+  -- },
   love = {
     { 'FileType', 'lua', 'nmap <leader>r :AsyncRun -cwd=<root> /Applications/love.app/Contents/MacOS/love .<CR>' },
   },
   html = {
     { 'FileType', 'html', 'set nowrap' },
+  },
+  pico8 = {
+    { 'FileType', 'pico8', ':set nolist | nmap <leader>r :Pico8Run<CR>' },
   },
   -- markdown = {
   --   { 'FileType', 'markdown', 'set nowrap' },
@@ -104,3 +110,48 @@ U.nvim_create_augroups({
     { 'FileType', 'javascript', 'set foldmethod=expr' },
   },
 })
+
+vim.api.nvim_create_autocmd('BufWinEnter', {
+  pattern = '/*Zettelkasten/*.md',
+  -- callback = function()
+  --     if vim.cmd('expand("%:r")') ~= "DailyDiary" then
+  --         return
+  --     end
+  --     -- do the rest of the callback
+  -- end,
+  -- pattern = { '*.yaml', '*.yml' },
+  callback = function()
+    -- if vim.fn.search([[hosts:\|tasks:]], 'nw') then
+    --   vim.opt.filetype = 'yaml.ansible'
+    -- end
+    if
+      vim.fn.expand('%:p:h')
+      == '/Users/juanedflores/Library/Mobile Documents/iCloud~md~obsidian/Documents/Zettelkasten/DailyDiary'
+    then
+      return
+    end
+
+    vim.cmd('ObsidianOpen')
+  end,
+})
+
+-- Create an autocommand for "BufRead" events
+-- vim.api.nvim_create_autocmd('BufRead', {
+--   -- This autocommand will only trigger if the buffer name matches the following patterns
+--   pattern = { '*.yaml', '*.yml' },
+--   -- The autocommand will trigger the following lua function
+--   callback = function()
+--     -- In lua, `[[ ... ]]` is a literal string. If i used double quotes
+--     -- instead, then next line would look like this:
+--     --
+--     -- `if vim.fn.search("hosts:\\|tasks:", "nw") then`
+--     --
+--     -- Notice how i had to escape the backslash
+--     if vim.fn.search([[hosts:\|tasks:]], 'nw') then
+--       -- Thi uses Neovim's options api. Alternatively, you could do this:
+--       --
+--       -- `vim.cmd("set filetype = yaml.ansible")`
+--       vim.opt.filetype = 'yaml.ansible'
+--     end
+--   end,
+-- })

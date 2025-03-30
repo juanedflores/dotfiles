@@ -34,5 +34,5 @@ return function(client, bufnr)
 
   lua_nmap('<leader>f', 'vim.lsp.buf.format()')
 
-  vim.cmd([[autocmd! BufWritePre <buffer> lua vim.lsp.buf.format(nil, 1000)]])
+  -- vim.cmd([[autocmd! BufWritePre <buffer> lua vim.lsp.buf.format(nil, 1000)]])
 end

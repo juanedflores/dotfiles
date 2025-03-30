@@ -34,3 +34,11 @@ require('nvim-treesitter.configs').setup({
     additional_vim_regex_highlighting = false,
   },
 })
+
+require('nvim-treesitter.parsers').get_parser_configs().pico8 = {
+  install_info = {
+    url = 'https://github.com/paradoxskin/tree-sitter-pico8.git',
+    files = { 'src/parser.c' },
+  },
+  filetype = 'pico8',
+}

@@ -1,8 +1,10 @@
 local scnvim = require('scnvim')
-scnvim.setup()
-
 local map = scnvim.map
+
 scnvim.setup({
+  extensions = {
+    piano = { default_synth = 'tides', sustain = '0.3' },
+  },
   keymaps = {
     ['<M-e>'] = map('editor.send_line', { 'i', 'n' }),
     ['<C-e>'] = {
@@ -20,3 +22,5 @@ scnvim.setup({
     -- ['<F2>'] = map_expr('s.meter'),
   },
 })
+
+scnvim.load_extension('piano')

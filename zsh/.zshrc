@@ -12,6 +12,7 @@ export NVM_DIR="$HOME/.nvm"
 
 # export JAVA_HOME=/Library/Java/JavaVirtualMachines/temurin-17.jdk/Contents/Home
 export JAVA_HOME=/Library/Java/JavaVirtualMachines/zulu-11.jdk/Contents/Home
+export OBSIDIAN_REST_API_KEY="f22e0446efa3db7909c1c6d0b83890c5453966e60d7de4868e0eaff9dba952c4"
 
 # luamake
 alias luamake=/Users/juanedflores/tools/lua-language-server/3rd/luamake/luamake
@@ -34,11 +35,11 @@ export PATH="/opt/homebrew/bin:$PATH"
 # python binaries
 export PATH="/Users/juanedflores/Library/Python/3.9/bin:$PATH"
 # nvim gui
-export PATH="/Users/juanedflores/tools/nvim-macos-arm64-0.14/bin/:$PATH"
+export PATH="/Users/juanedflores/tools/nvim-macos-11_release/bin/:$PATH"
 # robodk
 export PATH="/Applications/RoboDK/RoboDK.app/Contents/MacOS/:$PATH"
 # nvim cli
-# export PATH="/Users/juanedflores/tools/nvim-osx64/bin/:$PATH"
+# export PATH="/Users/juanedflores/tools/nvim-macos-11-nightly/bin/:$PATH"
 # maven
 export PATH="/Users/juanedflores/tools/apache-maven-3.8.4/bin/:$PATH"
 export PATH="/Users/juanedflores/.platformio/penv/bin/:$PATH"

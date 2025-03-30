@@ -5,6 +5,10 @@ local fortune = require('alpha.fortune')
 -- Set header
 dashboard.section.header.val = {
   '                                        ',
+  '                                        ',
+  '                                        ',
+  '                                        ',
+  '                                        ',
   '   ▄▄▄▄▄ ▄   ██      ▄   ▄███▄   ██▄    ',
   '  ▀  █    █  █ █      █  █▀   ▀  █  █   ',
   '     █ █   █ █▄▄█ ██   █ ██▄▄    █   █  ',

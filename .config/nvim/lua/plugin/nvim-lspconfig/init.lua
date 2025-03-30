@@ -18,6 +18,11 @@ local servers = {
   html = { require('lspconfig').html },
   cssls = { cmd = { 'vscode-css-language-server', '--stdio' } },
   emmet_ls = { filetypes = { 'javascript', 'html' } },
+  pico8_ls = {
+    name = 'pico8-ls',
+    filetypes = { 'pico8' },
+    cmd = { 'pico8-ls', '--stdio' },
+  },
 }
 
 capabilities = require('blink.cmp').get_lsp_capabilities(capabilities)
@@ -28,10 +33,11 @@ for name, opts in pairs(servers) do
   else
     local client = lspconfig[name]
     client.setup(vim.tbl_extend('force', {
+      -- root_dir = vim.fs.dirname(vim.api.nvim_buf_get_name(opts.buf)),
       flags = { debounce_text_changes = 150 },
       on_attach = on_attach_common,
       on_init = on_init_common,
-      capabilities = capabilities,
+      -- capabilities = capabilities,
       html = {
         format = { enable = 'true' },
       },
@@ -39,4 +45,4 @@ for name, opts in pairs(servers) do
   end
 end
 
-require('plugin.null-ls').setup()
+-- require('plugin.null-ls').setup()
